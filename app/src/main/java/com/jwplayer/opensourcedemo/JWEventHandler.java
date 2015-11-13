@@ -8,6 +8,7 @@ import com.longtailvideo.jwplayer.media.adaptive.QualityLevel;
 import com.longtailvideo.jwplayer.media.audio.AudioTrack;
 import com.longtailvideo.jwplayer.media.captions.Caption;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
+import com.longtailvideo.jwplayer.media.meta.Metadata;
 
 import java.util.List;
 
@@ -116,8 +117,8 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
 	}
 
 	@Override
-	public void onMeta(long duration, int width, int height) {
-		updateOutput("onMeta(" + duration + ", " + width + ", " + height + ")");
+	public void onMeta(Metadata metadata) {
+		updateOutput("onMeta(Metadata)");
 	}
 
 	@Override

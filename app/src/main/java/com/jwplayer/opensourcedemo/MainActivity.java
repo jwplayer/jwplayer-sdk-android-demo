@@ -2,7 +2,8 @@ package com.jwplayer.opensourcedemo;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +13,7 @@ import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 
-public class MainActivity extends ActionBarActivity implements VideoPlayerEvents.OnFullscreenListener {
+public class MainActivity extends AppCompatActivity implements VideoPlayerEvents.OnFullscreenListener {
 
 	/**
 	 * Reference to the JW Player View
@@ -35,7 +36,7 @@ public class MainActivity extends ActionBarActivity implements VideoPlayerEvents
 		mPlayerView.addOnFullscreenListener(this);
 
 		// Instantiate the JW Player event handler class
-		mEventHandler = new JWEventHandler(mJWPlayerView, outputTextView);
+		mEventHandler = new JWEventHandler(mPlayerView, outputTextView);
 
 		// Load a media source
 		PlaylistItem pi = new PlaylistItem("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8");
@@ -89,10 +90,13 @@ public class MainActivity extends ActionBarActivity implements VideoPlayerEvents
 	 */
 	@Override
 	public void onFullscreen(boolean fullscreen) {
-		if (fullscreen) {
-			getSupportActionBar().hide();
-		} else {
-			getSupportActionBar().show();
+		ActionBar actionBar = getSupportActionBar();
+		if (actionBar != null) {
+			if (fullscreen) {
+				actionBar.hide();
+			} else {
+				actionBar.show();
+			}
 		}
 	}
 

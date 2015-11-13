@@ -35,37 +35,7 @@ public class MainActivity extends ActionBarActivity implements VideoPlayerEvents
 		mPlayerView.addOnFullscreenListener(this);
 
 		// Instantiate the JW Player event handler class
-		mEventHandler = new JWEventHandler(outputTextView);
-
-		// Subscribe to all JW Player events
-		mPlayerView.addOnSetupErrorListener(mEventHandler);
-		mPlayerView.addOnPlaylistListener(mEventHandler);
-		mPlayerView.addOnPlaylistItemListener(mEventHandler);
-		mPlayerView.addOnPlayListener(mEventHandler);
-		mPlayerView.addOnPauseListener(mEventHandler);
-		mPlayerView.addOnBufferListener(mEventHandler);
-		mPlayerView.addOnIdleListener(mEventHandler);
-		mPlayerView.addOnErrorListener(mEventHandler);
-		mPlayerView.addOnSeekListener(mEventHandler);
-		mPlayerView.addOnTimeListener(mEventHandler);
-		mPlayerView.addOnFullscreenListener(mEventHandler);
-		mPlayerView.addOnQualityLevelsListener(mEventHandler);
-		mPlayerView.addOnQualityChangeListener(mEventHandler);
-		mPlayerView.addOnCaptionsListListener(mEventHandler);
-		mPlayerView.addOnCaptionsChangeListener(mEventHandler);
-		mPlayerView.addOnAdClickListener(mEventHandler);
-		mPlayerView.addOnAdCompleteListener(mEventHandler);
-		mPlayerView.addOnAdSkippedListener(mEventHandler);
-		mPlayerView.addOnAdErrorListener(mEventHandler);
-		mPlayerView.addOnAdImpressionListener(mEventHandler);
-		mPlayerView.addOnAdTimeListener(mEventHandler);
-		mPlayerView.addOnAdPauseListener(mEventHandler);
-		mPlayerView.addOnAdPlayListener(mEventHandler);
-		mPlayerView.addOnMetaListener(mEventHandler);
-		mPlayerView.addOnPlaylistCompleteListener(mEventHandler);
-		mPlayerView.addOnCompleteListener(mEventHandler);
-		mPlayerView.addOnBeforePlayListener(mEventHandler);
-		mPlayerView.addOnBeforeCompleteListener(mEventHandler);
+		mEventHandler = new JWEventHandler(mJWPlayerView, outputTextView);
 
 		// Load a media source
 		PlaylistItem pi = new PlaylistItem("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8");

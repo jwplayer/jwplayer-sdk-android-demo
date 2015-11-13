@@ -49,8 +49,37 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
 
 	TextView mOutput;
 
-	public JWEventHandler(TextView output) {
+	public JWEventHandler(JWPlayerView jwPlayerView, TextView output) {
 		mOutput = output;
+		// Subscribe to all JW Player events
+		jwPlayerView.addOnSetupErrorListener(this);
+		jwPlayerView.addOnPlaylistListener(this);
+		jwPlayerView.addOnPlaylistItemListener(this);
+		jwPlayerView.addOnPlayListener(this);
+		jwPlayerView.addOnPauseListener(this);
+		jwPlayerView.addOnBufferListener(this);
+		jwPlayerView.addOnIdleListener(this);
+		jwPlayerView.addOnErrorListener(this);
+		jwPlayerView.addOnSeekListener(this);
+		jwPlayerView.addOnTimeListener(this);
+		jwPlayerView.addOnFullscreenListener(this);
+		jwPlayerView.addOnQualityLevelsListener(this);
+		jwPlayerView.addOnQualityChangeListener(this);
+		jwPlayerView.addOnCaptionsListListener(this);
+		jwPlayerView.addOnCaptionsChangeListener(this);
+		jwPlayerView.addOnAdClickListener(this);
+		jwPlayerView.addOnAdCompleteListener(this);
+		jwPlayerView.addOnAdSkippedListener(this);
+		jwPlayerView.addOnAdErrorListener(this);
+		jwPlayerView.addOnAdImpressionListener(this);
+		jwPlayerView.addOnAdTimeListener(this);
+		jwPlayerView.addOnAdPauseListener(this);
+		jwPlayerView.addOnAdPlayListener(this);
+		jwPlayerView.addOnMetaListener(this);
+		jwPlayerView.addOnPlaylistCompleteListener(this);
+		jwPlayerView.addOnCompleteListener(this);
+		jwPlayerView.addOnBeforePlayListener(this);
+		jwPlayerView.addOnBeforeCompleteListener(this);
 	}
 
 	private void updateOutput(String output) {

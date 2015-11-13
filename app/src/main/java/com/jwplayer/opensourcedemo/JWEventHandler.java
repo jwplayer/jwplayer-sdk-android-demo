@@ -2,13 +2,15 @@ package com.jwplayer.opensourcedemo;
 
 import android.widget.TextView;
 
+import com.longtailvideo.jwplayer.JWPlayerView;
+import com.longtailvideo.jwplayer.core.PlayerState;
 import com.longtailvideo.jwplayer.events.listeners.AdvertisingEvents;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 import com.longtailvideo.jwplayer.media.adaptive.QualityLevel;
 import com.longtailvideo.jwplayer.media.audio.AudioTrack;
 import com.longtailvideo.jwplayer.media.captions.Caption;
-import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 import com.longtailvideo.jwplayer.media.meta.Metadata;
+import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 
 import java.util.List;
 
@@ -111,7 +113,7 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
 	}
 
 	@Override
-	public void onBuffer(String oldState) {
+	public void onBuffer(PlayerState oldState) {
 		updateOutput("onBuffer(" + oldState + ")");
 	}
 
@@ -141,7 +143,7 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
 	}
 
 	@Override
-	public void onIdle(String oldState) {
+	public void onIdle(PlayerState oldState) {
 		updateOutput("onIdle(" + oldState + ")");
 	}
 
@@ -151,12 +153,12 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
 	}
 
 	@Override
-	public void onPause(String oldState) {
+	public void onPause(PlayerState oldState) {
 		updateOutput("onPause(" + oldState + ")");
 	}
 
 	@Override
-	public void onPlay(String oldState) {
+	public void onPlay(PlayerState oldState) {
 		updateOutput("onPlay(" + oldState + ")");
 	}
 
@@ -225,13 +227,13 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
 	}
 
 	@Override
-	public void onAdPause(String tag) {
-		updateOutput("onAdPause(\"" + tag + "\")");
+	public void onAdPause(String tag, PlayerState oldState) {
+		updateOutput("onAdPause(\"" + tag + "\", \"" + oldState + "\")");
 	}
 
 	@Override
-	public void onAdPlay(String tag) {
-		updateOutput("onAdPlay(\"" + tag + "\")");
+	public void onAdPlay(String tag, PlayerState oldState) {
+		updateOutput("onAdPlay(\"" + tag + "\", \"" + oldState + "\")");
 	}
 
 	@Override

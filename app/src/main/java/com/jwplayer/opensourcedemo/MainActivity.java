@@ -44,7 +44,11 @@ public class MainActivity extends AppCompatActivity implements VideoPlayerEvents
 		mEventHandler = new JWEventHandler(mPlayerView, outputTextView);
 
 		// Load a media source
-		PlaylistItem pi = new PlaylistItem("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8");
+		PlaylistItem pi = new PlaylistItem.Builder()
+				.file("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8")
+				.title("BipBop")
+				.description("A video player testing video.")
+				.build();
 		mPlayerView.load(pi);
 
 		// Get a reference to the CastManager

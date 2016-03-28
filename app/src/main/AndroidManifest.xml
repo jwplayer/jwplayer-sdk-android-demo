@@ -8,18 +8,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".JWPlayerViewExample"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <meta-data
+        <activity
+            android:name=".JWPlayerFragmentExample"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
+        </activity>
+        <!-- Uncomment and enter your license key. -->
+<!--        <meta-data
             android:name="JW_LICENSE_KEY"
-            android:value="{YOUR_LICENSE_KEY}"/>
+            android:value="{YOUR_LICENSE_KEY}"/>-->
     </application>
 
 </manifest>

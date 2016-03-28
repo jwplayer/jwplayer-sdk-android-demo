@@ -1,5 +1,6 @@
 package com.jwplayer.opensourcedemo;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -13,7 +14,7 @@ import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 
-public class MainActivity extends AppCompatActivity implements VideoPlayerEvents.OnFullscreenListener {
+public class JWPlayerViewExample extends AppCompatActivity implements VideoPlayerEvents.OnFullscreenListener {
 
 	/**
 	 * Reference to the JW Player View
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements VideoPlayerEvents
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_jwplayerview);
 		mPlayerView = (JWPlayerView)findViewById(R.id.jwplayer);
 		TextView outputTextView = (TextView)findViewById(R.id.output);
 
@@ -102,11 +103,19 @@ public class MainActivity extends AppCompatActivity implements VideoPlayerEvents
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_jwplayerview, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		return super.onOptionsItemSelected(item);
+		switch (item.getItemId()) {
+			case R.id.switch_to_fragment:
+				Intent i = new Intent(this, JWPlayerFragmentExample.class);
+				startActivity(i);
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 }

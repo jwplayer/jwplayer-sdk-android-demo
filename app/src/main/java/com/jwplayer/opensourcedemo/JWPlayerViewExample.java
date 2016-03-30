@@ -11,20 +11,26 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.longtailvideo.jwplayer.JWPlayerView;
+import com.longtailvideo.jwplayer.cast.CastManager;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 
 public class JWPlayerViewExample extends AppCompatActivity implements VideoPlayerEvents.OnFullscreenListener {
 
 	/**
-	 * Reference to the JW Player View
+	 * Reference to the {@link JWPlayerView}
 	 */
-	JWPlayerView mPlayerView;
+	private JWPlayerView mPlayerView;
 
 	/**
 	 * An instance of our event handling class
 	 */
 	private JWEventHandler mEventHandler;
+
+	/**
+	 * Reference to the {@link CastManager}
+	 */
+	private CastManager mCastManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +42,22 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 		// Handle hiding/showing of ActionBar
 		mPlayerView.addOnFullscreenListener(this);
 
+		// Keep the screen on during playback
+		new KeepScreenOnHandler(mPlayerView, getWindow());
+
 		// Instantiate the JW Player event handler class
 		mEventHandler = new JWEventHandler(mPlayerView, outputTextView);
 
 		// Load a media source
-		PlaylistItem pi = new PlaylistItem("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8");
+		PlaylistItem pi = new PlaylistItem.Builder()
+				.file("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8")
+				.title("BipBop")
+				.description("A video player testing video.")
+				.build();
 		mPlayerView.load(pi);
+
+		// Get a reference to the CastManager
+		mCastManager = CastManager.getInstance();
 	}
 
 	@Override
@@ -104,6 +120,8 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_jwplayerview, menu);
+		// Register the MediaRouterButton on the JW Player SDK
+		mCastManager.addMediaRouterButton(menu, R.id.media_route_menu_item);
 		return true;
 	}
 

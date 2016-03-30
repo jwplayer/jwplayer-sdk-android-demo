@@ -35,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements VideoPlayerEvents
 		// Handle hiding/showing of ActionBar
 		mPlayerView.addOnFullscreenListener(this);
 
+		// Keep the screen on during playback
+		new KeepScreenOnHandler(mPlayerView, getWindow());
+
 		// Instantiate the JW Player event handler class
 		mEventHandler = new JWEventHandler(mPlayerView, outputTextView);
 

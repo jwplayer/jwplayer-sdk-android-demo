@@ -3,8 +3,10 @@ package com.jwplayer.opensourcedemo;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -115,6 +117,10 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 				actionBar.show();
 			}
 		}
+
+		CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.activity_jwplayerview);
+		coordinatorLayout.setFitsSystemWindows(false);
+		Log.i("JWPlayerViewExample", "sets fits system Windows false");
 	}
 
 	@Override

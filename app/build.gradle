@@ -25,5 +25,4 @@ dependencies {
 	compile 'com.android.support:appcompat-v7:23.1.0'
 	compile 'com.android.support:design:23.3.0'
 	compile project(':CastCompanionLibrary-android')
-	compile project(':jwplayer-android-sdk-2.2.0+0')
 }

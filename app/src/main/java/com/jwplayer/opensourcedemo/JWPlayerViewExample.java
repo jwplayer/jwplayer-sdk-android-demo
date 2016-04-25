@@ -34,12 +34,21 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 	 */
 	private CastManager mCastManager;
 
+	/**
+	 * Stored instance of CoordinatorLayout
+	 * http://developer.android.com/reference/android/support/design/widget/CoordinatorLayout.html
+	 */
+	private CoordinatorLayout mCoordinatorLayout;
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_jwplayerview);
 		mPlayerView = (JWPlayerView)findViewById(R.id.jwplayer);
 		TextView outputTextView = (TextView)findViewById(R.id.output);
+
+		mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.activity_jwplayerview);
 
 		// Handle hiding/showing of ActionBar
 		mPlayerView.addOnFullscreenListener(this);
@@ -119,8 +128,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 		}
 
 		// When going to Fullscreen we want to set fitsSystemWindows="false"
-		CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.activity_jwplayerview);
-		coordinatorLayout.setFitsSystemWindows(false);
+		mCoordinatorLayout.setFitsSystemWindows(!fullscreen);
 	}
 
 	@Override

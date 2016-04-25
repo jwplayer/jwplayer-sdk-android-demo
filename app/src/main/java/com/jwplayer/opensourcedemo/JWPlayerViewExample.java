@@ -118,9 +118,9 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 			}
 		}
 
+		// When going to Fullscreen we want to set fitsSystemWindows="false"
 		CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.activity_jwplayerview);
 		coordinatorLayout.setFitsSystemWindows(false);
-		Log.i("JWPlayerViewExample", "sets fits system Windows false");
 	}
 
 	@Override

@@ -26,5 +26,6 @@
             android:name="JW_LICENSE_KEY"
             android:value="{YOUR_LICENSE_KEY}"/>-->
     </application>
+    <!-- If your application has local media -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 </manifest>

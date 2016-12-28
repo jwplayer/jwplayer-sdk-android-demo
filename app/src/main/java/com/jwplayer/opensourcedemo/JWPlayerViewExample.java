@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -81,8 +80,8 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 	@Override
 	protected void onResume() {
 		// Let JW Player know that the app has returned from the background
-		mPlayerView.onResume();
 		super.onResume();
+		mPlayerView.onResume();
 	}
 
 	@Override

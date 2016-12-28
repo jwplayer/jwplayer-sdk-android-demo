@@ -1,1 +1,1 @@
-include ':app', ':CastCompanionLibrary-android'
+include ':app'

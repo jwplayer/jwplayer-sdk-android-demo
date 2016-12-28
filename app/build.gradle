@@ -26,6 +26,6 @@ dependencies {
 	compile 'com.android.support:design:23.3.0'
 	compile 'com.longtailvideo.jwplayer:jwplayer-core:+'
 	compile 'com.longtailvideo.jwplayer:jwplayer-common:+'
-	compile 'com.longtailvideo.jwplayer:jwplayer-ima:+'        // Only required if using IMA features
+//	compile 'com.longtailvideo.jwplayer:jwplayer-ima:+'        // Only required if using IMA features
 	compile 'com.longtailvideo.jwplayer:jwplayer-chromecast:+' // Only required if using Chromecast
 }

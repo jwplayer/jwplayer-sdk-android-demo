@@ -5,3 +5,5 @@
 /build
 /captures
 /jwplayer-android-sdk-*
+*.iml
+.idea

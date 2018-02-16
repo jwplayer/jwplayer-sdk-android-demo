@@ -21,10 +21,9 @@
             android:name=".JWPlayerFragmentExample"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
         </activity>
-        <!--TODO Set your license key-->
-        <!--<meta-data-->
-            <!--android:name="JW_LICENSE_KEY"-->
-            <!--android:value="YOUR_LICENSE_KEY"/>-->
+        <meta-data
+            android:name="JW_LICENSE_KEY"
+            android:value="1m4fE6RcBh1jhnCep+ojZ6CBgC7rXu9qk2xsuB8+K39M9vZr"/>
     </application>
 
 </manifest>

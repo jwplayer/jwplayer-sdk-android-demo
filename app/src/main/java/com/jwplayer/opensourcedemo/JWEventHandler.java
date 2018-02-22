@@ -2,6 +2,12 @@ package com.jwplayer.opensourcedemo;
 
 import android.widget.TextView;
 
+import com.google.android.exoplayer2.metadata.id3.BinaryFrame;
+import com.google.android.exoplayer2.metadata.id3.GeobFrame;
+import com.google.android.exoplayer2.metadata.id3.Id3Frame;
+import com.google.android.exoplayer2.metadata.id3.PrivFrame;
+import com.google.android.exoplayer2.metadata.id3.TextInformationFrame;
+
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.core.PlayerState;
 import com.longtailvideo.jwplayer.events.AdClickEvent;
@@ -161,8 +167,23 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
     }
 
     @Override
-    public void onMeta(Metadata metadata) {
+    public void onMeta(Metadata meta) {
         updateOutput("onMeta(Metadata)");
+
+        if(meta.getId3Metadata().size() > 0) {
+            List<Id3Frame> id3 = meta.getId3Metadata();
+            for(Id3Frame id3Obj : id3) {
+                if(id3Obj instanceof TextInformationFrame) {
+                    TextInformationFrame txxxFrame = (TextInformationFrame)id3Obj;
+                } else if(id3Obj instanceof PrivFrame) {
+                    PrivFrame privFrame = (PrivFrame)id3Obj;
+                } else if(id3Obj instanceof GeobFrame) {
+                    GeobFrame geobFrame = (GeobFrame)id3Obj;
+                } else if(id3Obj instanceof BinaryFrame) {
+                    BinaryFrame binaryFrame = (BinaryFrame)id3Obj;
+                }
+            }
+        }
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,10 +14,19 @@ import android.widget.TextView;
 
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.cast.CastManager;
+import com.longtailvideo.jwplayer.core.PlayerState;
+import com.longtailvideo.jwplayer.events.BufferChangeEvent;
+import com.longtailvideo.jwplayer.events.ErrorEvent;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
+import com.longtailvideo.jwplayer.media.audio.AudioTrack;
+import com.longtailvideo.jwplayer.media.captions.Caption;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 
+import java.util.List;
+
 public class JWPlayerViewExample extends AppCompatActivity implements VideoPlayerEvents.OnFullscreenListener {
+
+    private static final String MEASURE_TAG = "JWMeasure";
 
 	/**
 	 * Reference to the {@link JWPlayerView}
@@ -42,7 +52,8 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+        Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " onCreate: start");
+        super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_jwplayerview);
 		mPlayerView = (JWPlayerView)findViewById(R.id.jwplayer);
 		TextView outputTextView = (TextView)findViewById(R.id.output);
@@ -60,12 +71,33 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 
 		// Load a media source
 		PlaylistItem pi = new PlaylistItem.Builder()
-				.file("https://live.knockoutprime.com/content/private/r874188/13941ee7bb6b5b88452e7da1a26da89aa6b36123/playlist.m3u8")
+				.file("https://origin1-ams-bitgravity.sotalcloud.com/content/private/r862350/824321f549d17c9e3a4c11d7afc1ceaf0fc5f81f/playlist.m3u8")
 				.title("Test Video")
 				.description("A video player testing video.")
 				.build();
 		mPlayerView.load(pi);
+		mPlayerView.play();
 
+        mPlayerView.addOnAudioTrackChangedListener(playerCallbacks);
+        mPlayerView.addOnAudioTracksListener(playerCallbacks);
+        mPlayerView.addOnBufferListener(playerCallbacks);
+        mPlayerView.addOnBufferChangeListener(playerCallbacks);
+        mPlayerView.addOnErrorListener(playerCallbacks);
+        mPlayerView.addOnIdleListener(playerCallbacks);
+        mPlayerView.addOnPlayListener(playerCallbacks);
+        mPlayerView.addOnPauseListener(playerCallbacks);
+        mPlayerView.addOnSeekedListener(playerCallbacks);
+        mPlayerView.addOnSeekedListener(playerCallbacks);
+        mPlayerView.addOnCaptionsChangedListener(playerCallbacks);
+        mPlayerView.addOnCaptionsListListener(playerCallbacks);
+        mPlayerView.addOnCompleteListener(playerCallbacks);
+        mPlayerView.addOnTimeListener(playerCallbacks);
+        mPlayerView.addOnSetupErrorListener(playerCallbacks);
+
+		// !!! Are there way to start buffering playlist item in this place?
+
+        Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " onCreate: finish");
+        mEventHandler.onCreateFinish();
 		// Get a reference to the CastManager
 		mCastManager = CastManager.getInstance();
 	}
@@ -77,26 +109,57 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 		super.onConfigurationChanged(newConfig);
 	}
 
-	@Override
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mEventHandler.onStart();
+        Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " onStart");
+    }
+
+    @Override
 	protected void onResume() {
 		// Let JW Player know that the app has returned from the background
-		super.onResume();
-		mPlayerView.onResume();
+        super.onResume();
+        mEventHandler.onResume();
+        Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " onResume");
+        mPlayerView.onResume();
+
+		// !!! I want start play when activity will be active
+        // JWPlayer start buffering in this place, I want that content
+
+//		mPlayerView.play();
 	}
 
 	@Override
 	protected void onPause() {
 		// Let JW Player know that the app is going to the background
-		mPlayerView.onPause();
-		super.onPause();
-	}
+        mPlayerView.onPause();
+        super.onPause();
+        mEventHandler.onPause();
+        Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " onPause");
+    }
 
-	@Override
+    @Override
+    protected void onStop() {
+	    mEventHandler.onStop();
+        Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " onStop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onRestart() {
+        Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " onRestart");
+        super.onRestart();
+    }
+
+    @Override
 	protected void onDestroy() {
 		// Let JW Player know that the app is being destroyed
-		mPlayerView.onDestroy();
-		super.onDestroy();
-	}
+        mPlayerView.onDestroy();
+        mEventHandler.onDestroy();
+        super.onDestroy();
+        Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " onDestroy");
+    }
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -149,4 +212,109 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 				return super.onOptionsItemSelected(item);
 		}
 	}
+
+
+	private final JWPlayerCallbacks playerCallbacks = new JWPlayerCallbacks();
+
+    private class JWPlayerCallbacks implements VideoPlayerEvents.OnCompleteListener,
+            VideoPlayerEvents.OnBufferListener,
+            VideoPlayerEvents.OnBufferChangeListener,
+            VideoPlayerEvents.OnErrorListenerV2,
+            VideoPlayerEvents.OnIdleListener,
+            VideoPlayerEvents.OnPauseListener,
+            VideoPlayerEvents.OnPlayListener,
+            VideoPlayerEvents.OnSeekListener,
+            VideoPlayerEvents.OnSeekedListener,
+            VideoPlayerEvents.OnAudioTracksListener,
+            VideoPlayerEvents.OnCaptionsListListener,
+            VideoPlayerEvents.OnAudioTrackChangedListener,
+            VideoPlayerEvents.OnCaptionsChangedListener,
+            VideoPlayerEvents.OnTimeListener,
+            VideoPlayerEvents.OnDisplayClickListener, VideoPlayerEvents.OnSetupErrorListener {
+
+        @Override
+        public void onBuffer(PlayerState oldState) {
+            Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onBuffer; oldState=" + String.valueOf(oldState));
+        }
+
+        @Override
+        public void onComplete() {
+            Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onComplete");
+        }
+
+        @Override
+        public void onError(ErrorEvent errorEvent) {
+            Exception exception = errorEvent.getException();
+            Log.e(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onError: " + errorEvent.getMessage(), exception);
+        }
+
+        @Override
+        public void onIdle(PlayerState oldState) {
+            Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onIdle; oldState=" + String.valueOf(oldState));
+        }
+
+        @Override
+        public void onPause(PlayerState oldState) {
+            Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onPause; oldState=" + String.valueOf(oldState));
+        }
+
+        @Override
+        public void onPlay(PlayerState oldState) {
+            Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onPlay; oldState=" + String.valueOf(oldState));
+        }
+
+        @Override
+        public void onSeek(int position, int offset) {
+            Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onSeek position=" + position + " offset" + offset);
+        }
+
+        @Override
+        public void onSeeked() {
+            Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onSeeked");
+        }
+
+        @Override
+        public void onAudioTrackChanged(int i) {
+
+        }
+
+        @Override
+        public void onAudioTracks(List<AudioTrack> list) {
+
+        }
+
+        @Override
+        public void onCaptionsChanged(int i, List<Caption> list) {
+
+        }
+
+        @Override
+        public void onCaptionsList(List<Caption> list) {
+
+        }
+
+        @Override
+        public void onTime(long position, long duration) {
+//            Log.i(TAG, "onTime position=" + position + " duration" + duration);
+
+        }
+
+        @Override
+        public void onDisplayClick() {
+
+        }
+
+        @Override
+        public void onBufferChange(BufferChangeEvent bufferChangeEvent) {
+            Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onBufferChange; percent=" + bufferChangeEvent.getBufferPercent() +
+                    " position=" + bufferChangeEvent.getPosition() +
+                    " duration=" + bufferChangeEvent.getDuration()
+            );
+        }
+
+        @Override
+        public void onSetupError(String s) {
+            Log.e(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onSetupError:" + String.valueOf(s));
+        }
+    }
 }

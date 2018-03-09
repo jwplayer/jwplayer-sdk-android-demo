@@ -67,9 +67,11 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
         AdvertisingEvents.OnAdPauseListenerV2,
         AdvertisingEvents.OnAdPlayListenerV2,
         AdvertisingEvents.OnBeforePlayListener,
-        AdvertisingEvents.OnBeforeCompleteListener {
+        AdvertisingEvents.OnBeforeCompleteListener,
+        ActivityListener {
 
-    TextView mOutput;
+    private final TextView mOutput;
+    private final StringBuilder outputStringBuilder = new StringBuilder();
 
     public JWEventHandler(JWPlayerView jwPlayerView, TextView output) {
         mOutput = output;
@@ -113,7 +115,8 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
     }
 
     private void updateOutput(String output) {
-        mOutput.setText(output);
+        outputStringBuilder.append(output).append("\r\n");
+        mOutput.setText(outputStringBuilder.toString());
     }
 
     /**
@@ -122,82 +125,82 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
 
     @Override
     public void onAudioTracks(List<AudioTrack> audioTracks) {
-        updateOutput("onAudioTracks(List<AudioTrack>)");
+        updateOutput("" + System.currentTimeMillis() + " " + "onAudioTracks(List<AudioTrack>)");
     }
 
     @Override
     public void onBeforeComplete() {
-        updateOutput("onBeforeComplete()");
+        updateOutput("" + System.currentTimeMillis() + " " + "onBeforeComplete()");
     }
 
     @Override
     public void onBeforePlay() {
-        updateOutput("onBeforePlay()");
+        updateOutput("" + System.currentTimeMillis() + " " + "onBeforePlay()");
     }
 
     @Override
     public void onBuffer(PlayerState oldState) {
-        updateOutput("onBuffer(" + oldState + ")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onBuffer(" + oldState + ")");
     }
 
     @Override
     public void onCaptionsList(List<Caption> tracks) {
-        updateOutput("onCaptionsList(List<Caption>)");
+        updateOutput("" + System.currentTimeMillis() + " " + "onCaptionsList(List<Caption>)");
     }
 
     @Override
     public void onComplete() {
-        updateOutput("onComplete()");
+        updateOutput("" + System.currentTimeMillis() + " " + "onComplete()");
     }
 
     @Override
     public void onFullscreen(boolean fullscreen) {
-        updateOutput("onFullscreen(" + fullscreen + ")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onFullscreen(" + fullscreen + ")");
     }
 
     @Override
     public void onIdle(PlayerState oldState) {
-        updateOutput("onIdle(" + oldState + ")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onIdle(" + oldState + ")");
     }
 
     @Override
     public void onMeta(Metadata metadata) {
-        updateOutput("onMeta(Metadata)");
+        updateOutput("" + System.currentTimeMillis() + " " + "onMeta(Metadata)");
     }
 
     @Override
     public void onPause(PlayerState oldState) {
-        updateOutput("onPause(" + oldState + ")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onPause(" + oldState + ")");
     }
 
     @Override
     public void onPlay(PlayerState oldState) {
-        updateOutput("onPlay(" + oldState + ")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onPlay(" + oldState + ")");
     }
 
     @Override
     public void onPlaylistComplete() {
-        updateOutput("onPlaylistComplete()");
+        updateOutput("" + System.currentTimeMillis() + " " + "onPlaylistComplete()");
     }
 
     @Override
     public void onPlaylistItem(int index, PlaylistItem playlistItem) {
-        updateOutput("onPlaylistItem(" + index + ", PlaylistItem)");
+        updateOutput("" + System.currentTimeMillis() + " " + "onPlaylistItem(" + index + ", PlaylistItem)");
     }
 
     @Override
     public void onPlaylist(List<PlaylistItem> playlist) {
-        updateOutput("onPlaylist(List<PlaylistItem>)");
+        updateOutput("" + System.currentTimeMillis() + " " + "onPlaylist(List<PlaylistItem>)");
     }
 
     @Override
     public void onSeek(int position, int offset) {
-        updateOutput("onSeek(" + position + ", " + offset + ")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onSeek(" + position + ", " + offset + ")");
     }
 
     @Override
     public void onSetupError(String message) {
-        updateOutput("onSetupError(\"" + message + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onSetupError(\"" + message + "\")");
     }
 
     @Override
@@ -207,52 +210,52 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
 
     @Override
     public void onAdError(String tag, String message) {
-        updateOutput("onAdError(\"" + tag + "\", \"" + message + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onAdError(\"" + tag + "\", \"" + message + "\")");
     }
 
     @Override
     public void onError(ErrorEvent errorEvent) {
-        updateOutput("onError(\"" + errorEvent.getMessage() + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onError(\"" + errorEvent.getMessage() + "\")");
     }
 
     @Override
     public void onLevelsChanged(int i) {
-        updateOutput("onLevelsChange(" + i + ")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onLevelsChange(" + i + ")");
     }
 
     @Override
     public void onLevels(List<QualityLevel> list) {
-        updateOutput("onLevels(List<QualityLevel>)");
+        updateOutput("" + System.currentTimeMillis() + " " + "onLevels(List<QualityLevel>)");
     }
 
     @Override
     public void onAudioTrackChanged(int i) {
-        updateOutput("onAudioTrackChanged(" + i + ")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onAudioTrackChanged(" + i + ")");
     }
 
     @Override
     public void onCaptionsChanged(int i, List<Caption> list) {
-        updateOutput("onCaptionsChanged(" + i + ", List<Caption>)");
+        updateOutput("" + System.currentTimeMillis() + " " + "onCaptionsChanged(" + i + ", List<Caption>)");
     }
 
     @Override
     public void onAdClick(AdClickEvent adClickEvent) {
-        updateOutput("onAdClick(\"" + adClickEvent.getTag() + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onAdClick(\"" + adClickEvent.getTag() + "\")");
     }
 
     @Override
     public void onAdComplete(AdCompleteEvent adCompleteEvent) {
-        updateOutput("onAdComplete(\"" + adCompleteEvent.getTag() + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onAdComplete(\"" + adCompleteEvent.getTag() + "\")");
     }
 
     @Override
     public void onAdSkipped(AdSkippedEvent adSkippedEvent) {
-        updateOutput("onAdSkipped(\"" + adSkippedEvent.getTag() + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onAdSkipped(\"" + adSkippedEvent.getTag() + "\")");
     }
 
     @Override
     public void onAdImpression(AdImpressionEvent adImpressionEvent) {
-        updateOutput("onAdImpression(\"" + adImpressionEvent.getTag() + "\", \"" + adImpressionEvent.getCreativeType() + "\", \"" + adImpressionEvent.getAdPosition().name() + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onAdImpression(\"" + adImpressionEvent.getTag() + "\", \"" + adImpressionEvent.getCreativeType() + "\", \"" + adImpressionEvent.getAdPosition().name() + "\")");
 
     }
 
@@ -263,51 +266,86 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
 
     @Override
     public void onAdPause(AdPauseEvent adPauseEvent) {
-        updateOutput("onAdPause(\"" + adPauseEvent.getTag() + "\", \"" + adPauseEvent.getOldState() + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onAdPause(\"" + adPauseEvent.getTag() + "\", \"" + adPauseEvent.getOldState() + "\")");
     }
 
     @Override
     public void onAdPlay(AdPlayEvent adPlayEvent) {
-        updateOutput("onAdPlay(\"" + adPlayEvent.getTag() + "\", \"" + adPlayEvent.getOldState() + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onAdPlay(\"" + adPlayEvent.getTag() + "\", \"" + adPlayEvent.getOldState() + "\")");
     }
 
     @Override
     public void onRelatedClose(RelatedCloseEvent relatedCloseEvent) {
-        updateOutput("onRelatedClose(\"" + relatedCloseEvent.getMethod() + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onRelatedClose(\"" + relatedCloseEvent.getMethod() + "\")");
     }
 
     @Override
     public void onControls(ControlsEvent controlsEvent) {
-        updateOutput("onControls(\"" + controlsEvent.getControls() + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onControls(\"" + controlsEvent.getControls() + "\")");
     }
 
     @Override
     public void onDisplayClick() {
-        updateOutput("onDisplayClick(\"" + "displayClick" + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onDisplayClick(\"" + "displayClick" + "\")");
     }
 
     @Override
     public void onMute(boolean b) {
-        updateOutput("onMute(\"" + b + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onMute(\"" + b + "\")");
     }
 
     @Override
     public void onRelatedOpen(RelatedOpenEvent relatedOpenEvent) {
-        updateOutput("onRelatedOpen(\"" + relatedOpenEvent.getMethod() + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onRelatedOpen(\"" + relatedOpenEvent.getMethod() + "\")");
     }
 
     @Override
     public void onRelatedPlay(RelatedPlayEvent relatedPlayEvent) {
-        updateOutput("onRelatedPlay(\"" + relatedPlayEvent.getAuto() + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onRelatedPlay(\"" + relatedPlayEvent.getAuto() + "\")");
     }
 
     @Override
     public void onSeeked() {
-        updateOutput("onSeeked(\"" + "seeked" + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onSeeked(\"" + "seeked" + "\")");
     }
 
     @Override
     public void onVisualQuality(VisualQuality visualQuality) {
-        updateOutput("onVisualQuality(\"" + visualQuality.getQualityLevel().getLabel() + "\")");
+        updateOutput("" + System.currentTimeMillis() + " " + "onVisualQuality(\"" + visualQuality.getQualityLevel().getLabel() + "\")");
+    }
+
+    @Override
+    public void onCreate() {
+        updateOutput("" + System.currentTimeMillis() + " onCreate");
+    }
+
+    @Override
+    public void onCreateFinish() {
+        updateOutput("" + System.currentTimeMillis() + " onCreateFinish");
+    }
+
+    @Override
+    public void onStart() {
+        updateOutput("" + System.currentTimeMillis() + " onStart");
+    }
+
+    @Override
+    public void onResume() {
+        updateOutput("" + System.currentTimeMillis() + " onResume");
+    }
+
+    @Override
+    public void onPause() {
+        updateOutput("" + System.currentTimeMillis() + " onPause");
+    }
+
+    @Override
+    public void onStop() {
+        updateOutput("" + System.currentTimeMillis() + " onStop");
+    }
+
+    @Override
+    public void onDestroy() {
+        updateOutput("" + System.currentTimeMillis() + " onDestroy");
     }
 }

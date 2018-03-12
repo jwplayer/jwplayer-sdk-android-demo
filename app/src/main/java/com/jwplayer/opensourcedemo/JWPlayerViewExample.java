@@ -52,7 +52,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-        Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " onCreate: start");
+        Log.i(MEASURE_TAG, "" + Time.currentTime() + " onCreate: start");
         super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_jwplayerview);
 		mPlayerView = (JWPlayerView)findViewById(R.id.jwplayer);
@@ -76,7 +76,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 				.description("A video player testing video.")
 				.build();
 		mPlayerView.load(pi);
-		mPlayerView.play();
+//		mPlayerView.play();
 
         mPlayerView.addOnAudioTrackChangedListener(playerCallbacks);
         mPlayerView.addOnAudioTracksListener(playerCallbacks);
@@ -96,7 +96,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 
 		// !!! Are there way to start buffering playlist item in this place?
 
-        Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " onCreate: finish");
+        Log.i(MEASURE_TAG, "" + Time.currentTime() + " onCreate: finish");
         mEventHandler.onCreateFinish();
 		// Get a reference to the CastManager
 		mCastManager = CastManager.getInstance();
@@ -113,7 +113,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
     protected void onStart() {
         super.onStart();
         mEventHandler.onStart();
-        Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " onStart");
+        Log.i(MEASURE_TAG, "" + Time.currentTime() + " onStart");
     }
 
     @Override
@@ -121,13 +121,10 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 		// Let JW Player know that the app has returned from the background
         super.onResume();
         mEventHandler.onResume();
-        Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " onResume");
+        Log.i(MEASURE_TAG, "" + Time.currentTime() + " onResume");
         mPlayerView.onResume();
 
-		// !!! I want start play when activity will be active
-        // JWPlayer start buffering in this place, I want that content
-
-//		mPlayerView.play();
+		mPlayerView.play();
 	}
 
 	@Override
@@ -136,19 +133,19 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
         mPlayerView.onPause();
         super.onPause();
         mEventHandler.onPause();
-        Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " onPause");
+        Log.i(MEASURE_TAG, "" + Time.currentTime() + " onPause");
     }
 
     @Override
     protected void onStop() {
 	    mEventHandler.onStop();
-        Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " onStop");
+        Log.i(MEASURE_TAG, "" + Time.currentTime() + " onStop");
         super.onStop();
     }
 
     @Override
     protected void onRestart() {
-        Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " onRestart");
+        Log.i(MEASURE_TAG, "" + Time.currentTime() + " onRestart");
         super.onRestart();
     }
 
@@ -158,7 +155,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
         mPlayerView.onDestroy();
         mEventHandler.onDestroy();
         super.onDestroy();
-        Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " onDestroy");
+        Log.i(MEASURE_TAG, "" + Time.currentTime() + " onDestroy");
     }
 
 	@Override
@@ -234,43 +231,43 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 
         @Override
         public void onBuffer(PlayerState oldState) {
-            Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onBuffer; oldState=" + String.valueOf(oldState));
+            Log.i(MEASURE_TAG, "" + Time.currentTime() + " JW onBuffer; oldState=" + String.valueOf(oldState));
         }
 
         @Override
         public void onComplete() {
-            Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onComplete");
+            Log.i(MEASURE_TAG, "" + Time.currentTime() + " JW onComplete");
         }
 
         @Override
         public void onError(ErrorEvent errorEvent) {
             Exception exception = errorEvent.getException();
-            Log.e(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onError: " + errorEvent.getMessage(), exception);
+            Log.e(MEASURE_TAG, "" + Time.currentTime() + " JW onError: " + errorEvent.getMessage(), exception);
         }
 
         @Override
         public void onIdle(PlayerState oldState) {
-            Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onIdle; oldState=" + String.valueOf(oldState));
+            Log.i(MEASURE_TAG, "" + Time.currentTime() + " JW onIdle; oldState=" + String.valueOf(oldState));
         }
 
         @Override
         public void onPause(PlayerState oldState) {
-            Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onPause; oldState=" + String.valueOf(oldState));
+            Log.i(MEASURE_TAG, "" + Time.currentTime() + " JW onPause; oldState=" + String.valueOf(oldState));
         }
 
         @Override
         public void onPlay(PlayerState oldState) {
-            Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onPlay; oldState=" + String.valueOf(oldState));
+            Log.i(MEASURE_TAG, "" + Time.currentTime() + " JW onPlay; oldState=" + String.valueOf(oldState));
         }
 
         @Override
         public void onSeek(int position, int offset) {
-            Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onSeek position=" + position + " offset" + offset);
+            Log.i(MEASURE_TAG, "" + Time.currentTime() + " JW onSeek position=" + position + " offset" + offset);
         }
 
         @Override
         public void onSeeked() {
-            Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onSeeked");
+            Log.i(MEASURE_TAG, "" + Time.currentTime() + " JW onSeeked");
         }
 
         @Override
@@ -306,7 +303,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 
         @Override
         public void onBufferChange(BufferChangeEvent bufferChangeEvent) {
-            Log.i(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onBufferChange; percent=" + bufferChangeEvent.getBufferPercent() +
+            Log.i(MEASURE_TAG, "" + Time.currentTime() + " JW onBufferChange; percent=" + bufferChangeEvent.getBufferPercent() +
                     " position=" + bufferChangeEvent.getPosition() +
                     " duration=" + bufferChangeEvent.getDuration()
             );
@@ -314,7 +311,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 
         @Override
         public void onSetupError(String s) {
-            Log.e(MEASURE_TAG, "" + System.currentTimeMillis() + " JW onSetupError:" + String.valueOf(s));
+            Log.e(MEASURE_TAG, "" + Time.currentTime() + " JW onSetupError:" + String.valueOf(s));
         }
     }
 }

@@ -66,6 +66,8 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 
 		setupConfig();
 
+		outputTextView.append("SDK VERSION: " + mPlayerView.getVersionCode());
+
         mEventHandler = new JWEventHandler(mPlayerView, outputTextView,sv);
 
 		mCoordinatorLayout = (CoordinatorLayout)findViewById(R.id.activity_jwplayerview);
@@ -78,7 +80,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 
 	}
     String vast2URL = "https://s3.amazonaws.com/demo.jwplayer.com/static-tag/preroll.xml";
-    String videoURL = "http://cdn.jwplayer.com/v2/media/jumBvHdL";
+    String videoURL = "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8";
 
     private void setupConfig(){
         

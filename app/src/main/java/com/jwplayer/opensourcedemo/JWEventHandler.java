@@ -1,5 +1,8 @@
 package com.jwplayer.opensourcedemo;
 
+import android.util.Log;
+import android.widget.FrameLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.longtailvideo.jwplayer.JWPlayerView;
@@ -11,6 +14,7 @@ import com.longtailvideo.jwplayer.events.AdPauseEvent;
 import com.longtailvideo.jwplayer.events.AdPlayEvent;
 import com.longtailvideo.jwplayer.events.AdSkippedEvent;
 import com.longtailvideo.jwplayer.events.AdTimeEvent;
+import com.longtailvideo.jwplayer.events.BufferChangeEvent;
 import com.longtailvideo.jwplayer.events.ControlsEvent;
 import com.longtailvideo.jwplayer.events.ErrorEvent;
 import com.longtailvideo.jwplayer.events.RelatedCloseEvent;
@@ -28,7 +32,7 @@ import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 import java.util.List;
 
 /**
- * Outputs all JW Player Events to logging, with the exception of time events.
+ * Outputs allEventHandler: Player Events to logging, with the exception of time events.
  */
 public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
         VideoPlayerEvents.OnPlaylistListener,
@@ -68,14 +72,21 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
         AdvertisingEvents.OnAdPlayListenerV2,
         AdvertisingEvents.OnBeforePlayListener,
         AdvertisingEvents.OnBeforeCompleteListener,
-        ActivityListener {
+        VideoPlayerEvents.OnFirstFrameListener,
+        VideoPlayerEvents.OnBufferChangeListener{
 
+    private static final String MEASURE_TAG = "JWMeasure";
+    private JWPlayerView jwPlayerView;
     private final TextView mOutput;
     private final StringBuilder outputStringBuilder = new StringBuilder();
+    private final ScrollView mScroll;
 
-    public JWEventHandler(JWPlayerView jwPlayerView, TextView output) {
+    public JWEventHandler(JWPlayerView jwPlayerView, TextView output, ScrollView scrollview) {
+        this.jwPlayerView = jwPlayerView;
+        mScroll = scrollview;
         mOutput = output;
-        // Subscribe to all JW Player events
+
+        // Subscribe to allEventHandler: Player events
         jwPlayerView.addOnSetupErrorListener(this);
         jwPlayerView.addOnPlaylistListener(this);
         jwPlayerView.addOnPlaylistItemListener(this);
@@ -112,11 +123,17 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
         jwPlayerView.addOnCompleteListener(this);
         jwPlayerView.addOnBeforePlayListener(this);
         jwPlayerView.addOnBeforeCompleteListener(this);
+        jwPlayerView.addOnFirstFrameListener(this);
     }
 
     private void updateOutput(String output) {
-        outputStringBuilder.append(output).append("\r\n");
+        outputStringBuilder.append(""  + Time.currentTime() + " " + output).append("\r\n");
         mOutput.setText(outputStringBuilder.toString());
+        mScroll.scrollTo(0,mOutput.getBottom());
+    }
+
+    public void print(String log){
+        Log.i(MEASURE_TAG,"" + Time.currentTime() + log + "(Event)");
     }
 
     /**
@@ -125,84 +142,46 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
 
     @Override
     public void onAudioTracks(List<AudioTrack> audioTracks) {
-        updateOutput("" + Time.currentTime() + " " + "onAudioTracks(List<AudioTrack>)");
+        updateOutput(" " + "onAudioTracks(List<AudioTrack>)");
     }
 
     @Override
     public void onBeforeComplete() {
-        updateOutput("" + Time.currentTime() + " " + "onBeforeComplete()");
+        updateOutput(" " + "onBeforeComplete()");
     }
 
     @Override
     public void onBeforePlay() {
-        updateOutput("" + Time.currentTime() + " " + "onBeforePlay()");
-    }
-
-    @Override
-    public void onBuffer(PlayerState oldState) {
-        updateOutput("" + Time.currentTime() + " " + "onBuffer(" + oldState + ")");
+        updateOutput(" " + "onBeforePlay()");
     }
 
     @Override
     public void onCaptionsList(List<Caption> tracks) {
-        updateOutput("" + Time.currentTime() + " " + "onCaptionsList(List<Caption>)");
-    }
-
-    @Override
-    public void onComplete() {
-        updateOutput("" + Time.currentTime() + " " + "onComplete()");
+        updateOutput(" " + "onCaptionsList(List<Caption>)");
     }
 
     @Override
     public void onFullscreen(boolean fullscreen) {
-        updateOutput("" + Time.currentTime() + " " + "onFullscreen(" + fullscreen + ")");
+        updateOutput(" " + "onFullscreen(" + fullscreen + ")");
     }
-
-    @Override
-    public void onIdle(PlayerState oldState) {
-        updateOutput("" + Time.currentTime() + " " + "onIdle(" + oldState + ")");
-    }
-
     @Override
     public void onMeta(Metadata metadata) {
-        updateOutput("" + Time.currentTime() + " " + "onMeta(Metadata)");
+        updateOutput(" " + "onMeta(Metadata)");
     }
-
-    @Override
-    public void onPause(PlayerState oldState) {
-        updateOutput("" + Time.currentTime() + " " + "onPause(" + oldState + ")");
-    }
-
-    @Override
-    public void onPlay(PlayerState oldState) {
-        updateOutput("" + Time.currentTime() + " " + "onPlay(" + oldState + ")");
-    }
-
     @Override
     public void onPlaylistComplete() {
-        updateOutput("" + Time.currentTime() + " " + "onPlaylistComplete()");
+        updateOutput(" " + "onPlaylistComplete()");
     }
 
     @Override
     public void onPlaylistItem(int index, PlaylistItem playlistItem) {
-        updateOutput("" + Time.currentTime() + " " + "onPlaylistItem(" + index + ", PlaylistItem)");
+        updateOutput(" " + "onPlaylistItem(" + index + ", PlaylistItem)");
     }
 
     @Override
     public void onPlaylist(List<PlaylistItem> playlist) {
-        updateOutput("" + Time.currentTime() + " " + "onPlaylist(List<PlaylistItem>)");
+        updateOutput(" " + "onPlaylist(List<PlaylistItem>)");
     }
-
-    @Override
-    public void onSeek(int position, int offset) {
-        updateOutput("" + Time.currentTime() + " " + "onSeek(" + position + ", " + offset + ")");
-    }
-
-    @Override
-    public void onSetupError(String message) {
-        updateOutput("" + Time.currentTime() + " " + "onSetupError(\"" + message + "\")");
-    }
-
     @Override
     public void onTime(long position, long duration) {
         // Do nothing - this fires several times per second
@@ -210,52 +189,47 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
 
     @Override
     public void onAdError(String tag, String message) {
-        updateOutput("" + Time.currentTime() + " " + "onAdError(\"" + tag + "\", \"" + message + "\")");
-    }
-
-    @Override
-    public void onError(ErrorEvent errorEvent) {
-        updateOutput("" + Time.currentTime() + " " + "onError(\"" + errorEvent.getMessage() + "\")");
+        updateOutput(" " + "onAdError(\"" + tag + "\", \"" + message + "\")");
     }
 
     @Override
     public void onLevelsChanged(int i) {
-        updateOutput("" + Time.currentTime() + " " + "onLevelsChange(" + i + ")");
+        updateOutput(" " + "onLevelsChange(" + i + ")");
     }
 
     @Override
     public void onLevels(List<QualityLevel> list) {
-        updateOutput("" + Time.currentTime() + " " + "onLevels(List<QualityLevel>)");
+        updateOutput(" " + "onLevels(List<QualityLevel>)");
     }
 
     @Override
     public void onAudioTrackChanged(int i) {
-        updateOutput("" + Time.currentTime() + " " + "onAudioTrackChanged(" + i + ")");
+        updateOutput(" " + "onAudioTrackChanged(" + i + ")");
     }
 
     @Override
     public void onCaptionsChanged(int i, List<Caption> list) {
-        updateOutput("" + Time.currentTime() + " " + "onCaptionsChanged(" + i + ", List<Caption>)");
+        updateOutput(" " + "onCaptionsChanged(" + i + ", List<Caption>)");
     }
 
     @Override
     public void onAdClick(AdClickEvent adClickEvent) {
-        updateOutput("" + Time.currentTime() + " " + "onAdClick(\"" + adClickEvent.getTag() + "\")");
+        updateOutput(" " + "onAdClick(\"" + adClickEvent.getTag() + "\")");
     }
 
     @Override
     public void onAdComplete(AdCompleteEvent adCompleteEvent) {
-        updateOutput("" + Time.currentTime() + " " + "onAdComplete(\"" + adCompleteEvent.getTag() + "\")");
+        updateOutput(" " + "onAdComplete(\"" + adCompleteEvent.getTag() + "\")");
     }
 
     @Override
     public void onAdSkipped(AdSkippedEvent adSkippedEvent) {
-        updateOutput("" + Time.currentTime() + " " + "onAdSkipped(\"" + adSkippedEvent.getTag() + "\")");
+        updateOutput(" " + "onAdSkipped(\"" + adSkippedEvent.getTag() + "\")");
     }
 
     @Override
     public void onAdImpression(AdImpressionEvent adImpressionEvent) {
-        updateOutput("" + Time.currentTime() + " " + "onAdImpression(\"" + adImpressionEvent.getTag() + "\", \"" + adImpressionEvent.getCreativeType() + "\", \"" + adImpressionEvent.getAdPosition().name() + "\")");
+        updateOutput(" " + "onAdImpression(\"" + adImpressionEvent.getTag() + "\", \"" + adImpressionEvent.getCreativeType() + "\", \"" + adImpressionEvent.getAdPosition().name() + "\")");
 
     }
 
@@ -266,86 +240,116 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
 
     @Override
     public void onAdPause(AdPauseEvent adPauseEvent) {
-        updateOutput("" + Time.currentTime() + " " + "onAdPause(\"" + adPauseEvent.getTag() + "\", \"" + adPauseEvent.getOldState() + "\")");
+        updateOutput(" " + "onAdPause(\"" + adPauseEvent.getTag() + "\", \"" + adPauseEvent.getOldState() + "\")");
     }
 
     @Override
     public void onAdPlay(AdPlayEvent adPlayEvent) {
-        updateOutput("" + Time.currentTime() + " " + "onAdPlay(\"" + adPlayEvent.getTag() + "\", \"" + adPlayEvent.getOldState() + "\")");
+        updateOutput(" " + "onAdPlay(\"" + adPlayEvent.getTag() + "\", \"" + adPlayEvent.getOldState() + "\")");
     }
 
     @Override
     public void onRelatedClose(RelatedCloseEvent relatedCloseEvent) {
-        updateOutput("" + Time.currentTime() + " " + "onRelatedClose(\"" + relatedCloseEvent.getMethod() + "\")");
+        updateOutput(" " + "onRelatedClose(\"" + relatedCloseEvent.getMethod() + "\")");
     }
 
     @Override
     public void onControls(ControlsEvent controlsEvent) {
-        updateOutput("" + Time.currentTime() + " " + "onControls(\"" + controlsEvent.getControls() + "\")");
+        updateOutput(" " + "onControls(\"" + controlsEvent.getControls() + "\")");
     }
 
     @Override
     public void onDisplayClick() {
-        updateOutput("" + Time.currentTime() + " " + "onDisplayClick(\"" + "displayClick" + "\")");
+        updateOutput(" " + "onDisplayClick(\"" + "displayClick" + "\")");
     }
 
     @Override
     public void onMute(boolean b) {
-        updateOutput("" + Time.currentTime() + " " + "onMute(\"" + b + "\")");
+        updateOutput(" " + "onMute(\"" + b + "\")");
     }
 
     @Override
     public void onRelatedOpen(RelatedOpenEvent relatedOpenEvent) {
-        updateOutput("" + Time.currentTime() + " " + "onRelatedOpen(\"" + relatedOpenEvent.getMethod() + "\")");
+        updateOutput(" " + "onRelatedOpen(\"" + relatedOpenEvent.getMethod() + "\")");
     }
 
     @Override
     public void onRelatedPlay(RelatedPlayEvent relatedPlayEvent) {
-        updateOutput("" + Time.currentTime() + " " + "onRelatedPlay(\"" + relatedPlayEvent.getAuto() + "\")");
-    }
-
-    @Override
-    public void onSeeked() {
-        updateOutput("" + Time.currentTime() + " " + "onSeeked(\"" + "seeked" + "\")");
+        updateOutput(" " + "onRelatedPlay(\"" + relatedPlayEvent.getAuto() + "\")");
     }
 
     @Override
     public void onVisualQuality(VisualQuality visualQuality) {
-        updateOutput("" + Time.currentTime() + " " + "onVisualQuality(\"" + visualQuality.getQualityLevel().getLabel() + "\")");
+        updateOutput(" " + "onVisualQuality(\"" + visualQuality.getQualityLevel().getLabel() + "\")");
     }
 
     @Override
-    public void onCreate() {
-        updateOutput("" + Time.currentTime() + " onCreate");
+    public void onFirstFrame(int i) {
+        updateOutput(" onFirstFrame= "+i);
+        print(" onFirstFrame= "+i);
     }
 
     @Override
-    public void onCreateFinish() {
-        updateOutput("" + Time.currentTime() + " onCreateFinish");
+    public void onBuffer(PlayerState oldState) {
+        updateOutput(" " + "onBuffer");
+        print(" onBuffer; oldState=" + String.valueOf(oldState));
     }
 
     @Override
-    public void onStart() {
-        updateOutput("" + Time.currentTime() + " onStart");
+    public void onComplete() {
+        updateOutput(" " + "onComplete");
+        print(" onComplete");
     }
 
     @Override
-    public void onResume() {
-        updateOutput("" + Time.currentTime() + " onResume");
+    public void onError(ErrorEvent errorEvent) {
+        Exception exception = errorEvent.getException();
+        Log.i(MEASURE_TAG, "onError: " + errorEvent.getMessage(), exception);
     }
 
     @Override
-    public void onPause() {
-        updateOutput("" + Time.currentTime() + " onPause");
+    public void onIdle(PlayerState oldState) {
+        updateOutput(" " + "onIdle");
+        print(" onIdle; oldState=" + String.valueOf(oldState));
     }
 
     @Override
-    public void onStop() {
-        updateOutput("" + Time.currentTime() + " onStop");
+    public void onPause(PlayerState oldState) {
+        updateOutput(" " + "onPause");
+        print(" onPause; oldState=" + String.valueOf(oldState));
     }
 
     @Override
-    public void onDestroy() {
-        updateOutput("" + Time.currentTime() + " onDestroy");
+    public void onPlay(PlayerState oldState) {
+        updateOutput(" " + "onPlay");
+        print(" onPlay; oldState=" + String.valueOf(oldState));
+    }
+
+    @Override
+    public void onSeek(int position, int offset) {
+        updateOutput(" " + "onSeek");
+        print(" onSeek position=" + position + " offset" + offset);
+    }
+
+    @Override
+    public void onSeeked() {
+        updateOutput(" " + "onSeeked");
+        print(" onSeeked");
+    }
+
+
+    @Override
+    public void onBufferChange(BufferChangeEvent bufferChangeEvent) {
+        updateOutput(" " + "onBufferChangeEvent");
+        print(" onBufferChange; percent=" + bufferChangeEvent.getBufferPercent() +
+                " position=" + bufferChangeEvent.getPosition() +
+                " duration=" + bufferChangeEvent.getDuration()
+        );
+    }
+
+    @Override
+    public void onSetupError(String s) {
+        print(" onSetupError:" + String.valueOf(s));
+        updateOutput(" " + "onSetupError" + s);
     }
 }

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
 	compileSdkVersion 25
-	buildToolsVersion "25.0.3"
+	buildToolsVersion '26.0.2'
 
 	defaultConfig {
 		applicationId "com.jwplayer.opensourcedemo"
@@ -10,22 +10,31 @@ android {
 		targetSdkVersion 25
 		versionCode 1
 		versionName "1.0"
-	}
+        multiDexEnabled true
+    }
 	buildTypes {
 		release {
 			minifyEnabled false
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
 	}
+    lintOptions{
+        abortOnError false
+    }
 }
 
 dependencies {
-	compile fileTree(include: ['*.jar'], dir: 'libs')
-	testCompile 'junit:junit:4.12'
-	compile 'com.android.support:appcompat-v7:25.0.0'
-	compile 'com.android.support:design:25.0.0'
-	compile 'com.longtailvideo.jwplayer:jwplayer-core:+'
-	compile 'com.longtailvideo.jwplayer:jwplayer-common:+'
-//	compile 'com.longtailvideo.jwplayer:jwplayer-ima:+'        // Only required if using IMA features
-	compile 'com.longtailvideo.jwplayer:jwplayer-chromecast:+' // Only required if using Chromecast
+	implementation fileTree(include: ['*.jar'], dir: 'libs')
+	androidTestImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:multidex:1.0.3'
+
+    implementation 'com.android.support:appcompat-v7:25.2.0'
+	implementation 'com.android.support:design:25.2.0'
+
+    implementation 'com.google.android.gms:play-services-ads:11.8.0'
+
+	implementation 'com.longtailvideo.jwplayer:jwplayer-core:+'
+	implementation 'com.longtailvideo.jwplayer:jwplayer-common:+'
+	implementation 'com.longtailvideo.jwplayer:jwplayer-ima:+'        // Only required if using IMA features
+	implementation 'com.longtailvideo.jwplayer:jwplayer-chromecast:+' // Only required if using Chromecast
 }

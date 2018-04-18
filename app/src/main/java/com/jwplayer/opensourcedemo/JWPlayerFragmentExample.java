@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.longtailvideo.jwplayer.JWPlayerSupportFragment;
@@ -37,6 +39,19 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
         setContentView(R.layout.activity_jwplayerfragment);
 
         TextView outputTextView = (TextView)findViewById(R.id.output);
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
+        scrollView.setOverScrollMode(0);
+
+        setupFragment();
+
+        // Keep the screen on during playback
+        new KeepScreenOnHandler(mPlayerView, getWindow());
+
+        // Instantiate the JW Player event handler class
+        mEventHandler = new JWEventHandler(mPlayerView, outputTextView, scrollView);
+    }
+
+    private void setupFragment() {
 
         // Construct a new JWPlayerSupportFragment (since we're using AppCompatActivity)
         mPlayerFragment = JWPlayerSupportFragment.newInstance(new PlayerConfig.Builder()
@@ -56,11 +71,6 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
         // Get a reference to the JWPlayerView from the fragment
         mPlayerView = mPlayerFragment.getPlayer();
 
-        // Keep the screen on during playback
-        new KeepScreenOnHandler(mPlayerView, getWindow());
-
-        // Instantiate the JW Player event handler class
-        mEventHandler = new JWEventHandler(mPlayerView, outputTextView);
     }
 
     @Override

@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.longtailvideo.jwplayer.JWPlayerView;
@@ -44,9 +46,10 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_jwplayerview);
+
 		mPlayerView = (JWPlayerView)findViewById(R.id.jwplayer);
 		TextView outputTextView = (TextView)findViewById(R.id.output);
-
+		ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
 		mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.activity_jwplayerview);
 
 		// Handle hiding/showing of ActionBar
@@ -56,8 +59,17 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 		new KeepScreenOnHandler(mPlayerView, getWindow());
 
 		// Instantiate the JW Player event handler class
-		mEventHandler = new JWEventHandler(mPlayerView, outputTextView);
+		mEventHandler = new JWEventHandler(mPlayerView, outputTextView, scrollView);
 
+		// Setup JWPlayer
+		setupJWPlayer();
+
+		// Get a reference to the CastManager
+		mCastManager = CastManager.getInstance();
+	}
+
+
+	private void setupJWPlayer() {
 		// Load a media source
 		PlaylistItem pi = new PlaylistItem.Builder()
 				.file("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8")
@@ -65,9 +77,6 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 				.description("A video player testing video.")
 				.build();
 		mPlayerView.load(pi);
-
-		// Get a reference to the CastManager
-		mCastManager = CastManager.getInstance();
 	}
 
 	@Override

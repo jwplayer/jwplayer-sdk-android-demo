@@ -1,5 +1,6 @@
 package com.jwplayer.opensourcedemo;
 
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.metadata.id3.BinaryFrame;
@@ -31,7 +32,11 @@ import com.longtailvideo.jwplayer.media.captions.Caption;
 import com.longtailvideo.jwplayer.media.meta.Metadata;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Outputs all JW Player Events to logging, with the exception of time events.
@@ -75,10 +80,16 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
         AdvertisingEvents.OnBeforePlayListener,
         AdvertisingEvents.OnBeforeCompleteListener {
 
-    TextView mOutput;
+    private TextView mOutput;
+    private ScrollView mScroll;
+    private final StringBuilder outputStringBuilder = new StringBuilder();
 
-    public JWEventHandler(JWPlayerView jwPlayerView, TextView output) {
+
+    public JWEventHandler(JWPlayerView jwPlayerView, TextView output, ScrollView scrollview) {
+        mScroll = scrollview;
         mOutput = output;
+        mOutput.setText(outputStringBuilder.append("Build version: ").append(jwPlayerView.getVersionCode()).append("\r\n"));
+
         // Subscribe to all JW Player events
         jwPlayerView.addOnSetupErrorListener(this);
         jwPlayerView.addOnPlaylistListener(this);
@@ -119,9 +130,12 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
     }
 
     private void updateOutput(String output) {
-        mOutput.setText(output);
-    }
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS", Locale.US);
+        outputStringBuilder.append("").append(dateFormat.format(new Date())).append(" ").append(output).append("\r\n");
+        mOutput.setText(outputStringBuilder.toString());
+        mScroll.scrollTo(0, mOutput.getBottom());
 
+    }
     /**
      * Regular playback events below here
      */

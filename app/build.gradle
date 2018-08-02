@@ -27,9 +27,13 @@ dependencies {
 	testImplementation 'junit:junit:4.12'
 	implementation 'com.android.support:appcompat-v7:25.2.0'
 	implementation 'com.android.support:design:25.2.0'
+    implementation 'com.android.support:multidex:1.0.3'
 
-	implementation 'com.longtailvideo.jwplayer:jwplayer-core:2+'
-	implementation 'com.longtailvideo.jwplayer:jwplayer-common:2+'
-//	implementation 'com.longtailvideo.jwplayer:jwplayer-ima:2+'        // Only required if using IMA features
-	implementation 'com.longtailvideo.jwplayer:jwplayer-chromecast:2+' // Only required if using Chromecast
+    implementation 'com.longtailvideo.jwplayer:jwplayer-core:3+'
+	implementation 'com.longtailvideo.jwplayer:jwplayer-common:3+'
+//	implementation 'com.longtailvideo.jwplayer:jwplayer-ima:3+'        // Only required if using IMA features
+    implementation 'com.longtailvideo.jwplayer:jwplayer-freewheel:3+'
+
+    implementation 'com.google.android.libraries.cast.companionlibrary:ccl:2.9.1'
+    implementation 'com.longtailvideo.jwplayer:jwplayer-chromecast:3+' // Only required if using Chromecast
 }

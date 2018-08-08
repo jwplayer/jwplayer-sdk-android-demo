@@ -7,8 +7,6 @@ import com.longtailvideo.jwplayer.cast.CastManager;
 
 public class MyApplication extends MultiDexApplication {
 
-    private static final String MEASURE_TAG = "JWMeasure";
-
     @Override
     public void onCreate() {
         super.onCreate();

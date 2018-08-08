@@ -1,6 +1,7 @@
 package com.jwplayer.opensourcedemo;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -14,9 +15,13 @@ import android.widget.TextView;
 
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.cast.CastManager;
+import com.longtailvideo.jwplayer.configuration.PlayerConfig;
 import com.longtailvideo.jwplayer.events.FullscreenEvent;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class JWPlayerViewExample extends AppCompatActivity implements
 		VideoPlayerEvents.OnFullscreenListener {
@@ -53,6 +58,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 		ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
 		mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.activity_jwplayerview);
 
+
 		// Handle hiding/showing of ActionBar
 		mPlayerView.addOnFullscreenListener(this);
 
@@ -71,13 +77,32 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 
 
 	private void setupJWPlayer() {
-		// Load a media source
-		PlaylistItem pi = new PlaylistItem.Builder()
-				.file("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8")
-				.title("BipBop")
-				.description("A video player testing video.")
-				.build();
-		mPlayerView.load(pi);
+		List<PlaylistItem> playlistItemList = createPlaylist();
+		mPlayerView.setup(new PlayerConfig.Builder()
+					.playlist(playlistItemList)
+					.preload(true)
+					.build()
+				);
+	}
+
+	private List<PlaylistItem> createPlaylist() {
+		List<PlaylistItem> playlistItemList = new ArrayList<>();
+
+		String[] playlist = {
+				"https://cdn.jwplayer.com/manifests/jumBvHdL.m3u8",
+				"http://content.jwplatform.com/videos/tkM1zvBq-cIp6U8lV.mp4",
+				"http://content.jwplatform.com/videos/RDn7eg0o-cIp6U8lV.mp4",
+				"http://content.jwplatform.com/videos/i3q4gcBi-cIp6U8lV.mp4",
+				"http://content.jwplatform.com/videos/iLwfYW2S-cIp6U8lV.mp4",
+				"http://content.jwplatform.com/videos/8TbJTFy5-cIp6U8lV.mp4",
+				"http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8"
+				};
+
+		for(String each : playlist){
+			playlistItemList.add(new PlaylistItem(each));
+		}
+
+		return playlistItemList;
 	}
 
 	@Override

@@ -6,10 +6,14 @@ import android.view.WindowManager;
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.core.PlayerState;
 import com.longtailvideo.jwplayer.events.AdCompleteEvent;
+import com.longtailvideo.jwplayer.events.AdErrorEvent;
 import com.longtailvideo.jwplayer.events.AdPauseEvent;
 import com.longtailvideo.jwplayer.events.AdPlayEvent;
 import com.longtailvideo.jwplayer.events.AdSkippedEvent;
+import com.longtailvideo.jwplayer.events.CompleteEvent;
 import com.longtailvideo.jwplayer.events.ErrorEvent;
+import com.longtailvideo.jwplayer.events.PauseEvent;
+import com.longtailvideo.jwplayer.events.PlayEvent;
 import com.longtailvideo.jwplayer.events.listeners.AdvertisingEvents;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 
@@ -19,11 +23,11 @@ import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 public class KeepScreenOnHandler implements VideoPlayerEvents.OnPlayListener,
         VideoPlayerEvents.OnPauseListener,
         VideoPlayerEvents.OnCompleteListener,
-        VideoPlayerEvents.OnErrorListenerV2,
-        AdvertisingEvents.OnAdPlayListenerV2,
-        AdvertisingEvents.OnAdPauseListenerV2,
-        AdvertisingEvents.OnAdCompleteListenerV2,
-        AdvertisingEvents.OnAdSkippedListenerV2,
+        VideoPlayerEvents.OnErrorListener,
+        AdvertisingEvents.OnAdPlayListener,
+        AdvertisingEvents.OnAdPauseListener,
+        AdvertisingEvents.OnAdCompleteListener,
+        AdvertisingEvents.OnAdSkippedListener,
         AdvertisingEvents.OnAdErrorListener {
 
     /**
@@ -52,22 +56,22 @@ public class KeepScreenOnHandler implements VideoPlayerEvents.OnPlayListener,
     }
 
     @Override
-    public void onPlay(PlayerState oldState) {
+    public void onPlay(PlayEvent playEvent) {
         updateWakeLock(true);
     }
 
     @Override
-    public void onPause(PlayerState oldState) {
+    public void onPause(PauseEvent pauseEvent) {
         updateWakeLock(false);
     }
 
     @Override
-    public void onComplete() {
+    public void onComplete(CompleteEvent completeEvent) {
         updateWakeLock(false);
     }
 
     @Override
-    public void onAdError(String tag, String message) {
+    public void onAdError(AdErrorEvent adErrorEvent) {
         updateWakeLock(false);
     }
 

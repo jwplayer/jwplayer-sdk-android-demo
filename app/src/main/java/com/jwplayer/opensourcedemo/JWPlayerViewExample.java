@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.cast.CastManager;
+import com.longtailvideo.jwplayer.events.FullscreenEvent;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 
@@ -113,13 +114,13 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 	/**
 	 * Handles JW Player going to and returning from fullscreen by hiding the ActionBar
 	 *
-	 * @param fullscreen true if the player is fullscreen
+	 * @param fullscreenEvent Payload that accompanies the onFullscreen() event.
 	 */
 	@Override
-	public void onFullscreen(boolean fullscreen) {
+	public void onFullscreen(FullscreenEvent fullscreenEvent) {
 		ActionBar actionBar = getSupportActionBar();
 		if (actionBar != null) {
-			if (fullscreen) {
+			if (fullscreenEvent.getFullscreen()) {
 				actionBar.hide();
 			} else {
 				actionBar.show();
@@ -127,7 +128,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 		}
 
 		// When going to Fullscreen we want to set fitsSystemWindows="false"
-		mCoordinatorLayout.setFitsSystemWindows(!fullscreen);
+		mCoordinatorLayout.setFitsSystemWindows(!fullscreenEvent.getFullscreen());
 	}
 
 	@Override
@@ -149,4 +150,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 				return super.onOptionsItemSelected(item);
 		}
 	}
+
+
+
 }

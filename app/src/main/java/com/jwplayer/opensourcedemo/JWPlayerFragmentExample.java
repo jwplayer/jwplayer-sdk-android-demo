@@ -29,14 +29,14 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
     private JWPlayerView mPlayerView;
 
     /**
-     * An instance of our event handling class
-     */
-    private JWEventHandler mEventHandler;
-
-    /**
      * Reference to the {@link CastManager}
      */
     private CastManager mCastManager;
+
+    /**
+     * An instance of our event handling class
+     */
+    private JWEventHandler mEventHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +97,8 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_jwplayerfragment, menu);
         // Register the MediaRouterButton on the JW Player SDK
         mCastManager.addMediaRouterButton(menu, R.id.media_route_menu_item);
-        return true;    }
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -11,9 +11,11 @@ public class MyApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         MultiDex.install(this);
-        // Initialize the CastManager.
-        // The CastManager must be initialized in the Application's context to prevent
-        // issues with garbage collection.
+        /*
+         * We need to initialize singletons in the global application object to prevent issues
+         * with garbage collection.
+         */
         CastManager.initialize(this);
+        // You can now get a reference to the singleton by calling CastManager.getInstance();
     }
 }

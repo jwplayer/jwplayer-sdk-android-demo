@@ -22,10 +22,10 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
         </activity>
 
-        <!--TODO Add this if you are using AAR-->
-        <!--<meta-data-->
-            <!--android:name="com.google.android.gms.version"-->
-            <!--android:value="@integer/google_play_services_version" />-->
+        <!--TODO Add this if you are using AAR & Maven imports-->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <!--TODO Set your license key-->
         <meta-data

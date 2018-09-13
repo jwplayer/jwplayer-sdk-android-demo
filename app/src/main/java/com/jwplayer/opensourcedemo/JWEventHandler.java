@@ -168,6 +168,10 @@ public class JWEventHandler implements
         mScroll.scrollTo(0, mOutput.getBottom());
     }
 
+    private void print(String s){
+        Log.i("",s);
+    }
+
 
     /**
      * Regular playback events below here
@@ -176,31 +180,41 @@ public class JWEventHandler implements
     @Override
     public void onAudioTracks(AudioTracksEvent audioTracksEvent) {
         updateOutput(" " + "onAudioTracks " + audioTracksEvent.getLevels());
+        print(" " + "onAudioTracks " + audioTracksEvent);
     }
 
     public void onBufferChange(BufferChangeEvent bufferChangeEvent) {
         updateOutput(" " + "onBufferChangeEvent\r\n" +
                 " position=" + bufferChangeEvent.getPosition() + "\r\n" +
                 " duration=" + bufferChangeEvent.getDuration());
+        print(" " + "onBufferChangeEvent\r\n" +
+                " position=" + bufferChangeEvent.getPosition() + "\r\n" +
+                " duration=" + bufferChangeEvent.getDuration());
     }
     @Override
     public void onAdClick(AdClickEvent adClickEvent) {
         updateOutput(" " + "onAdClick(\"" + adClickEvent.getTag() + ")\r\n");
+        print(" " + "onAdClick");
     }
 
     @Override
     public void onAdComplete(AdCompleteEvent adCompleteEvent) {
         updateOutput(" " + "onAdComplete(\"" + adCompleteEvent.getTag() + ")\r\n");
+        print(" " + "onAdComplete");
     }
 
     @Override
     public void onAdSkipped(AdSkippedEvent adSkippedEvent) {
         updateOutput(" " + "onAdSkipped(\"" + adSkippedEvent.getTag() + ")\r\n");
+        print(" " + "onAdSkipped");
     }
 
     @Override
     public void onAdImpression(AdImpressionEvent adImpressionEvent) {
         updateOutput(" " + "onAdImpression(\"" + adImpressionEvent.getTag() + "\r\n" +
+                " Video Type: " + adImpressionEvent.getCreativeType()+ "\r\n" +
+                " Ad Position: " + adImpressionEvent.getAdPosition().name() + ")\r\n");
+        print(" " + "onAdImpression(\"" + adImpressionEvent.getTag() + "\r\n" +
                 " Video Type: " + adImpressionEvent.getCreativeType()+ "\r\n" +
                 " Ad Position: " + adImpressionEvent.getAdPosition().name() + ")\r\n");
     }
@@ -213,191 +227,227 @@ public class JWEventHandler implements
     @Override
     public void onAdPause(AdPauseEvent adPauseEvent) {
         updateOutput(" " + "onAdPause(\"" + adPauseEvent.getTag() + "\", \"" + adPauseEvent.getOldState() + "\")\n");
+        print(" " + "onAdPause(\"" + adPauseEvent.getTag() + " " + adPauseEvent.getOldState());
     }
 
     @Override
     public void onAdPlay(AdPlayEvent adPlayEvent) {
         updateOutput(" " + "onAdPlay(\"" + adPlayEvent.getTag() + "\", \"" + adPlayEvent.getOldState() + ")\r\n");
+        print(" " + "onAdPlay(\"" + adPlayEvent.getTag() + " " + adPlayEvent.getOldState());
     }
 
     @Override
     public void onAdCompanions(AdCompanionsEvent adCompanionsEvent) {
         updateOutput(" " + "onAdCompanions  tag:" + adCompanionsEvent.getTag());
+        print(" " + "onAdCompanions  tag:" + adCompanionsEvent);
     }
 
     @Override
     public void onAdError(AdErrorEvent adErrorEvent) {
         updateOutput(" " + "adErrorEvent " + adErrorEvent.getMessage());
+        print(" " + "adErrorEvent " + adErrorEvent);
     }
 
     @Override
     public void onAdStarted(AdStartedEvent adStartedEvent) {
 
         updateOutput(" " + "adStartedEvent " + adStartedEvent.getCreativeType());
+        print(" " + "adStartedEvent " + adStartedEvent);
     }
 
     @Override
     public void onBeforeComplete(BeforeCompleteEvent beforeCompleteEvent) {
 
         updateOutput(" " + "onBeforeComplete " + beforeCompleteEvent);
+        print(" " + "onBeforeComplete ");
     }
 
 
     @Override
     public void onAdRequest(AdRequestEvent adRequestEvent) {
         updateOutput(" " + "onAdRequest " + adRequestEvent);
+        print(" " + "onAdRequest ");
     }
 
     @Override
     public void onError(ErrorEvent errorEvent) {
         updateOutput("onError: " + errorEvent.getMessage());
         Exception exception = errorEvent.getException();
-        Log.i("JWEVENTHANDLER", "onError: " + errorEvent.getMessage(), exception);
+        Log.i("JWPLAYER-LOG", "onError: " + errorEvent.getMessage(), exception);
     }
 
     @Override
     public void onAdSchedule(AdScheduleEvent adScheduleEvent) {
         updateOutput(" " + "onAdSchedule " + adScheduleEvent);
+        print(" " + "onAdSchedule ");
     }
 
 
     @Override
     public void onBeforePlay(BeforePlayEvent beforePlayEvent) {
         updateOutput(" " + "beforePlayEvent " + beforePlayEvent);
+        print(" " + "beforePlayEvent ");
     }
 
     @Override
     public void onAudioTrackChanged(AudioTrackChangedEvent audioTrackChangedEvent) {
         updateOutput(" " + "audioTrackChangedEvent " + audioTrackChangedEvent);
+        print(" " + "audioTrackChangedEvent ");
     }
 
     @Override
     public void onBuffer(BufferEvent bufferEvent) {
         updateOutput(" " + "bufferEvent " + bufferEvent);
+        print(" " + "bufferEvent ");
     }
 
     @Override
     public void onCaptionsChanged(CaptionsChangedEvent captionsChangedEvent) {
         updateOutput(" " + "captionsChangedEvent " + captionsChangedEvent);
+        print(" " + "captionsChangedEvent ");
     }
 
     @Override
     public void onCaptionsList(CaptionsListEvent captionsListEvent) {
         updateOutput(" " + "captionsListEvent " + captionsListEvent);
+        print(" " + "captionsListEvent ");
     }
 
     @Override
     public void onComplete(CompleteEvent completeEvent) {
         updateOutput(" " + "completeEvent " + completeEvent);
+        print(" " + "completeEvent ");
     }
 
     @Override
     public void onControls(ControlsEvent controlsEvent) {
         updateOutput(" " + "controlsEvent " + controlsEvent);
+        print(" " + "controlsEvent ");
     }
 
     @Override
     public void onDisplayClick(DisplayClickEvent displayClickEvent) {
         updateOutput(" " + "displayClickEvent " + displayClickEvent);
+        print(" " + "displayClickEvent ");
     }
 
     @Override
     public void onFirstFrame(FirstFrameEvent firstFrameEvent) {
         updateOutput(" " + "firstFrameEvent " + firstFrameEvent);
+        print(" " + "firstFrameEvent ");
     }
 
     @Override
     public void onFullscreen(FullscreenEvent fullscreenEvent) {
         updateOutput(" " + "fullscreenEvent " + fullscreenEvent);
+        print(" " + "fullscreenEvent ");
     }
 
     @Override
     public void onIdle(IdleEvent idleEvent) {
         updateOutput(" " + "idleEvent " + idleEvent);
+        print(" " + "idleEvent ");
     }
 
     @Override
     public void onLevelsChanged(LevelsChangedEvent levelsChangedEvent) {
         updateOutput(" " + "levelsChangedEvent " + levelsChangedEvent);
+        print(" " + "levelsChangedEvent ");
     }
 
     @Override
     public void onLevels(LevelsEvent levelsEvent) {
         updateOutput(" " + "levelsEvent " + levelsEvent);
+        print(" " + "levelsEvent ");
     }
 
     @Override
     public void onMeta(MetaEvent metaEvent) {
         updateOutput(" " + "metaEvent " + metaEvent);
+        print(" " + "metaEvent ");
     }
 
     @Override
     public void onMute(MuteEvent muteEvent) {
         updateOutput(" " + "muteEvent " + muteEvent);
+        print(" " + "muteEvent ");
     }
 
     @Override
     public void onPause(PauseEvent pauseEvent) {
         updateOutput(" " + "pauseEvent " + pauseEvent);
+        print(" " + "pauseEvent ");
     }
 
     @Override
     public void onPlay(PlayEvent playEvent) {
         updateOutput(" " + "playEvent " + playEvent);
+        print(" " + "playEvent ");
     }
 
 
     @Override
     public void onPlaylistComplete(PlaylistCompleteEvent playlistCompleteEvent) {
         updateOutput(" " + "playlistCompleteEvent " + playlistCompleteEvent);
+        print(" " + "playlistCompleteEvent ");
     }
 
     @Override
     public void onPlaylistItem(PlaylistItemEvent playlistItemEvent) {
         updateOutput(" " + "playlistItemEvent " + playlistItemEvent);
+        print(" " + "playlistItemEvent ");
     }
     @Override
     public void onPlaylist(PlaylistEvent playlistEvent) {
         updateOutput(" " + "playlistEvent " + playlistEvent);
+        print(" " + "playlistEvent ");
     }
 
     @Override
     public void onSeek(SeekEvent seekEvent) {
         updateOutput(" " + "seekEvent " + seekEvent);
+        print(" " + "seekEvent ");
     }
 
     @Override
     public void onSeeked(SeekedEvent seekedEvent) {
         updateOutput(" " + "seekedEvent " + seekedEvent);
+        print(" " + "seekedEvent ");
     }
 
     @Override
     public void onSetupError(SetupErrorEvent setupErrorEvent) {
         updateOutput(" " + "setupErrorEvent " + setupErrorEvent);
+        print(" " + "setupErrorEvent ");
     }
 
     @Override
     public void onTime(TimeEvent timeEvent) {
 //        updateOutput(" " + "timeEvent " + timeEvent);
+//        print(" " + "timeEvent);
     }
 
     @Override
     public void onVisualQuality(VisualQualityEvent visualQualityEvent) {
         updateOutput(" " + "visualQualityEvent " + visualQualityEvent);
+        print(" " + "visualQualityEvent ");
     }
 
     @Override
     public void onReady(ReadyEvent readyEvent) {
         updateOutput(" " + "onReady " + readyEvent.getSetupTime());
+        print(" " + "onReady " + readyEvent);
     }
 
     @Override
     public void onAdBreakEnd(AdBreakEndEvent adBreakEndEvent) {
         updateOutput(" " + "AdBreakEndEvent " + adBreakEndEvent.getAdPosition());
+        print(" " + "AdBreakEndEvent " + adBreakEndEvent);
     }
 
     @Override
     public void onAdBreakStart(AdBreakStartEvent adBreakStartEvent) {
         updateOutput(" " + "AdBreakStartEvent " + adBreakStartEvent.getAdPosition());
+        print(" " + "AdBreakStartEvent " + adBreakStartEvent);
     }
 }

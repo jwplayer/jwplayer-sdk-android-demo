@@ -82,16 +82,8 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 	private void setupJWPlayer() {
 		List<PlaylistItem> playlistItemList = createPlaylist();
 
-		String ad = "https://pubads.g.doubleclick.net/gampad/ads?sz=720x576&cust_params=pos%3Dpre&iu=7811748/test_web_pt/VAST/video&ciu_szs&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&correlator=";
-
-		List<AdBreak> adSchedule = new ArrayList<>();
-		AdBreak adBreak = new AdBreak("pre", AdSource.IMA, ad);
-		adSchedule.add(adBreak);
-		ImaAdvertising imaAdvertising = new ImaAdvertising(adSchedule);
-
 		mPlayerView.setup(new PlayerConfig.Builder()
 					.playlist(playlistItemList)
-					.advertising(imaAdvertising)
 					.preload(true)
 					.build()
 				);

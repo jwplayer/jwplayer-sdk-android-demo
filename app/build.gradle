@@ -33,6 +33,7 @@ dependencies {
 	implementation 'com.android.support:appcompat-v7:27.1.1'
 	implementation 'com.android.support:design:27.1.1'
 	implementation 'com.android.support:multidex:1.0.3'
+
 	implementation 'com.longtailvideo.jwplayer:jwplayer-core:3+'
 	implementation 'com.longtailvideo.jwplayer:jwplayer-common:3+'
 	//	implementation 'com.google.android.gms:play-services-ads:11.8.0' // Only required if using AAR / JAR

@@ -57,10 +57,10 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_jwplayerview);
 
-		mPlayerView = (JWPlayerView)findViewById(R.id.jwplayer);
-		TextView outputTextView = (TextView)findViewById(R.id.output);
-		ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
-		mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.activity_jwplayerview);
+		mPlayerView = findViewById(R.id.jwplayer);
+		TextView outputTextView = findViewById(R.id.output);
+		ScrollView scrollView = findViewById(R.id.scroll);
+		mCoordinatorLayout = findViewById(R.id.activity_jwplayerview);
 
 
 		// Handle hiding/showing of ActionBar
@@ -83,10 +83,17 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 	private void setupJWPlayer() {
 		List<PlaylistItem> playlistItemList = createPlaylist();
 
+		// Vast Vpaid tag Example
+//		List<AdBreak> adbreaklist = new ArrayList<>();
+//		String vpaid = "";
+//		adbreaklist.add(new AdBreak("pre", AdSource.VAST, vpaid));
+//		Advertising advertise = new Advertising(AdSource.VAST,adbreaklist);
+
+		// Ima tag Example
 		List<AdBreak> adbreaklist = new ArrayList<>();
-		String ad = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=";
-		adbreaklist.add(new AdBreak("pre", AdSource.IMA, ad));
-		ImaAdvertising advertise = new ImaAdvertising(adbreaklist);
+		String vpaid = "https://testing.streamboatserver.ch/20min/vastplayer/vast-axe-orig.xml";
+		adbreaklist.add(new AdBreak("pre", AdSource.VAST, vpaid));
+		Advertising advertise = new Advertising(AdSource.VAST,adbreaklist);
 
 		mPlayerView.setup(new PlayerConfig.Builder()
 					.playlist(playlistItemList)

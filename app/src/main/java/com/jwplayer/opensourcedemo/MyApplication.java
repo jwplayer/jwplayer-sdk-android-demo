@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.longtailvideo.jwplayer.cast.CastManager;
 
+
 public class MyApplication extends Application {
 
     @Override

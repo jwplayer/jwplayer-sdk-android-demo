@@ -83,8 +83,7 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
         AdvertisingEvents.OnAdPlayListener,
         AdvertisingEvents.OnAdScheduleListener,
         AdvertisingEvents.OnBeforePlayListener,
-        AdvertisingEvents.OnBeforeCompleteListener
-{
+        AdvertisingEvents.OnBeforeCompleteListener {
     private String TAG = JWEventHandler.class.getName();
 
     TextView mOutput;
@@ -162,7 +161,7 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
     @Override
     public void onBuffer(BufferEvent bufferEvent) {
         Log.d(TAG, "onBuffer");
-        updateOutput("onBuffer(" + bufferEvent + ")");
+        updateOutput("onBuffer()");
     }
 
     @Override
@@ -180,45 +179,49 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
     @Override
     public void onFullscreen(FullscreenEvent fullscreen) {
         Log.d(TAG, "onFullscreen");
-        updateOutput("onFullscreen(" + fullscreen + ")");
+        updateOutput("onFullscreen(" + fullscreen.getFullscreen() + ")");
     }
 
     @Override
     public void onIdle(IdleEvent idleEvent) {
         Log.d(TAG, "onIdle");
-        updateOutput("onIdle(" + idleEvent + ")");
+        updateOutput("onIdle()");
     }
 
     @Override
     public void onMeta(MetaEvent metaEvent) {
         Log.d(TAG, "onMeta");
+        updateOutput("onMeta()");
     }
 
     @Override
     public void onPause(PauseEvent pauseEvent) {
         Log.d(TAG, "onPause");
-        updateOutput("onPause(" + pauseEvent + ")");
+        updateOutput("onPause()");
     }
 
     @Override
     public void onPlay(PlayEvent playEvent) {
         Log.d(TAG, "onPlay");
-        updateOutput("onPlay(" + playEvent + ")");
+        updateOutput("onPlay()");
     }
 
     @Override
     public void onPlaylistComplete(PlaylistCompleteEvent playlistCompleteEvent) {
         Log.d(TAG, "onPlaylistComplete");
+        updateOutput("onPlaylistComplete()");
     }
 
     @Override
     public void onPlaylistItem(PlaylistItemEvent playlistItemEvent) {
         Log.d(TAG, "onPlaylistItem");
+        updateOutput("onPlaylistItem()");
     }
 
     @Override
     public void onPlaylist(PlaylistEvent playlistEvent) {
         Log.d(TAG, "onPlaylist");
+        updateOutput("onPlaylist()");
     }
 
 
@@ -334,6 +337,7 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
     @Override
     public void onDisplayClick(DisplayClickEvent displayClickEvent) {
         Log.d(TAG, "onDisplayClick");
+        updateOutput("onDisplayClick()");
     }
 
     @Override
@@ -345,16 +349,20 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
     @Override
     public void onMute(MuteEvent muteEvent) {
         Log.d(TAG, "onMute");
+        updateOutput("onMute()");
+
     }
 
     @Override
     public void onFirstFrame(FirstFrameEvent firstFrameEvent) {
         Log.d(TAG, "firstFrameEvent");
+        updateOutput("onFirstFrame()");
     }
 
 
     @Override
     public void onAdSchedule(AdScheduleEvent adScheduleEvent) {
         Log.d(TAG, "onAdSchedule");
+        updateOutput("onAdSchedule()");
     }
 }

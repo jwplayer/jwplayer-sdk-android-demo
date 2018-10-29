@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
 	compileSdkVersion 27
-	buildToolsVersion "27.0.3"
+	buildToolsVersion "28.0.3"
 
 	defaultConfig {
 		applicationId "com.jwplayer.opensourcedemo"
@@ -36,10 +36,11 @@ dependencies {
 
 	implementation 'com.longtailvideo.jwplayer:jwplayer-core:3+'
 	implementation 'com.longtailvideo.jwplayer:jwplayer-common:3+'
-	//	implementation 'com.google.android.gms:play-services-ads:11.8.0' // Only required if using AAR / JAR
-	implementation 'com.longtailvideo.jwplayer:jwplayer-ima:3+'
-	// Only required if using IMA features
-	implementation 'com.longtailvideo.jwplayer:jwplayer-freewheel:3+'
-	//    implementation 'com.google.android.libraries.cast.companionlibrary:ccl:2.9.1'
-	implementation 'com.longtailvideo.jwplayer:jwplayer-chromecast:3+' // Only required if using Chromecast
+	implementation 'com.longtailvideo.jwplayer:jwplayer-ima:3+'					// Only required if using IMA features
+	implementation 'com.longtailvideo.jwplayer:jwplayer-freewheel:3+'			// Only required if using FreeWheel
+	implementation 'com.longtailvideo.jwplayer:jwplayer-chromecast:3+' 			// Only required if using Chromecast
+	// Only required if importing with AAR / JAR
+	//	implementation 'com.google.android.gms:play-services-ads:'				// Only required if using IMA features
+	//	implementation 'com.google.ads.interactivemedia.v3:interactivemedia:'	// Only required if using IMA features
+	//  implementation 'com.google.android.libraries.cast.companionlibrary:ccl:2.9.1' // Only required if using Chromecast
 }

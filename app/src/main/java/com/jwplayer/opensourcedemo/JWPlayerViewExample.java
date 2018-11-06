@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -15,20 +14,26 @@ import android.widget.TextView;
 
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.cast.CastManager;
+import com.longtailvideo.jwplayer.configuration.PlayerConfig;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
+import com.longtailvideo.jwplayer.media.ads.Ad;
+import com.longtailvideo.jwplayer.media.ads.AdBreak;
+import com.longtailvideo.jwplayer.media.ads.AdSource;
+import com.longtailvideo.jwplayer.media.ads.Advertising;
+import com.longtailvideo.jwplayer.media.ads.VMAPAdvertising;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 
-public class JWPlayerViewExample extends AppCompatActivity implements VideoPlayerEvents.OnFullscreenListener {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class JWPlayerViewExample extends AppCompatActivity implements
+		VideoPlayerEvents.OnFullscreenListener {
 
 	/**
 	 * Reference to the {@link JWPlayerView}
 	 */
 	private JWPlayerView mPlayerView;
-
-	/**
-	 * An instance of our event handling class
-	 */
-	private JWEventHandler mEventHandler;
 
 	/**
 	 * Reference to the {@link CastManager}
@@ -47,10 +52,11 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_jwplayerview);
 
-		mPlayerView = (JWPlayerView)findViewById(R.id.jwplayer);
-		TextView outputTextView = (TextView)findViewById(R.id.output);
-		ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
-		mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.activity_jwplayerview);
+		mPlayerView = findViewById(R.id.jwplayer);
+		TextView outputTextView = findViewById(R.id.output);
+		ScrollView scrollView = findViewById(R.id.scroll);
+		mCoordinatorLayout = findViewById(R.id.activity_jwplayerview);
+
 
 		// Handle hiding/showing of ActionBar
 		mPlayerView.addOnFullscreenListener(this);
@@ -58,8 +64,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 		// Keep the screen on during playback
 		new KeepScreenOnHandler(mPlayerView, getWindow());
 
-		// Instantiate the JW Player event handler class
-		mEventHandler = new JWEventHandler(mPlayerView, outputTextView, scrollView);
+		new AdEventHandler(mPlayerView, outputTextView, scrollView);
 
 		// Setup JWPlayer
 		setupJWPlayer();
@@ -70,13 +75,31 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 
 
 	private void setupJWPlayer() {
-		// Load a media source
-		PlaylistItem pi = new PlaylistItem.Builder()
-				.file("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8")
-				.title("BipBop")
-				.description("A video player testing video.")
-				.build();
-		mPlayerView.load(pi);
+
+		List<PlaylistItem> playlistItemList = createPlaylist();
+
+
+		mPlayerView.setup(new PlayerConfig.Builder()
+				.playlist(playlistItemList)
+//				.advertising(advertise)
+				.autostart(true)
+				.preload(true)
+				.build());
+	}
+
+	private List<PlaylistItem> createPlaylist() {
+		List<PlaylistItem> playlistItemList = new ArrayList<>();
+
+		String[] playlist = {
+				"http://content.jwplatform.com/videos/tkM1zvBq-cIp6U8lV.mp4",
+				"http://content.jwplatform.com/videos/8TbJTFy5-cIp6U8lV.mp4",
+		};
+
+		for (String each : playlist) {
+			playlistItemList.add(new PlaylistItem(each));
+		}
+
+		return playlistItemList;
 	}
 
 	@Override
@@ -122,13 +145,15 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 	/**
 	 * Handles JW Player going to and returning from fullscreen by hiding the ActionBar
 	 *
-	 * @param fullscreen true if the player is fullscreen
+	 * @param fullscreenEvent true if the player is fullscreen
 	 */
+
+
 	@Override
-	public void onFullscreen(boolean fullscreen) {
+	public void onFullscreen(boolean fullscreenEvent) {
 		ActionBar actionBar = getSupportActionBar();
 		if (actionBar != null) {
-			if (fullscreen) {
+			if (fullscreenEvent) {
 				actionBar.hide();
 			} else {
 				actionBar.show();
@@ -136,8 +161,9 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 		}
 
 		// When going to Fullscreen we want to set fitsSystemWindows="false"
-		mCoordinatorLayout.setFitsSystemWindows(!fullscreen);
+		mCoordinatorLayout.setFitsSystemWindows(!fullscreenEvent);
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -158,4 +184,5 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 				return super.onOptionsItemSelected(item);
 		}
 	}
+
 }

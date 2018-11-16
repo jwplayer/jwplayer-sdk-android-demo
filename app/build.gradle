@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-	compileSdkVersion 27
+	compileSdkVersion 28
 	buildToolsVersion "28.0.3"
 
 	defaultConfig {
 		applicationId "com.jwplayer.opensourcedemo"
 		minSdkVersion 16
-		targetSdkVersion 27
+		targetSdkVersion 28
 		versionCode 1
 		versionName "1.0"
+        multiDexEnabled true
 	}
 	buildTypes {
 		release {
@@ -20,19 +21,14 @@ android {
 	lintOptions{
 		abortOnError false
 	}
-	configurations.all {
-		resolutionStrategy {
-			force "com.android.support:customtabs:27.1.1", "com.android.support:mediarouter-v7:27.1.1"
-		}
-	}
 }
 
 dependencies {
 	implementation fileTree(include: ['*.jar'], dir: 'libs')
 	testImplementation 'junit:junit:4.12'
-	implementation 'com.android.support:appcompat-v7:27.1.1'
-	implementation 'com.android.support:design:27.1.1'
-	implementation 'com.android.support:multidex:1.0.3'
+	implementation 'androidx.appcompat:appcompat:1.0.2'
+	implementation 'com.google.android.material:material:1.1.0-alpha01'
+	implementation 'androidx.multidex:multidex:2.0.0'
 
 	implementation 'com.longtailvideo.jwplayer:jwplayer-core:3+'
 	implementation 'com.longtailvideo.jwplayer:jwplayer-common:3+'

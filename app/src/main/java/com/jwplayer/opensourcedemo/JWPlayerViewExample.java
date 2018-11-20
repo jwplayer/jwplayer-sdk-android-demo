@@ -15,8 +15,18 @@ import android.widget.TextView;
 
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.cast.CastManager;
+import com.longtailvideo.jwplayer.configuration.PlayerConfig;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
+import com.longtailvideo.jwplayer.media.ads.Ad;
+import com.longtailvideo.jwplayer.media.ads.AdBreak;
+import com.longtailvideo.jwplayer.media.ads.AdSource;
+import com.longtailvideo.jwplayer.media.ads.Advertising;
+import com.longtailvideo.jwplayer.media.ads.ImaAdvertising;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class JWPlayerViewExample extends AppCompatActivity implements VideoPlayerEvents.OnFullscreenListener {
 
@@ -70,18 +80,73 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 
 
 	private void setupJWPlayer() {
-		// Load a media source
-		PlaylistItem pi = new PlaylistItem.Builder()
-				.file("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8")
-				.title("BipBop")
-				.description("A video player testing video.")
-				.build();
-		mPlayerView.load(pi);
+		List<PlaylistItem> playlistItemList = createPlaylist();
+		List<AdBreak> adbreaklist = new ArrayList<>();
+
+		String customerAd1 = "";
+		String customerAd2 = "";
+
+		/*
+		Vast Setup Example
+		* */
+
+//		Ad ad1 = new Ad(AdSource.VAST, customerAd1);
+//		Ad ad2 = new Ad(AdSource.VAST, customerAd2);
+
+//		AdBreak adBreak = new AdBreak("pre", ad1);
+//		AdBreak adBreak1 = new AdBreak("50%", ad2);
+
+//		adbreaklist.add(adBreak);
+//		adbreaklist.add(adBreak1);
+
+//		Advertising advertise = new Advertising(AdSource.VAST,adbreaklist);
+
+		/*
+		* Ima Setup Example
+		* */
+		Ad ad1 = new Ad(AdSource.IMA, customerAd1);
+		Ad ad2 = new Ad(AdSource.IMA, customerAd2);
+
+		AdBreak adBreak = new AdBreak("pre", ad1);
+		AdBreak adBreak1 = new AdBreak("50%", ad2);
+
+		adbreaklist.add(adBreak);
+		adbreaklist.add(adBreak1);
+
+		ImaAdvertising advertise = new ImaAdvertising(adbreaklist);
+
+		mPlayerView.setup(new PlayerConfig.Builder()
+				.playlist(playlistItemList)
+				.advertising(advertise)
+				.autostart(true)
+				.preload(true)
+				.build()
+		);
+	}
+
+	private List<PlaylistItem> createPlaylist() {
+		List<PlaylistItem> playlistItemList = new ArrayList<>();
+
+		String[] playlist = {
+				"https://cdn.jwplayer.com/manifests/jumBvHdL.m3u8",
+				"http://content.jwplatform.com/videos/tkM1zvBq-cIp6U8lV.mp4",
+				"http://content.jwplatform.com/videos/RDn7eg0o-cIp6U8lV.mp4",
+				"http://content.jwplatform.com/videos/i3q4gcBi-cIp6U8lV.mp4",
+				"http://content.jwplatform.com/videos/iLwfYW2S-cIp6U8lV.mp4",
+				"http://content.jwplatform.com/videos/8TbJTFy5-cIp6U8lV.mp4",
+				"http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8"
+		};
+
+		for(String each : playlist){
+			playlistItemList.add(new PlaylistItem(each));
+		}
+
+		return playlistItemList;
 	}
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
-		// Set fullscreen when the device is rotated to landscape
+		// Set fullscreen when the devi2ce is rotated to landscape
 		mPlayerView.setFullscreen(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE, true);
 		super.onConfigurationChanged(newConfig);
 	}

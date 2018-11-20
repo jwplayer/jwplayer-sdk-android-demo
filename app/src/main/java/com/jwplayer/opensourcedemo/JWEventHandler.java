@@ -242,7 +242,7 @@ public class JWEventHandler implements VideoPlayerEvents.OnSetupErrorListener,
 
     @Override
     public void onAdError(String tag, String message) {
-        updateOutput("onAdError(\"" + tag + "\", \"" + message + "\")");
+        updateOutput("onAdError(\"" + tag + "\", \"\n" + message + "\")");
     }
 
     @Override

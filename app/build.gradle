@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-	compileSdkVersion 25
-	buildToolsVersion "27.0.3"
+	compileSdkVersion 28
+	buildToolsVersion "28.0.3"
 
 	defaultConfig {
 		applicationId "com.jwplayer.opensourcedemo"
 		minSdkVersion 16
-		targetSdkVersion 25
+		targetSdkVersion 28
 		versionCode 1
 		versionName "1.0"
+		multiDexEnabled true
 	}
 	buildTypes {
 		release {
@@ -17,19 +18,36 @@ android {
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
 	}
-	lintOptions{
-		abortOnError false
+	lintOptions {
+		abortOnError true
+		disable 'GoogleAppIndexingWarning'
+		baseline file("lint-baseline.xml") // your choice of filename/path here
+	}
+	configurations.all {
+		resolutionStrategy {
+			force 'com.android.support:mediarouter-v7:28.0.0' , 'com.android.support:animated-vector-drawable:28.0.0' , 'com.android.support:support-v4:28.0.0'
+		}
+	}
+	packagingOptions {
+		exclude 'META-INF/android.arch.lifecycle_runtime.version'
+		exclude 'META-INF/com.android.support_support-v4.version'
+		exclude 'META-INF/com.android.support_support-core-utils.version'
+		exclude 'META-INF/com.android.support_support-core-ui.version'
+		exclude 'META-INF/com.android.support_support-compat.version'
+		exclude 'META-INF/com.android.support_support-fragment.version'
+		exclude 'META-INF/com.android.support_support-media-compat.version'
 	}
 }
 
 dependencies {
 	implementation fileTree(include: ['*.jar'], dir: 'libs')
 	testImplementation 'junit:junit:4.12'
-	implementation 'com.android.support:appcompat-v7:25.2.0'
-	implementation 'com.android.support:design:25.2.0'
+	implementation 'com.android.support:appcompat-v7:28.0.0'
+	implementation 'com.android.support:design:28.0.0'
+	implementation 'com.android.support:multidex:1.0.3'
 
 	implementation 'com.longtailvideo.jwplayer:jwplayer-core:2+'
 	implementation 'com.longtailvideo.jwplayer:jwplayer-common:2+'
-//	implementation 'com.longtailvideo.jwplayer:jwplayer-ima:2+'        // Only required if using IMA features
+	implementation 'com.longtailvideo.jwplayer:jwplayer-ima:2+'        // Only required if using IMA features
 	implementation 'com.longtailvideo.jwplayer:jwplayer-chromecast:2+' // Only required if using Chromecast
 }

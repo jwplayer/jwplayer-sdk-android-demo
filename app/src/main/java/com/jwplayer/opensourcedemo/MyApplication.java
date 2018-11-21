@@ -1,9 +1,9 @@
 package com.jwplayer.opensourcedemo;
 
-import com.longtailvideo.jwplayer.cast.CastManager;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
-import androidx.multidex.MultiDex;
-import androidx.multidex.MultiDexApplication;
+import com.longtailvideo.jwplayer.cast.CastManager;
 
 public class MyApplication extends MultiDexApplication {
 

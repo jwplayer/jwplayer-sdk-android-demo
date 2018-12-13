@@ -35,11 +35,6 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 	private JWPlayerView mPlayerView;
 
 	/**
-	 * An instance of our event handling class
-	 */
-	private JWEventHandler mEventHandler;
-
-	/**
 	 * Reference to the {@link CastManager}
 	 */
 	private CastManager mCastManager;
@@ -69,7 +64,10 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 		new KeepScreenOnHandler(mPlayerView, getWindow());
 
 		// Instantiate the JW Player event handler class
-		mEventHandler = new JWEventHandler(mPlayerView, outputTextView, scrollView);
+		new JWEventHandler(mPlayerView, outputTextView, scrollView);
+
+		// Instantiate the JW Player Ad event handler class
+		new JWAdEventHandler(mPlayerView, outputTextView, scrollView);
 
 		// Setup JWPlayer
 		setupJWPlayer();
@@ -148,6 +146,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 	protected void onDestroy() {
 		// Let JW Player know that the app is being destroyed
 		mPlayerView.onDestroy();
+
 		super.onDestroy();
 	}
 

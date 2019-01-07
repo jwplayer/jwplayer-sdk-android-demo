@@ -84,7 +84,8 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 
 
 	private void setupJWPlayer() {
-		List<PlaylistItem> playlistItemList = createMediaSourcePlaylist();
+//		List<PlaylistItem> playlistItemList = createMediaSourcePlaylist();
+		List<PlaylistItem> playlistItemList = createPlaylist();
 		ImaAdvertising advertising = getImaAd();
 
 		PlayerConfig config = new PlayerConfig.Builder()
@@ -92,7 +93,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 				.autostart(true)
 				.preload(true)
 				.allowCrossProtocolRedirects(true)
-				.advertising(advertising)
+//				.advertising(advertising)
 				.build();
 
 		mPlayerView.setup(config);
@@ -137,6 +138,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 
 		String[] playlist = {
 				"https://cdn.jwplayer.com/manifests/jumBvHdL.m3u8",
+				"http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8",
 				"http://content.jwplatform.com/videos/tkM1zvBq-cIp6U8lV.mp4",
 				"http://content.jwplatform.com/videos/RDn7eg0o-cIp6U8lV.mp4",
 				"http://content.jwplatform.com/videos/i3q4gcBi-cIp6U8lV.mp4",

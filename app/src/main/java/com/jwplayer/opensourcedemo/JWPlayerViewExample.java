@@ -93,6 +93,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 		ImaAdvertising advertise = new ImaAdvertising(adbreaklist);
 
 		mPlayerView.setup(new PlayerConfig.Builder()
+//					.file(livestream)
 					.playlist(playlistItemList)
 //					.advertising(advertise)
 					.autostart(true)
@@ -101,17 +102,15 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 				);
 	}
 
+
 	private List<PlaylistItem> createPlaylist() {
 		List<PlaylistItem> playlistItemList = new ArrayList<>();
 
 		String[] playlist = {
 				"https://cdn.jwplayer.com/manifests/jumBvHdL.m3u8",
 				"http://content.jwplatform.com/videos/tkM1zvBq-cIp6U8lV.mp4",
-				"http://content.jwplatform.com/videos/RDn7eg0o-cIp6U8lV.mp4",
-				"http://content.jwplatform.com/videos/i3q4gcBi-cIp6U8lV.mp4",
-				"http://content.jwplatform.com/videos/iLwfYW2S-cIp6U8lV.mp4",
-				"http://content.jwplatform.com/videos/8TbJTFy5-cIp6U8lV.mp4",
-				"http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8"
+				"http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8",
+				"http://content.jwplatform.com/videos/RDn7eg0o-cIp6U8lV.mp4"
 				};
 
 		for(String each : playlist){

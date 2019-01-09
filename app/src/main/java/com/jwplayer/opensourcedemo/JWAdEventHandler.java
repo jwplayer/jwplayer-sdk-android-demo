@@ -1,5 +1,6 @@
 package com.jwplayer.opensourcedemo;
 
+import android.os.Build;
 import android.util.Log;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -19,20 +20,15 @@ import com.longtailvideo.jwplayer.events.AdScheduleEvent;
 import com.longtailvideo.jwplayer.events.AdSkippedEvent;
 import com.longtailvideo.jwplayer.events.AdStartedEvent;
 import com.longtailvideo.jwplayer.events.AdTimeEvent;
-import com.longtailvideo.jwplayer.events.BeforeCompleteEvent;
-import com.longtailvideo.jwplayer.events.BeforePlayEvent;
-import com.longtailvideo.jwplayer.events.CompleteEvent;
 import com.longtailvideo.jwplayer.events.listeners.AdvertisingEvents;
-import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class JWAdEventHandler implements
-        VideoPlayerEvents.OnCompleteListener,
-
         AdvertisingEvents.OnAdBreakEndListener,
         AdvertisingEvents.OnAdBreakStartListener,
         AdvertisingEvents.OnAdClickListener,
@@ -46,9 +42,7 @@ public class JWAdEventHandler implements
         AdvertisingEvents.OnAdScheduleListener,
         AdvertisingEvents.OnAdSkippedListener,
         AdvertisingEvents.OnAdStartedListener,
-        AdvertisingEvents.OnAdTimeListener,
-        AdvertisingEvents.OnBeforeCompleteListener,
-        AdvertisingEvents.OnBeforePlayListener {
+        AdvertisingEvents.OnAdTimeListener{
 
     private TextView mOutput;
     private ScrollView mScroll;
@@ -63,7 +57,6 @@ public class JWAdEventHandler implements
         mOutput.setText(outputStringBuilder.append("Build version: ").append(jwPlayerView.getVersionCode()).append("\r\n"));
 
         // Subscribe to allEventHandler: Player events
-        jwPlayerView.addOnCompleteListener(this);
         jwPlayerView.addOnAdBreakEndListener(this);
         jwPlayerView.addOnAdStartedListener(this);
         jwPlayerView.addOnAdClickListener(this);
@@ -78,136 +71,128 @@ public class JWAdEventHandler implements
         jwPlayerView.addOnAdScheduleListener(this);
         jwPlayerView.addOnAdStartedListener(this);
         jwPlayerView.addOnAdTimeListener(this);
-        jwPlayerView.addOnBeforePlayListener(this);
-        jwPlayerView.addOnBeforeCompleteListener(this);
-
     }
 
     private void updateOutput(String output) {
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS", Locale.US);
+        DateFormat dateFormat = new SimpleDateFormat("KK:mm:ss.SSS", Locale.US);
         outputStringBuilder.append("").append(dateFormat.format(new Date())).append(" ").append(output).append("\r\n");
         mOutput.setText(outputStringBuilder.toString());
         mScroll.scrollTo(0, mOutput.getBottom());
     }
 
     private void print(String s){
-        Log.i("JWAdEventhandler", " "+ s);
+        Log.i("JWEVENT", " - (ADEVENT) - "+ s);
     }
-
 
     @Override
     public void onAdBreakEnd(AdBreakEndEvent adBreakEndEvent) {
-        updateOutput("onAdBreakEnd: ");
-        print("onAdBreakEnd: ");
-
+        updateOutput(" " + "AdBreakEndEvent " + adBreakEndEvent.getAdPosition());
+        print(" " + "AdBreakEndEvent " + adBreakEndEvent.getAdPosition());
     }
 
     @Override
     public void onAdBreakStart(AdBreakStartEvent adBreakStartEvent) {
-        updateOutput("onAdBreakStart() ");
-        print("onAdBreakStart: ");
-
-    }
-
-    @Override
-    public void onAdClick(AdClickEvent adClickEvent) {
-        updateOutput("onAdClick tag: "+ adClickEvent.getTag());
-        print("onAdClick tag: "+ adClickEvent.getTag());
-
-    }
-
-    @Override
-    public void onAdCompanions(AdCompanionsEvent adCompanionsEvent) {
-        updateOutput("onAdCompanions: ");
-        print("onAdCompanions: ");
-
-    }
-
-    @Override
-    public void onAdComplete(AdCompleteEvent adCompleteEvent) {
-        updateOutput("onAdComplete: " + adCompleteEvent.getTag());
-        print("onAdComplete: " + adCompleteEvent.getTag());
-
-    }
-
-    @Override
-    public void onAdError(AdErrorEvent adErrorEvent) {
-        updateOutput("onAdError: " + adErrorEvent.getMessage());
-        print("onAdError: " + adErrorEvent.getMessage());
-        print("onAdError: " + adErrorEvent.getTag());
-
-    }
-
-    @Override
-    public void onAdImpression(AdImpressionEvent adImpressionEvent) {
-        updateOutput("onAdImpression: " + adImpressionEvent.getTag());
-        print("onAdImpression: " +  adImpressionEvent.getTag());
-
-    }
-
-    @Override
-    public void onAdPause(AdPauseEvent adPauseEvent) {
-        updateOutput("onAdPause()");
-        print("onAdPause: " + adPauseEvent.getTag());
-
-    }
-
-    @Override
-    public void onAdPlay(AdPlayEvent adPlayEvent) {
-        updateOutput("onAdPlay()" + adPlayEvent.getTag());
-        print("onAdPlay()" + adPlayEvent.getTag());
-    }
-
-    @Override
-    public void onAdRequest(AdRequestEvent adRequestEvent) {
-        updateOutput("onAdRequest() tag: "+adRequestEvent.getTag());
-        print("onAdRequest() tag: "+adRequestEvent.getTag());
-        print("onAdRequest() position: "+adRequestEvent.getAdPosition());
+        updateOutput(" " + "AdBreakStartEvent " + adBreakStartEvent.getAdPosition());
+        print(" " + "AdBreakStartEvent " + adBreakStartEvent.getAdPosition());
     }
 
     @Override
     public void onAdSchedule(AdScheduleEvent adScheduleEvent) {
-        updateOutput("onAdSchedule: "+adScheduleEvent.getTag());
-        print("onAdSchedule: "+adScheduleEvent.getTag());
-
+        updateOutput(" " + "onAdSchedule " + adScheduleEvent.getTag());
+        print(" " + "onAdSchedule " + adScheduleEvent.getClient());
+        print(" " + "onAdSchedule " + adScheduleEvent.getTag());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            adScheduleEvent.getVmapAdBreaks().forEach(e->print("onAdSchedule-vmap ad break:" +e.toJson().toString()));
+        }
     }
 
     @Override
-    public void onAdSkipped(AdSkippedEvent adSkippedEvent) {
-        updateOutput("onAdSkipped: " + adSkippedEvent.getTag());
-        print("onAdSkipped tag: "+adSkippedEvent.getTag());
-
+    public void onAdError(AdErrorEvent adErrorEvent) {
+        updateOutput(" " + "adErrorEvent: " + adErrorEvent.getMessage());
+        print(" " + "adErrorEvent message: " + adErrorEvent.getMessage());
+        print(" " + "adErrorEvent tag: " + adErrorEvent.getTag());
     }
 
     @Override
     public void onAdStarted(AdStartedEvent adStartedEvent) {
-        updateOutput("onAdStarted: " + adStartedEvent.getTag());
-        print("onAdStarted: " + adStartedEvent.getTag());
 
+        updateOutput(" " + "adStartedEvent " + adStartedEvent.getCreativeType());
+        print(" " + "adStartedEvent " + adStartedEvent.getTag());
+    }
+
+    @Override
+    public void onAdRequest(AdRequestEvent adRequestEvent) {
+        updateOutput(" " + "onAdRequest " + adRequestEvent.getTag());
+        print(" " + "onAdRequest tag: " + adRequestEvent.getTag());
+        print(" " + "onAdRequest position: " + adRequestEvent.getAdPosition());
+        print(" " + "onAdRequest client: " + adRequestEvent.getClient());
+        print(" " + "onAdRequest offset: " + adRequestEvent.getOffset());
+    }
+
+
+    @Override
+    public void onAdClick(AdClickEvent adClickEvent) {
+        updateOutput(" " + "onAdClick(\"" + adClickEvent.getTag() + ")\r\n");
+        print(" " + "onAdClick");
+    }
+
+    @Override
+    public void onAdComplete(AdCompleteEvent adCompleteEvent) {
+        updateOutput(" " + "onAdComplete(\"" + adCompleteEvent.getTag() + ")\r\n");
+        print(" " + "onAdComplete");
+    }
+
+    @Override
+    public void onAdSkipped(AdSkippedEvent adSkippedEvent) {
+        updateOutput(" " + "onAdSkipped(\"" + adSkippedEvent.getTag() + ")\r\n");
+        print(" " + "onAdSkipped");
+    }
+
+    @Override
+    public void onAdImpression(AdImpressionEvent adImpressionEvent) {
+        updateOutput(" " + "onAdImpression(\"" + adImpressionEvent.getTag() + "\r\n" +
+                " Video Type: " + adImpressionEvent.getCreativeType()+ "\r\n" +
+                " Ad Position: " + adImpressionEvent.getAdPosition().name() + ")\r\n");
+        print(" " + "onAdImpression(\"" + adImpressionEvent.getTag() + "\r\n" +
+                " Video Type: " + adImpressionEvent.getCreativeType()+ "\r\n" +
+                " Ad Position: " + adImpressionEvent.getAdPosition().name() + ")\r\n");
     }
 
     @Override
     public void onAdTime(AdTimeEvent adTimeEvent) {
-    }
-
-
-    @Override
-    public void onBeforePlay(BeforePlayEvent beforePlayEvent) {
-        updateOutput("onBeforePlay() ");
-        print("onBeforePlay() ");
+        // Do nothing - this fires several times per second
     }
 
     @Override
-    public void onBeforeComplete(BeforeCompleteEvent beforeCompleteEvent) {
-        updateOutput("onBeforeComplete: ");
-        print("onBeforeComplete() ");
+    public void onAdPause(AdPauseEvent adPauseEvent) {
+        updateOutput(" " + "onAdPause(\"" + adPauseEvent.getTag() + "\", \"" + adPauseEvent.getOldState() + "\")\n");
+        print(" " + "onAdPause(\"" + adPauseEvent.getTag() + " " + adPauseEvent.getOldState());
     }
-
 
     @Override
-    public void onComplete(CompleteEvent completeEvent) {
-        updateOutput("onComplete()");
-        print("onComplete()");
+    public void onAdPlay(AdPlayEvent adPlayEvent) {
+        updateOutput(" " + "onAdPlay(\"" + adPlayEvent.getTag() + "\", \"" + adPlayEvent.getOldState() + ")\r\n");
+        print(" " + "onAdPlay(\"" + adPlayEvent.getTag() + " " + adPlayEvent.getOldState());
     }
+
+    @Override
+    public void onAdCompanions(AdCompanionsEvent adCompanionsEvent) {
+        updateOutput(" " + "onAdCompanions  tag:" + adCompanionsEvent.getTag());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            adCompanionsEvent
+                    .getCompanions()
+                    .forEach(e->{
+                        print("onAdCompanions-" + e.getResource()+ "\n");
+                        printCreatives(e.getCreativeViews());
+                    });
+        }
+    }
+
+    private void printCreatives(List<String> creative) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && creative.size()>0) {
+            creative.forEach(each -> print("onAdCompanions-Creative: " + each));
+        }
+    }
+
 
 }

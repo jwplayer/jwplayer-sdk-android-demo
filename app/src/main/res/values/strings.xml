@@ -3,4 +3,5 @@
     <string name="fragment_example">JWPlayerFragment Example</string>
     <string name="view_example">JWPlayerView Example</string>
     <string name="media_route_menu_title">Cast</string>
+    <string name="myfontdefault">monospace</string>
 </resources>

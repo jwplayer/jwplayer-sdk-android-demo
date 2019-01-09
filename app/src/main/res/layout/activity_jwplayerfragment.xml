@@ -25,6 +25,8 @@
             android:paddingLeft="16dp"
             android:paddingStart="16dp"
             android:paddingTop="16dp"
+            android:textSize="@dimen/myfontsize"
+            android:fontFamily="@string/myfontdefault"
             android:textColor="@color/white" />
     </ScrollView>
 

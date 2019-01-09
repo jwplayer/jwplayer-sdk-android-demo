@@ -169,7 +169,6 @@ public class JWEventHandler implements
                 " duration=" + bufferChangeEvent.getDuration());
     }
 
-
     @Override
     public void onBeforeComplete(BeforeCompleteEvent beforeCompleteEvent) {
         updateOutput(" " + "onBeforeComplete()");
@@ -183,7 +182,6 @@ public class JWEventHandler implements
         Exception exception = errorEvent.getException();
         Log.i("JWPLAYER-LOG", "onError: " + errorEvent.getMessage(), exception);
     }
-
 
     @Override
     public void onBeforePlay(BeforePlayEvent beforePlayEvent) {

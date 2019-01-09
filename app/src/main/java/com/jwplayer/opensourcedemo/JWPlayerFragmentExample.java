@@ -60,10 +60,12 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
 
     private void setupJWPlayer() {
 
-        // Construct a new JWPlayerSupportFragment (since we're using AppCompatActivity)
-        mPlayerFragment = JWPlayerSupportFragment.newInstance(new PlayerConfig.Builder()
+        PlayerConfig config = new PlayerConfig.Builder()
                 .file("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8")
-                .build());
+                .build();
+
+        // Construct a new JWPlayerSupportFragment (since we're using AppCompatActivity)
+        mPlayerFragment = JWPlayerSupportFragment.newInstance(config);
 
         // Attach the Fragment to our layout
         FragmentManager fm = getSupportFragmentManager();

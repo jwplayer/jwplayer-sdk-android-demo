@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.ads.interactivemedia.v3.api.ImaSdkFactory;
+import com.google.ads.interactivemedia.v3.api.ImaSdkSettings;
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.cast.CastManager;
 import com.longtailvideo.jwplayer.configuration.PlayerConfig;
@@ -20,6 +22,8 @@ import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 import com.longtailvideo.jwplayer.media.ads.AdBreak;
 import com.longtailvideo.jwplayer.media.ads.AdSource;
 import com.longtailvideo.jwplayer.media.ads.ImaAdvertising;
+import com.longtailvideo.jwplayer.media.playlists.MediaSource;
+import com.longtailvideo.jwplayer.media.playlists.MediaType;
 import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 
 import java.util.ArrayList;
@@ -78,28 +82,61 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 
 
 	private void setupJWPlayer() {
+//		List<PlaylistItem> playlistItemList = createMediaSourcePlaylist();
 		List<PlaylistItem> playlistItemList = createPlaylist();
 
-		// Vast Vpaid tag Example
+		// Ima Tag Example
+		ImaAdvertising advertising = getImaAd();
+
+		// Vast tag Example
 //		List<AdBreak> adbreaklist = new ArrayList<>();
-//		String vpaid = "";
-//		adbreaklist.add(new AdBreak("pre", AdSource.VAST, vpaid));
+//		String adtag = "";
+//		adbreaklist.add(new AdBreak("pre", AdSource.VAST, adtag));
 //		Advertising advertise = new Advertising(AdSource.VAST,adbreaklist);
 
-		// Ima tag Example
-		List<AdBreak> adbreaklist = new ArrayList<>();
-		String imaAd = "";
-		adbreaklist.add(new AdBreak("pre", AdSource.IMA, imaAd));
-		ImaAdvertising advertise = new ImaAdvertising(adbreaklist);
+		PlayerConfig config = new PlayerConfig.Builder()
+				.playlist(playlistItemList)
+				.autostart(true)
+				.preload(true)
+				.allowCrossProtocolRedirects(true)
+//				.advertising(advertising)
+				.build();
 
-		mPlayerView.setup(new PlayerConfig.Builder()
-//					.file(livestream)
-					.playlist(playlistItemList)
-//					.advertising(advertise)
-					.autostart(true)
-					.preload(true)
-					.build()
-				);
+		mPlayerView.setup(config);
+	}
+
+	private ImaAdvertising getImaAd(){
+		List<AdBreak> adbreakList = new ArrayList<>();
+
+		String imaurl = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=";
+
+		adbreakList.add(new AdBreak("pre", AdSource.IMA, imaurl));
+
+		ImaSdkSettings settings = ImaSdkFactory.getInstance().createImaSdkSettings();
+		settings.setEnableOmidExperimentally(true);
+
+		return new ImaAdvertising(adbreakList, settings);
+	}
+
+	private List<PlaylistItem> createMediaSourcePlaylist() {
+		List<MediaSource> mediaSourceList = new ArrayList<>();
+		List<PlaylistItem> playlistItemList = new ArrayList<>();
+
+		String hls = "https://cdn.jwplayer.com/manifests/jumBvHdL.m3u8";
+
+		MediaSource ms = new MediaSource.Builder()
+				.file(hls)
+				.type(MediaType.HLS)
+				.build();
+		mediaSourceList.add(ms);
+
+		PlaylistItem item = new PlaylistItem.Builder()
+				.sources(mediaSourceList)
+				.build();
+
+		playlistItemList.add(item);
+
+		return playlistItemList;
 	}
 
 
@@ -108,10 +145,15 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 
 		String[] playlist = {
 				"https://cdn.jwplayer.com/manifests/jumBvHdL.m3u8",
-				"http://content.jwplatform.com/videos/tkM1zvBq-cIp6U8lV.mp4",
 				"http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8",
-				"http://content.jwplatform.com/videos/RDn7eg0o-cIp6U8lV.mp4"
-				};
+				"http://content.jwplatform.com/videos/tkM1zvBq-cIp6U8lV.mp4",
+				"https://cdn.jwplayer.com/manifests/jumBvHdL.m3u8",
+				"http://content.jwplatform.com/videos/RDn7eg0o-cIp6U8lV.mp4",
+				"http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8"
+				"http://content.jwplatform.com/videos/i3q4gcBi-cIp6U8lV.mp4",
+				"http://content.jwplatform.com/videos/iLwfYW2S-cIp6U8lV.mp4",
+				"http://content.jwplatform.com/videos/8TbJTFy5-cIp6U8lV.mp4",
+		};
 
 		for(String each : playlist){
 			playlistItemList.add(new PlaylistItem(each));

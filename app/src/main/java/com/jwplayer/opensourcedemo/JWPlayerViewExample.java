@@ -21,6 +21,7 @@ import com.longtailvideo.jwplayer.events.FullscreenEvent;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 import com.longtailvideo.jwplayer.media.ads.AdBreak;
 import com.longtailvideo.jwplayer.media.ads.AdSource;
+import com.longtailvideo.jwplayer.media.ads.Advertising;
 import com.longtailvideo.jwplayer.media.ads.ImaAdvertising;
 import com.longtailvideo.jwplayer.media.playlists.MediaSource;
 import com.longtailvideo.jwplayer.media.playlists.MediaType;
@@ -60,6 +61,8 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 		ScrollView scrollView = findViewById(R.id.scroll);
 		mCoordinatorLayout = findViewById(R.id.activity_jwplayerview);
 
+		// Setup JWPlayer
+		setupJWPlayer();
 
 		// Handle hiding/showing of ActionBar
 		mPlayerView.addOnFullscreenListener(this);
@@ -73,38 +76,48 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 		// Instantiate the JW Player Ad event handler class
 		new JWAdEventHandler(mPlayerView, outputTextView, scrollView);
 
-		// Setup JWPlayer
-		setupJWPlayer();
-
 		// Get a reference to the CastManager
 		mCastManager = CastManager.getInstance();
 	}
 
 
 	private void setupJWPlayer() {
+
 //		List<PlaylistItem> playlistItemList = createMediaSourcePlaylist();
 		List<PlaylistItem> playlistItemList = createPlaylist();
 
 		// Ima Tag Example
-		ImaAdvertising advertising = getImaAd();
+		ImaAdvertising imaAdvertising = getImaAd();
+
+		// VAST Tag Example
+		Advertising vastAdvertising = getVastAd();
 
 		// Vast tag Example
-//		List<AdBreak> adbreaklist = new ArrayList<>();
-//		String adtag = "";
-//		adbreaklist.add(new AdBreak("pre", AdSource.VAST, adtag));
-//		Advertising advertise = new Advertising(AdSource.VAST,adbreaklist);
 
 		PlayerConfig config = new PlayerConfig.Builder()
 				.playlist(playlistItemList)
 				.autostart(true)
 				.preload(true)
 				.allowCrossProtocolRedirects(true)
-//				.advertising(advertising)
+//				.advertising(imaAdvertising)
+//				.advertising(vastAdvertising)
 				.build();
 
 		mPlayerView.setup(config);
 	}
 
+	/*
+	* VAST AD Example
+	* */
+	private Advertising getVastAd(){
+		List<AdBreak> adbreaklist = new ArrayList<>();
+		String adtag = "";
+		adbreaklist.add(new AdBreak("pre", AdSource.VAST, adtag));
+		return new Advertising(AdSource.VAST,adbreaklist);
+	}
+
+	/*
+	* IMA Ad Example*/
 	private ImaAdvertising getImaAd(){
 		List<AdBreak> adbreakList = new ArrayList<>();
 
@@ -118,6 +131,9 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 		return new ImaAdvertising(adbreakList, settings);
 	}
 
+	/**
+	 * MediaSource Playlist Example
+	 * */
 	private List<PlaylistItem> createMediaSourcePlaylist() {
 		List<MediaSource> mediaSourceList = new ArrayList<>();
 		List<PlaylistItem> playlistItemList = new ArrayList<>();
@@ -140,6 +156,9 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 	}
 
 
+	/*
+	* Create a Playlist Example
+	* */
 	private List<PlaylistItem> createPlaylist() {
 		List<PlaylistItem> playlistItemList = new ArrayList<>();
 
@@ -162,6 +181,9 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 		return playlistItemList;
 	}
 
+	/*
+	 * In landscape mode, set to fullscreen or if the user clicks the fullscreen button
+	 */
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		// Set fullscreen when the device is rotated to landscape

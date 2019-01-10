@@ -2,6 +2,25 @@
 /local.properties
 /.idea/*
 .DS_Store
+
+# Built application files
 /build
+
+# Crashlytics configuations
+com_crashlytics_export_strings.xml
+
+# Signing files
+.signing/
+
+*.iml
 /captures
 /jwplayer-android-sdk-*
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

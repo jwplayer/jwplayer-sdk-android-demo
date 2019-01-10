@@ -3,6 +3,8 @@
 /.idea/*
 .DS_Store
 
+app/src/main/res/values/secrets.xml
+
 # Built application files
 /build
 

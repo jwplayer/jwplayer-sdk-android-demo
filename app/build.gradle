@@ -29,11 +29,16 @@ dependencies {
     implementation 'com.longtailvideo.jwplayer:jwplayer-core:3.4.1'
     implementation 'com.longtailvideo.jwplayer:jwplayer-common:3.4.1'
 
+    // Only required if using Chromecast
+    implementation 'com.longtailvideo.jwplayer:jwplayer-chromecast:3.4.1'
+
+    // Only required if using FreeWheel
+    implementation 'com.longtailvideo.jwplayer:jwplayer-freewheel:3.4.1'
+
     // Only required if using IMA features
     implementation 'com.longtailvideo.jwplayer:jwplayer-ima:3.4.1'
 
-    // Only required if using Chromecast
-    implementation 'com.longtailvideo.jwplayer:jwplayer-chromecast:3.4.1'
+
 
     testImplementation 'junit:junit:4.12'
 }

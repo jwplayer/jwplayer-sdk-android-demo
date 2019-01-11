@@ -1,35 +1,39 @@
 apply plugin: 'com.android.application'
 
 android {
-	compileSdkVersion 28
-	buildToolsVersion "28.0.3"
+    compileSdkVersion 27
 
-	defaultConfig {
-		applicationId "com.jwplayer.opensourcedemo"
-		minSdkVersion 16
-		targetSdkVersion 28
-		versionCode 1
-		versionName "1.0"
-	}
-	buildTypes {
-		release {
-			minifyEnabled false
-			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-		}
-	}
+    defaultConfig {
+
+        minSdkVersion 16
+        targetSdkVersion 27
+
+        versionCode 1
+        versionName "1.0"
+
+        applicationId "com.jwplayer.opensourcedemo"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 dependencies {
-	implementation fileTree(include: ['*.jar'], dir: 'libs')
-	testImplementation 'junit:junit:4.12'
-	implementation ('com.android.support:appcompat-v7:28.0.0'){
-		force =true
-	}
-	implementation ('com.android.support:design:28.0.0'){
-		force =true
-	}
-	implementation 'com.longtailvideo.jwplayer:jwplayer-core:3.2.2'
-	implementation 'com.longtailvideo.jwplayer:jwplayer-common:3.2.2'
-	implementation 'com.longtailvideo.jwplayer:jwplayer-ima:3.2.2'        // Only required if using IMA features
-	implementation 'com.longtailvideo.jwplayer:jwplayer-chromecast:3.2.2' // Only required if using Chromecast
+
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+
+    implementation 'com.longtailvideo.jwplayer:jwplayer-core:3.4.1'
+    implementation 'com.longtailvideo.jwplayer:jwplayer-common:3.4.1'
+
+    // Only required if using IMA features
+    implementation 'com.longtailvideo.jwplayer:jwplayer-ima:3.4.1'
+
+    // Only required if using Chromecast
+    implementation 'com.longtailvideo.jwplayer:jwplayer-chromecast:3.4.1'
+
+    testImplementation 'junit:junit:4.12'
 }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Copyright 2015 Google Inc. All rights reserved.
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,7 +32,7 @@
             android:adjustViewBounds="false"
             android:cropToPadding="false"
             android:scaleType="centerCrop"
-            android:src="@drawable/album_art_placeholder"/>
+            android:src="@drawable/album_art_placeholder" />
 
     </RelativeLayout>
 
@@ -43,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_av_pause_light"/>
+        android:src="@drawable/ic_av_pause_light" />
 
     <ProgressBar
         android:id="@+id/loadingView"
@@ -54,7 +53,7 @@
         android:layout_alignRight="@+id/playPauseView"
         android:layout_alignTop="@+id/playPauseView"
         android:layout_centerVertical="true"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/textContainer"
@@ -65,7 +64,7 @@
         android:layout_marginRight="10dp"
         android:layout_toLeftOf="@+id/playPauseView"
         android:layout_toRightOf="@+id/iconContainer"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/titleView"
@@ -80,7 +79,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/ccl_mr_custom_line_1"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/subTitleView"
@@ -95,7 +94,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/ccl_mr_custom_line_2"
-            android:textSize="13sp"/>
+            android:textSize="13sp" />
     </LinearLayout>
 
     <TextView
@@ -111,6 +110,6 @@
         android:textAlignment="center"
         android:textColor="@color/ccl_mr_custom_line_1"
         android:textSize="15sp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </RelativeLayout>

@@ -17,6 +17,7 @@ import com.google.ads.interactivemedia.v3.api.ImaSdkSettings;
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.cast.CastManager;
 import com.longtailvideo.jwplayer.configuration.PlayerConfig;
+import com.longtailvideo.jwplayer.configuration.SkinConfig;
 import com.longtailvideo.jwplayer.events.FullscreenEvent;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 import com.longtailvideo.jwplayer.media.ads.AdBreak;
@@ -92,13 +93,17 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 		// VAST Tag Example
 		Advertising vastAdvertising = getVastAd();
 
-		// Vast tag Example
+		SkinConfig skinConfig = new SkinConfig.Builder()
+				.url("https://s3.amazonaws.com/qa.jwplayer.com/~hyunjoo/css/showcontrolsalways.css")
+				.name("showcontrolsalways")
+				.build();
 
 		PlayerConfig config = new PlayerConfig.Builder()
 				.playlist(playlistItemList)
 				.autostart(true)
 				.preload(true)
 				.allowCrossProtocolRedirects(true)
+				.skinConfig(skinConfig)
 //				.advertising(imaAdvertising)
 //				.advertising(vastAdvertising)
 				.build();

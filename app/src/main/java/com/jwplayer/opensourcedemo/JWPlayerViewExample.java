@@ -73,33 +73,43 @@ public class JWPlayerViewExample extends AppCompatActivity
 		mCastManager = CastManager.getInstance();
 	}
 
+
 	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		// Set fullscreen when the device is rotated to landscape
-		mPlayerView.setFullscreen(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE,
-								  true);
-		super.onConfigurationChanged(newConfig);
+	protected void onStart() {
+		super.onStart();
+		mPlayerView.onStart();
 	}
 
 	@Override
 	protected void onResume() {
-		// Let JW Player know that the app has returned from the background
 		super.onResume();
 		mPlayerView.onResume();
 	}
 
 	@Override
 	protected void onPause() {
-		// Let JW Player know that the app is going to the background
-		mPlayerView.onPause();
 		super.onPause();
+		mPlayerView.onPause();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		mPlayerView.onStop();
 	}
 
 	@Override
 	protected void onDestroy() {
-		// Let JW Player know that the app is being destroyed
-		mPlayerView.onDestroy();
 		super.onDestroy();
+		mPlayerView.onDestroy();
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		// Set fullscreen when the device is rotated to landscape
+		mPlayerView.setFullscreen(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE,
+								  true);
+		super.onConfigurationChanged(newConfig);
 	}
 
 	@Override

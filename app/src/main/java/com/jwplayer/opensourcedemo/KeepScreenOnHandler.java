@@ -20,84 +20,84 @@ import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
  * Sets the FLAG_KEEP_SCREEN_ON flag during playback - disables it when playback is stopped
  */
 public class KeepScreenOnHandler implements VideoPlayerEvents.OnPlayListener,
-        VideoPlayerEvents.OnPauseListener,
-        VideoPlayerEvents.OnCompleteListener,
-        VideoPlayerEvents.OnErrorListener,
-        AdvertisingEvents.OnAdPlayListener,
-        AdvertisingEvents.OnAdPauseListener,
-        AdvertisingEvents.OnAdCompleteListener,
-        AdvertisingEvents.OnAdSkippedListener,
-        AdvertisingEvents.OnAdErrorListener {
+											VideoPlayerEvents.OnPauseListener,
+											VideoPlayerEvents.OnCompleteListener,
+											VideoPlayerEvents.OnErrorListener,
+											AdvertisingEvents.OnAdPlayListener,
+											AdvertisingEvents.OnAdPauseListener,
+											AdvertisingEvents.OnAdCompleteListener,
+											AdvertisingEvents.OnAdSkippedListener,
+											AdvertisingEvents.OnAdErrorListener {
 
-    /**
-     * The application window
-     */
-    private Window mWindow;
+	/**
+	 * The application window
+	 */
+	private Window mWindow;
 
-    public KeepScreenOnHandler(JWPlayerView jwPlayerView, Window window) {
-        jwPlayerView.addOnPlayListener(this);
-        jwPlayerView.addOnPauseListener(this);
-        jwPlayerView.addOnCompleteListener(this);
-        jwPlayerView.addOnErrorListener(this);
-        jwPlayerView.addOnAdPlayListener(this);
-        jwPlayerView.addOnAdPauseListener(this);
-        jwPlayerView.addOnAdCompleteListener(this);
-        jwPlayerView.addOnAdErrorListener(this);
-        mWindow = window;
-    }
+	public KeepScreenOnHandler(JWPlayerView jwPlayerView, Window window) {
+		jwPlayerView.addOnPlayListener(this);
+		jwPlayerView.addOnPauseListener(this);
+		jwPlayerView.addOnCompleteListener(this);
+		jwPlayerView.addOnErrorListener(this);
+		jwPlayerView.addOnAdPlayListener(this);
+		jwPlayerView.addOnAdPauseListener(this);
+		jwPlayerView.addOnAdCompleteListener(this);
+		jwPlayerView.addOnAdErrorListener(this);
+		mWindow = window;
+	}
 
-    private void updateWakeLock(boolean enable) {
-        if (enable) {
-            mWindow.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        } else {
-            mWindow.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
-    }
+	private void updateWakeLock(boolean enable) {
+		if (enable) {
+			mWindow.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		} else {
+			mWindow.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		}
+	}
 
-    @Override
-    public void onError(ErrorEvent errorEvent) {
-        updateWakeLock(false);
-    }
+	@Override
+	public void onError(ErrorEvent errorEvent) {
+		updateWakeLock(false);
+	}
 
-    @Override
-    public void onAdPlay(AdPlayEvent adPlayEvent) {
-        updateWakeLock(true);
-    }
+	@Override
+	public void onAdPlay(AdPlayEvent adPlayEvent) {
+		updateWakeLock(true);
+	}
 
-    @Override
-    public void onAdPause(AdPauseEvent adPauseEvent) {
-        updateWakeLock(false);
-    }
+	@Override
+	public void onAdPause(AdPauseEvent adPauseEvent) {
+		updateWakeLock(false);
+	}
 
-    @Override
-    public void onAdComplete(AdCompleteEvent adCompleteEvent) {
-        updateWakeLock(false);
-    }
+	@Override
+	public void onAdComplete(AdCompleteEvent adCompleteEvent) {
+		updateWakeLock(false);
+	}
 
-    @Override
-    public void onAdSkipped(AdSkippedEvent adSkippedEvent) {
-        updateWakeLock(false);
-    }
+	@Override
+	public void onAdSkipped(AdSkippedEvent adSkippedEvent) {
+		updateWakeLock(false);
+	}
 
-    @Override
-    public void onAdError(AdErrorEvent adErrorEvent) {
-        updateWakeLock(false);
-    }
+	@Override
+	public void onAdError(AdErrorEvent adErrorEvent) {
+		updateWakeLock(false);
+	}
 
-    @Override
-    public void onComplete(CompleteEvent completeEvent) {
-        updateWakeLock(false);
-    }
+	@Override
+	public void onComplete(CompleteEvent completeEvent) {
+		updateWakeLock(false);
+	}
 
-    @Override
-    public void onPause(PauseEvent pauseEvent) {
-        updateWakeLock(false);
+	@Override
+	public void onPause(PauseEvent pauseEvent) {
+		updateWakeLock(false);
 
-    }
+	}
 
-    @Override
-    public void onPlay(PlayEvent playEvent) {
-        updateWakeLock(true);
+	@Override
+	public void onPlay(PlayEvent playEvent) {
+		updateWakeLock(true);
 
-    }
+	}
 }

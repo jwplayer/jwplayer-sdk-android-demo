@@ -60,8 +60,10 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
 
     private void setupJWPlayer() {
 
+        String url = "http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8";
+
         PlayerConfig config = new PlayerConfig.Builder()
-                .file("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8")
+                .file(url)
                 .build();
 
         // Construct a new JWPlayerSupportFragment (since we're using AppCompatActivity)

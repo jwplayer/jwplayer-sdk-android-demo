@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JW Player SDK for Android Demo</string>
+    <string name="app_name">JW Player View Android </string>
     <string name="fragment_example">JWPlayerFragment Example</string>
     <string name="view_example">JWPlayerView Example</string>
     <string name="media_route_menu_title">Cast</string>

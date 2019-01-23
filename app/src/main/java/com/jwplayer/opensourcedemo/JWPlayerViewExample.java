@@ -87,6 +87,8 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 //		List<PlaylistItem> playlistItemList = createMediaSourcePlaylist();
 		List<PlaylistItem> playlistItemList = createPlaylist();
 
+		String url = "http://podcast.20min-tv.ch/podcast/20min/640845.mp4";
+
 		// Ima Tag Example
 		ImaAdvertising imaAdvertising = getImaAd();
 
@@ -99,11 +101,12 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 				.build();
 
 		PlayerConfig config = new PlayerConfig.Builder()
-				.playlist(playlistItemList)
+				.file(url)
+//				.playlist(playlistItemList)
 				.autostart(true)
 				.preload(true)
 				.allowCrossProtocolRedirects(true)
-				.skinConfig(skinConfig)
+//				.skinConfig(skinConfig)
 //				.advertising(imaAdvertising)
 //				.advertising(vastAdvertising)
 				.build();

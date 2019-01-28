@@ -28,9 +28,10 @@
             android:value="@integer/google_play_services_version" />
 
         <!--TODO Set your license key-->
+        <!--Android v3 license key-->
         <meta-data
             android:name="JW_LICENSE_KEY"
-            android:value="" />
-    </application>
+            android:value="@string/mylicensekey" />
+</application>
 
 </manifest>

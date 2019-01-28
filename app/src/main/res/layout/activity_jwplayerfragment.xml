@@ -10,7 +10,8 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <RelativeLayout
+    <ScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -25,5 +26,5 @@
             android:paddingTop="16dp"
             android:textColor="@color/white" />
 
-    </RelativeLayout>
+    </ScrollView>
 </LinearLayout>

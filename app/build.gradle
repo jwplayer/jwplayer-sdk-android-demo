@@ -38,7 +38,9 @@ android {
 		exclude 'META-INF/com.android.support_support-media-compat.version'
 	}
 }
-
+ext {
+	jwplayerVersion= '2.9.2+2'
+}
 dependencies {
 	implementation fileTree(include: ['*.jar'], dir: 'libs')
 	testImplementation 'junit:junit:4.12'
@@ -46,8 +48,8 @@ dependencies {
 	implementation 'com.android.support:design:28.0.0'
 	implementation 'com.android.support:multidex:1.0.3'
 
-	implementation 'com.longtailvideo.jwplayer:jwplayer-core:2+'
-	implementation 'com.longtailvideo.jwplayer:jwplayer-common:2+'
-	implementation 'com.longtailvideo.jwplayer:jwplayer-ima:2+'        // Only required if using IMA features
-	implementation 'com.longtailvideo.jwplayer:jwplayer-chromecast:2+' // Only required if using Chromecast
+	implementation "com.longtailvideo.jwplayer:jwplayer-core:${jwplayerVersion}"
+	implementation "com.longtailvideo.jwplayer:jwplayer-common:${jwplayerVersion}"
+	implementation "com.longtailvideo.jwplayer:jwplayer-ima:${jwplayerVersion}"        // Only required if using IMA features
+	implementation "com.longtailvideo.jwplayer:jwplayer-chromecast:${jwplayerVersion}" // Only required if using Chromecast
 }

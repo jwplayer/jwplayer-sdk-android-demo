@@ -36,11 +36,6 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 	private JWPlayerView mPlayerView;
 
 	/**
-	 * An instance of our event handling class
-	 */
-	private JWEventHandler mEventHandler;
-
-	/**
 	 * Reference to the {@link CastManager}
 	 */
 	private CastManager mCastManager;
@@ -57,10 +52,13 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_jwplayerview);
 
-		mPlayerView = (JWPlayerView)findViewById(R.id.jwplayer);
-		TextView outputTextView = (TextView)findViewById(R.id.output);
-		ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
-		mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.activity_jwplayerview);
+		mPlayerView = findViewById(R.id.jwplayer);
+		TextView outputTextView = findViewById(R.id.output);
+		ScrollView scrollView = findViewById(R.id.scroll);
+		mCoordinatorLayout = findViewById(R.id.activity_jwplayerview);
+
+		// Setup JWPlayer
+		setupJWPlayer();
 
 		// Handle hiding/showing of ActionBar
 		mPlayerView.addOnFullscreenListener(this);
@@ -69,10 +67,10 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 		new KeepScreenOnHandler(mPlayerView, getWindow());
 
 		// Instantiate the JW Player event handler class
-		mEventHandler = new JWEventHandler(mPlayerView, outputTextView, scrollView);
+		new JWEventHandler(mPlayerView, outputTextView, scrollView);
 
-		// Setup JWPlayer
-		setupJWPlayer();
+		// Instantiate the JW Player Ad event handler class
+		new JWAdEventHandler(mPlayerView, outputTextView, scrollView);
 
 		// Get a reference to the CastManager
 		mCastManager = CastManager.getInstance();
@@ -83,43 +81,17 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 		List<PlaylistItem> playlistItemList = createPlaylist();
 		List<AdBreak> adbreaklist = new ArrayList<>();
 
-		String customerAd1 = "";
-		String customerAd2 = "";
-
-		/*
-		Vast Setup Example
-		* */
-
-//		Ad ad1 = new Ad(AdSource.VAST, customerAd1);
-//		Ad ad2 = new Ad(AdSource.VAST, customerAd2);
-
-//		AdBreak adBreak = new AdBreak("pre", ad1);
-//		AdBreak adBreak1 = new AdBreak("50%", ad2);
-
-//		adbreaklist.add(adBreak);
-//		adbreaklist.add(adBreak1);
-
-//		Advertising advertise = new Advertising(AdSource.VAST,adbreaklist);
-
-		/*
-		* Ima Setup Example
-		* */
-		Ad ad1 = new Ad(AdSource.IMA, customerAd1);
-		Ad ad2 = new Ad(AdSource.IMA, customerAd2);
-
-		AdBreak adBreak = new AdBreak("pre", ad1);
-		AdBreak adBreak1 = new AdBreak("50%", ad2);
-
+		String adurl = "https://adserver.adtech.de/?advideo/3.0/1165.1/6626444/0/0/cc=2;vidAS=PRE_ROLL;vidRT=VAST;vidRTV=3.0;cors=yes;vidbreaklen=40;vidbreaknum=2";
+		Ad ad = new Ad(AdSource.VAST, adurl);
+		AdBreak adBreak = new AdBreak("pre", ad);
 		adbreaklist.add(adBreak);
-		adbreaklist.add(adBreak1);
-
-		ImaAdvertising advertise = new ImaAdvertising(adbreaklist);
+		Advertising adpod = new Advertising(AdSource.VAST,adbreaklist);
 
 		mPlayerView.setup(new PlayerConfig.Builder()
 				.playlist(playlistItemList)
-				.advertising(advertise)
+				.advertising(adpod)
 				.autostart(true)
-				.preload(true)
+				.mute(true)
 				.build()
 		);
 	}
@@ -142,6 +114,27 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 		}
 
 		return playlistItemList;
+	}
+
+	/*
+	 * Ima Setup Example
+	 * */
+	public ImaAdvertising getIMAAd(){
+		List<AdBreak> adbreaklist = new ArrayList<>();
+
+		String customerAd1 = "";
+		String customerAd2 = "";
+
+		Ad ad1 = new Ad(AdSource.IMA, customerAd1);
+		Ad ad2 = new Ad(AdSource.IMA, customerAd2);
+
+		AdBreak adBreak = new AdBreak("pre", ad1);
+		AdBreak adBreak1 = new AdBreak("50%", ad2);
+
+		adbreaklist.add(adBreak);
+		adbreaklist.add(adBreak1);
+
+		return new ImaAdvertising(adbreaklist);
 	}
 
 	@Override

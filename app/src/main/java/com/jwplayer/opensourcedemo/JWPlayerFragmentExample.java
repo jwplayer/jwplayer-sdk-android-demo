@@ -28,18 +28,13 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
      */
     private JWPlayerView mPlayerView;
 
-    /**
-     * An instance of our event handling class
-     */
-    private JWEventHandler mEventHandler;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jwplayerfragment);
 
-        TextView outputTextView = (TextView)findViewById(R.id.output);
-        ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
+        TextView outputTextView = findViewById(R.id.output);
+        ScrollView scrollView = findViewById(R.id.scroll);
 
         setupJWPlayer();
 
@@ -47,15 +42,19 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
         new KeepScreenOnHandler(mPlayerView, getWindow());
 
         // Instantiate the JW Player event handler class
-        mEventHandler = new JWEventHandler(mPlayerView, outputTextView, scrollView);
+        new JWEventHandler(mPlayerView, outputTextView, scrollView);
     }
 
     private void setupJWPlayer() {
 
+        String url = "http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8";
+
+        PlayerConfig playerConfig = new PlayerConfig.Builder()
+                .file(url)
+                .build();
+
         // Construct a new JWPlayerSupportFragment (since we're using AppCompatActivity)
-        mPlayerFragment = JWPlayerSupportFragment.newInstance(new PlayerConfig.Builder()
-                .file("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8")
-                .build());
+        mPlayerFragment = JWPlayerSupportFragment.newInstance(playerConfig);
 
         // Attach the Fragment to our layout
         FragmentManager fm = getSupportFragmentManager();

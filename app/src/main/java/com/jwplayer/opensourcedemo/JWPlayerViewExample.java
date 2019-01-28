@@ -81,7 +81,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 		List<PlaylistItem> playlistItemList = createPlaylist();
 		List<AdBreak> adbreaklist = new ArrayList<>();
 
-		String adurl = "https://adserver.adtech.de/?advideo/3.0/1165.1/6626444/0/0/cc=2;vidAS=PRE_ROLL;vidRT=VAST;vidRTV=3.0;cors=yes;vidbreaklen=40;vidbreaknum=2";
+        String adurl = "";
 		Ad ad = new Ad(AdSource.VAST, adurl);
 		AdBreak adBreak = new AdBreak("pre", ad);
 		adbreaklist.add(adBreak);

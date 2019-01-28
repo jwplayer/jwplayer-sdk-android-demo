@@ -37,6 +37,22 @@ android {
 		exclude 'META-INF/com.android.support_support-fragment.version'
 		exclude 'META-INF/com.android.support_support-media-compat.version'
 	}
+
+	packagingOptions {
+		exclude 'META-INF/android.arch.lifecycle_runtime.version'
+		exclude 'META-INF/com.android.support_support-v4.version'
+		exclude 'META-INF/com.android.support_support-core-utils.version'
+		exclude 'META-INF/com.android.support_support-core-ui.version'
+		exclude 'META-INF/com.android.support_support-compat.version'
+		exclude 'META-INF/com.android.support_support-fragment.version'
+		exclude 'META-INF/com.android.support_support-media-compat.version'
+	}
+
+	configurations.all {
+		resolutionStrategy {
+			force "com.android.support:customtabs:27.1.1", "com.android.support:mediarouter-v7:27.1.1"
+		}
+	}
 }
 ext {
 	jwplayerVersion= '2.9.2+2'
@@ -52,4 +68,5 @@ dependencies {
 	implementation "com.longtailvideo.jwplayer:jwplayer-common:${jwplayerVersion}"
 	implementation "com.longtailvideo.jwplayer:jwplayer-ima:${jwplayerVersion}"        // Only required if using IMA features
 	implementation "com.longtailvideo.jwplayer:jwplayer-chromecast:${jwplayerVersion}" // Only required if using Chromecast
+
 }

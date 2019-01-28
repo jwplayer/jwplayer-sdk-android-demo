@@ -2,6 +2,7 @@
 /local.properties
 /.idea/*
 .DS_Store
+*.log
 
 app/src/main/res/values/secrets.xml
 

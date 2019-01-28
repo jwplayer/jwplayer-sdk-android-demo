@@ -24,6 +24,7 @@ import com.longtailvideo.jwplayer.events.listeners.AdvertisingEvents;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -150,11 +151,20 @@ public class JWAdEventHandler implements
 
     @Override
     public void onAdImpression(AdImpressionEvent adImpressionEvent) {
-        updateOutput(" " + "onAdImpression(\"" + adImpressionEvent.getTag() + "\r\n" +
-                " Video Type: " + adImpressionEvent.getCreativeType()+ "\r\n" +
+        updateOutput(" " + "onAdImpression: (\r\n" +
+                " Tag" + adImpressionEvent.getTag() + "\r\n" +
+                " CreativeType: " + adImpressionEvent.getCreativeType()+ "\r\n" +
                 " Ad Position: " + adImpressionEvent.getAdPosition().name() + ")\r\n");
-        print(" " + "onAdImpression(\"" + adImpressionEvent.getTag() + "\r\n" +
-                " Video Type: " + adImpressionEvent.getCreativeType()+ "\r\n" +
+        print(" " + "onAdImpression: (\r\n" +
+                " Tag: " + adImpressionEvent.getTag() + "\r\n" +
+                " Universal Ad Id Value: " + adImpressionEvent.getUniversalAdIdValue()+ "\r\n" +
+                " Universal Ad Id Registry: " + adImpressionEvent.getUniversalAdIdRegistry()+ "\r\n" +
+                " getNonComplianceReasons: " + Arrays.toString(adImpressionEvent.getNonComplianceReasons()) + "\r\n" +
+                " Ad Categories: " + Arrays.toString(adImpressionEvent.getCategories()) + "\r\n" +
+                " Media File: " + adImpressionEvent.getMediaFile()+ "\r\n" +
+                " Vast Version: " + adImpressionEvent.getVastVersion()+ "\r\n" +
+                " Client: " + adImpressionEvent.getClient()+ "\r\n" +
+                " CreativeType: " + adImpressionEvent.getCreativeType()+ "\r\n" +
                 " Ad Position: " + adImpressionEvent.getAdPosition().name() + ")\r\n");
     }
 

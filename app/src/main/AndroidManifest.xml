@@ -12,13 +12,14 @@
             android:name=".JWPlayerViewExample"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".JWPlayerFragmentExample"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"><intent-filter>
-            <action android:name="android.intent.action.MAIN"/>
-            <category android:name="android.intent.category.LAUNCHER"/>
-        </intent-filter>
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
         </activity>
 
         <!--TODO Add this if you are using AAR & Maven imports-->

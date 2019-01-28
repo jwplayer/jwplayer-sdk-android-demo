@@ -20,6 +20,8 @@ android {
 	}
 	lintOptions{
 		abortOnError false
+		disable 'GoogleAppIndexingWarning'
+
 	}
 
 	configurations.all {
@@ -36,21 +38,25 @@ android {
 	}
 }
 
+ext {
+	jwplayerVersion= '3.4.2'
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support:multidex:1.0.3'
-    implementation 'com.longtailvideo.jwplayer:jwplayer-core:3+'
-    implementation 'com.longtailvideo.jwplayer:jwplayer-common:3+'
+    implementation "com.longtailvideo.jwplayer:jwplayer-core:${jwplayerVersion}"
+    implementation "com.longtailvideo.jwplayer:jwplayer-common:${jwplayerVersion}"
 
     // Only required if using IMA features
-    implementation 'com.longtailvideo.jwplayer:jwplayer-ima:3+'
+    implementation "com.longtailvideo.jwplayer:jwplayer-ima:${jwplayerVersion}"
     // Only required if using FreeWheel
-    implementation 'com.longtailvideo.jwplayer:jwplayer-freewheel:3+'
+    implementation "com.longtailvideo.jwplayer:jwplayer-freewheel:${jwplayerVersion}"
     // Only required if using Chromecast
-    implementation 'com.longtailvideo.jwplayer:jwplayer-chromecast:3+'
+    implementation "com.longtailvideo.jwplayer:jwplayer-chromecast:${jwplayerVersion}"
 
 	// Only required if importing with AAR / JAR
     //	implementation 'com.google.android.gms:play-services-ads:'				// Only required if using IMA features

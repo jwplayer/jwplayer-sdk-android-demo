@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.ads.interactivemedia.v3.api.ImaSdkFactory;
+import com.google.ads.interactivemedia.v3.api.ImaSdkSettings;
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.cast.CastManager;
 import com.longtailvideo.jwplayer.configuration.PlayerConfig;
@@ -79,17 +81,10 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 
 	private void setupJWPlayer() {
 		List<PlaylistItem> playlistItemList = createPlaylist();
-		List<AdBreak> adbreaklist = new ArrayList<>();
-
-        String adurl = "";
-		Ad ad = new Ad(AdSource.VAST, adurl);
-		AdBreak adBreak = new AdBreak("pre", ad);
-		adbreaklist.add(adBreak);
-		Advertising adpod = new Advertising(AdSource.VAST,adbreaklist);
 
 		mPlayerView.setup(new PlayerConfig.Builder()
 				.playlist(playlistItemList)
-				.advertising(adpod)
+				.advertising(getVastAd())
 				.autostart(true)
 				.mute(true)
 				.build()
@@ -117,24 +112,44 @@ public class JWPlayerViewExample extends AppCompatActivity implements VideoPlaye
 	}
 
 	/*
+	 * Vast Setup Example
+	 * */
+	public Advertising getVastAd(){
+		List<AdBreak> adbreaklist = new ArrayList<>();
+
+		String adurl = "";
+		Ad ad = new Ad(AdSource.VAST, adurl);
+		AdBreak adBreak = new AdBreak("pre", ad);
+		adbreaklist.add(adBreak);
+		return new Advertising(AdSource.VAST,adbreaklist);
+	}
+
+
+	/*
 	 * Ima Setup Example
 	 * */
 	public ImaAdvertising getIMAAd(){
 		List<AdBreak> adbreaklist = new ArrayList<>();
 
 		String customerAd1 = "";
-		String customerAd2 = "";
 
 		Ad ad1 = new Ad(AdSource.IMA, customerAd1);
-		Ad ad2 = new Ad(AdSource.IMA, customerAd2);
 
 		AdBreak adBreak = new AdBreak("pre", ad1);
-		AdBreak adBreak1 = new AdBreak("50%", ad2);
 
 		adbreaklist.add(adBreak);
-		adbreaklist.add(adBreak1);
 
-		return new ImaAdvertising(adbreaklist);
+		ImaSdkSettings imaSetting = ImaSdkFactory.getInstance().createImaSdkSettings();
+//		imaSetting.setAutoPlayAdBreaks(true);
+//		imaSetting.setDebugMode(true);
+//		imaSetting.setRestrictToCustomPlayer(true);
+//		imaSetting.setMaxRedirects(1);
+//		imaSetting.setLanguage("");
+//		imaSetting.setPlayerType("");
+//		imaSetting.setPlayerVersion("");
+//		imaSetting.setPpid("");
+
+		return new ImaAdvertising(adbreaklist, imaSetting);
 	}
 
 	@Override

@@ -1,13 +1,19 @@
 package com.jwplayer.opensourcedemo;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -15,8 +21,12 @@ import com.longtailvideo.jwplayer.JWPlayerSupportFragment;
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.cast.CastManager;
 import com.longtailvideo.jwplayer.configuration.PlayerConfig;
+import com.longtailvideo.jwplayer.configuration.SkinConfig;
+import com.longtailvideo.jwplayer.events.FullscreenEvent;
+import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
+import com.longtailvideo.jwplayer.fullscreen.DefaultFullscreenHandler;
 
-public class JWPlayerFragmentExample extends AppCompatActivity {
+public class JWPlayerFragmentExample extends AppCompatActivity implements VideoPlayerEvents.OnFullscreenListener {
 
     /**
      * A reference to the {@link JWPlayerSupportFragment}.
@@ -33,11 +43,6 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
      */
     private CastManager mCastManager;
 
-    /**
-     * An instance of our event handling class
-     */
-    private JWEventHandler mEventHandler;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +57,7 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
         new KeepScreenOnHandler(mPlayerView, getWindow());
 
         // Instantiate the JW Player event handler class
-        mEventHandler = new JWEventHandler(mPlayerView, outputTextView, scrollView);
+        new JWEventHandler(mPlayerView, outputTextView, scrollView);
 
         // Get a reference to the CastManager
         mCastManager = CastManager.getInstance();
@@ -62,8 +67,15 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
 
         String url = "http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8";
 
+        SkinConfig skinConfig = new SkinConfig.Builder()
+                .url("https://www.hostingat123.com/mycustomcss.css")
+                .name("mycustomcss")
+                .build();
+
         PlayerConfig config = new PlayerConfig.Builder()
                 .file(url)
+                .autostart(true)
+                .skinConfig(skinConfig)
                 .build();
 
         // Construct a new JWPlayerSupportFragment (since we're using AppCompatActivity)
@@ -83,12 +95,46 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
         mPlayerView = mPlayerFragment.getPlayer();
     }
 
+    /*
+     * In landscape mode, set to fullscreen or if the user clicks the fullscreen button
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        // Do not set fullscreen when the device is rotated
+        super.onConfigurationChanged(newConfig);
+
+    }
+
+    @Override
+    protected void onResume() {
+        // Let JW Player know that the app has returned from the background
+        print("onResume()");
+        super.onResume();
+        mPlayerView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        // Let JW Player know that the app is going to the background
+        mPlayerView.onPause();
+        print("onPause()");
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        // Let JW Player know that the app is being destroyed
+        mPlayerView.onDestroy();
+        print("onDestroy()");
+        super.onDestroy();
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // Exit fullscreen when the user pressed the Back button
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (mPlayerView.getFullscreen()) {
-                mPlayerView.setFullscreen(false, true);
+                mPlayerView.setFullscreen(false,true);
                 return false;
             }
         }
@@ -115,4 +161,20 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public void onFullscreen(FullscreenEvent fullscreenEvent) {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            if (fullscreenEvent.getFullscreen()) {
+                actionBar.hide();
+            } else {
+                actionBar.show();
+            }
+        }
+    }
+    void print(String s){
+        Log.i("jwsupportfragment", s);
+    }
+
 }

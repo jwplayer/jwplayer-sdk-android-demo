@@ -1,12 +1,43 @@
-.gradle
-/local.properties
-/.idea/*
-.DS_Store
-
+# Android secret license key
 app/src/main/res/values/secrets.xml
 
 # Built application files
+/*/build/
 /build
+
+# Gradle genereated files
+.gradle/
+
+# User-specific configurations
+.idea
+.idea/assetWizardSettings.xml
+.idea/caches/
+.idea/codeStyles/
+.idea/gradle.xml
+.idea/libraries/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/.name
+.idea/compiler.xml
+.idea/copyright/profiles_settings.xml
+.idea/encodings.xml
+.idea/scopes/scope_settings.xml
+*.iml
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
 # Crashlytics configuations
 com_crashlytics_export_strings.xml
@@ -17,12 +48,3 @@ com_crashlytics_export_strings.xml
 *.iml
 /captures
 /jwplayer-android-sdk-*
-
-# OS-specific files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db

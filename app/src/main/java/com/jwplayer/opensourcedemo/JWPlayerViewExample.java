@@ -84,10 +84,8 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 
 	private void setupJWPlayer() {
 
-//		List<PlaylistItem> playlistItemList = createMediaSourcePlaylist();
-		List<PlaylistItem> playlistItemList = createPlaylist();
-
-		String url = "http://podcast.20min-tv.ch/podcast/20min/640845.mp4";
+		List<PlaylistItem> playlistItemList = createMediaSourcePlaylist();
+//		List<PlaylistItem> playlistItemList = createPlaylist();
 
 		// Ima Tag Example
 		ImaAdvertising imaAdvertising = getImaAd();
@@ -101,14 +99,11 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 				.build();
 
 		PlayerConfig config = new PlayerConfig.Builder()
-				.file(url)
-//				.playlist(playlistItemList)
+				.playlist(playlistItemList)
 				.autostart(true)
 				.preload(true)
 				.allowCrossProtocolRedirects(true)
-//				.skinConfig(skinConfig)
-//				.advertising(imaAdvertising)
-//				.advertising(vastAdvertising)
+				.skinConfig(skinConfig)
 				.build();
 
 		mPlayerView.setup(config);
@@ -195,7 +190,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		// Set fullscreen when the device is rotated to landscape
-		mPlayerView.setFullscreen(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE, true);
+//		mPlayerView.setFullscreen(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE, false);
 		super.onConfigurationChanged(newConfig);
 	}
 
@@ -217,7 +212,6 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 	protected void onDestroy() {
 		// Let JW Player know that the app is being destroyed
 		mPlayerView.onDestroy();
-
 		super.onDestroy();
 	}
 

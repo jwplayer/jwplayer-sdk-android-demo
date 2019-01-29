@@ -1,11 +1,11 @@
 package com.jwplayer.opensourcedemo;
 
+import android.app.Application;
 import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
 
 import com.longtailvideo.jwplayer.cast.CastManager;
 
-public class MyApplication extends MultiDexApplication {
+public class MyApplication extends Application {
 
     @Override
     public void onCreate() {

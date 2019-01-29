@@ -20,6 +20,8 @@ android {
 	}
 	lintOptions{
 		abortOnError false
+		disable 'GoogleAppIndexingWarning'
+
 	}
 
 	configurations.all {
@@ -35,8 +37,7 @@ android {
 		targetCompatibility JavaVersion.VERSION_1_8
 	}
 }
-
-ext{
+ext {
 	jwplayerVersion= '3.4.2'
 }
 

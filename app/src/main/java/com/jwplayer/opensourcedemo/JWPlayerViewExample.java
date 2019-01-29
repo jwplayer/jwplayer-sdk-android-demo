@@ -94,8 +94,8 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 		Advertising vastAdvertising = getVastAd();
 
 		SkinConfig skinConfig = new SkinConfig.Builder()
-				.url("https://s3.amazonaws.com/qa.jwplayer.com/~hyunjoo/css/showcontrolsalways.css")
-				.name("showcontrolsalways")
+				.url("https://myserver.com/css/mycustomcss.css")
+				.name("mycustomcss")
 				.build();
 
 		PlayerConfig config = new PlayerConfig.Builder()
@@ -110,54 +110,46 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 	}
 
 	/*
-	* VAST AD Example
-	* */
+	 * Vast Setup Example
+	 * */
+
 	private Advertising getVastAd(){
 		List<AdBreak> adbreaklist = new ArrayList<>();
-		String adtag = "";
-		adbreaklist.add(new AdBreak("pre", AdSource.VAST, adtag));
-		return new Advertising(AdSource.VAST,adbreaklist);
+
+		String ad = "";
+
+		AdBreak adbreak = new AdBreak("pre",AdSource.VAST, ad);
+
+		adbreaklist.add(adbreak);
+
+		return new Advertising(AdSource.VAST, adbreaklist);
 	}
 
 	/*
-	* IMA Ad Example*/
+	* IMA Ad Example
+	* */
 	private ImaAdvertising getImaAd(){
-		List<AdBreak> adbreakList = new ArrayList<>();
+		List<AdBreak> adbreaklist = new ArrayList<>();
 
-		String imaurl = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=";
+		String ad = "";
 
-		adbreakList.add(new AdBreak("pre", AdSource.IMA, imaurl));
+		AdBreak adBreak = new AdBreak("pre", AdSource.IMA,ad);
 
-		ImaSdkSettings settings = ImaSdkFactory.getInstance().createImaSdkSettings();
-		settings.setEnableOmidExperimentally(true);
+		adbreaklist.add(adBreak);
 
-		return new ImaAdvertising(adbreakList, settings);
+		ImaSdkSettings imaSettings = ImaSdkFactory.getInstance().createImaSdkSettings();
+//		imaSettings.setRestrictToCustomPlayer(true);
+//		imaSettings.setPpid("");
+//		imaSettings.setPlayerVersion("");
+//		imaSettings.setPlayerType("");
+//		imaSettings.setMaxRedirects(1);
+//		imaSettings.setLanguage("");
+//		imaSettings.setEnableOmidExperimentally(true);
+//		imaSettings.setDebugMode(true);
+//		imaSettings.setAutoPlayAdBreaks(true);
+
+		return new ImaAdvertising(adbreaklist);
 	}
-
-	/**
-	 * MediaSource Playlist Example
-	 * */
-	private List<PlaylistItem> createMediaSourcePlaylist() {
-		List<MediaSource> mediaSourceList = new ArrayList<>();
-		List<PlaylistItem> playlistItemList = new ArrayList<>();
-
-		String hls = "https://cdn.jwplayer.com/manifests/jumBvHdL.m3u8";
-
-		MediaSource ms = new MediaSource.Builder()
-				.file(hls)
-				.type(MediaType.HLS)
-				.build();
-		mediaSourceList.add(ms);
-
-		PlaylistItem item = new PlaylistItem.Builder()
-				.sources(mediaSourceList)
-				.build();
-
-		playlistItemList.add(item);
-
-		return playlistItemList;
-	}
-
 
 	/*
 	* Create a Playlist Example
@@ -180,6 +172,30 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 		for(String each : playlist){
 			playlistItemList.add(new PlaylistItem(each));
 		}
+
+		return playlistItemList;
+	}
+
+	/**
+	 * MediaSource Playlist Example
+	 * */
+	private List<PlaylistItem> createMediaSourcePlaylist() {
+		List<MediaSource> mediaSourceList = new ArrayList<>();
+		List<PlaylistItem> playlistItemList = new ArrayList<>();
+
+		String hls = "https://cdn.jwplayer.com/manifests/jumBvHdL.m3u8";
+
+		MediaSource ms = new MediaSource.Builder()
+				.file(hls)
+				.type(MediaType.HLS)
+				.build();
+		mediaSourceList.add(ms);
+
+		PlaylistItem item = new PlaylistItem.Builder()
+				.sources(mediaSourceList)
+				.build();
+
+		playlistItemList.add(item);
 
 		return playlistItemList;
 	}

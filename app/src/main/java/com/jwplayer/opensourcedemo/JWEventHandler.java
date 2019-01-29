@@ -79,6 +79,10 @@ public class JWEventHandler implements
         VideoPlayerEvents.OnBufferChangeListener,
         VideoPlayerEvents.OnReadyListener,
 
+        RelatedPluginEvents.OnRelatedCloseListener,
+        RelatedPluginEvents.OnRelatedOpenListener,
+        RelatedPluginEvents.OnRelatedPlayListener,
+
         AdvertisingEvents.OnBeforeCompleteListener,
         AdvertisingEvents.OnBeforePlayListener {
 
@@ -127,7 +131,10 @@ public class JWEventHandler implements
         jwPlayerView.addOnPlaylistListener(this);
 
         jwPlayerView.addOnReadyListener(this);
-
+        jwPlayerView.addOnRelatedCloseListener(this);
+        jwPlayerView.addOnRelatedOpenListener(this);
+        jwPlayerView.addOnRelatedPlayListener(this);
+            
         jwPlayerView.addOnSeekListener(this);
         jwPlayerView.addOnSeekedListener(this);
         jwPlayerView.addOnSetupErrorListener(this);
@@ -353,5 +360,37 @@ public class JWEventHandler implements
         boolean isVisible = controlBarVisibilityEvent.isVisible();
         updateOutput("onControlBarVisibilityChanged(): " + isVisible);
         print("onControlBarVisibilityChanged(): " + isVisible);
+    }
+                
+                
+    @Override
+    public void onRelatedClose(RelatedCloseEvent relatedCloseEvent) {
+        updateOutput("onRelatedClose(): "+relatedCloseEvent.getMethod());
+        print("onRelatedClose(): "+relatedCloseEvent.getMethod());
+        print("");
+    }
+
+    @Override
+    public void onRelatedOpen(RelatedOpenEvent relatedOpenEvent) {
+        updateOutput("onRelatedOpen()"+
+                "method: "+relatedOpenEvent.getMethod() +
+                "onRelatedOpen url: "+relatedOpenEvent.getUrl());
+        print("onRelatedOpen()" + "\r\nmethod: " + relatedOpenEvent.getMethod() + "\r\nurl: " + relatedOpenEvent.getUrl());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            print("onRelatedOpen getitems(): ");
+            relatedOpenEvent.getItems().forEach(e->print(" getitems - " + e + "\r\n"));
+        }
+
+    }
+
+    @Override
+    public void onRelatedPlay(RelatedPlayEvent relatedPlayEvent) {
+        updateOutput("onRelatedPlay(): " +relatedPlayEvent.getItem().getFile());
+        print("onRelatedPlay(): "+
+                "\r\nAuto"+relatedPlayEvent.getAuto() +
+                "\r\nFile:" +relatedPlayEvent.getItem().getFile() +
+                "\r\nPosition: "+relatedPlayEvent.getPosition());
+
     }
 }

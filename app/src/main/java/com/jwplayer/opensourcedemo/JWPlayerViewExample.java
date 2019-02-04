@@ -148,7 +148,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 //		imaSettings.setDebugMode(true);
 //		imaSettings.setAutoPlayAdBreaks(true);
 
-		return new ImaAdvertising(adbreaklist);
+		return new ImaAdvertising(adbreaklist,imaSettings);
 	}
 
 	/*

@@ -21,6 +21,7 @@ import com.longtailvideo.jwplayer.configuration.SkinConfig;
 import com.longtailvideo.jwplayer.events.FullscreenEvent;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 import com.longtailvideo.jwplayer.media.ads.AdBreak;
+import com.longtailvideo.jwplayer.media.ads.AdRules;
 import com.longtailvideo.jwplayer.media.ads.AdSource;
 import com.longtailvideo.jwplayer.media.ads.Advertising;
 import com.longtailvideo.jwplayer.media.ads.ImaAdvertising;
@@ -119,10 +120,27 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 		String ad = "";
 
 		AdBreak adbreak = new AdBreak("pre",AdSource.VAST, ad);
-
 		adbreaklist.add(adbreak);
 
-		return new Advertising(AdSource.VAST, adbreaklist);
+//		AdRules adRules = new AdRules.Builder()
+//				.frequency(1)
+//				.startOn(0)
+//				.startOnSeek(AdRules.RULES_START_ON_SEEK_PRE)
+//				.timeBetweenAds(2)
+//				.build();
+
+		Advertising vastad = new Advertising(AdSource.VAST, adbreaklist);
+		vastad.setVpaidControls(true);
+//		vastad.setAdRules(adRules);
+//		vastad.setClient(AdSource.VAST);
+//		vastad.setRequestTimeout(2);
+//		vastad.setSkipOffset(1);
+		vastad.setAdMessage("");
+		vastad.setCueText("");
+		vastad.setSkipMessage("");
+		vastad.setSkipText("");
+
+		return vastad;
 	}
 
 	/*

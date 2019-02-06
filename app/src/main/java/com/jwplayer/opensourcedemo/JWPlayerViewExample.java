@@ -104,6 +104,8 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 				.autostart(true)
 				.preload(true)
 				.allowCrossProtocolRedirects(true)
+				.advertising(vastAdvertising)
+//				.advertising(imaAdvertising)
 				.skinConfig(skinConfig)
 				.build();
 

@@ -11,12 +11,11 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.jwplayer.opensourcedemo.handler.JWEventHandler;
+import com.jwplayer.opensourcedemo.handler.KeepScreenOnHandler;
 import com.longtailvideo.jwplayer.JWPlayerSupportFragment;
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.cast.CastManager;
@@ -24,7 +23,6 @@ import com.longtailvideo.jwplayer.configuration.PlayerConfig;
 import com.longtailvideo.jwplayer.configuration.SkinConfig;
 import com.longtailvideo.jwplayer.events.FullscreenEvent;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
-import com.longtailvideo.jwplayer.fullscreen.DefaultFullscreenHandler;
 
 public class JWPlayerFragmentExample extends AppCompatActivity implements VideoPlayerEvents.OnFullscreenListener {
 

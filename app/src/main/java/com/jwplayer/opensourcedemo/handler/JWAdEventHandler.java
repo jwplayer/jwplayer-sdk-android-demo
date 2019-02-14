@@ -1,10 +1,11 @@
-package com.jwplayer.opensourcedemo;
+package com.jwplayer.opensourcedemo.handler;
 
 import android.os.Build;
 import android.util.Log;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.jwplayer.opensourcedemo.myutil.Logger;
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.events.AdBreakEndEvent;
 import com.longtailvideo.jwplayer.events.AdBreakStartEvent;
@@ -22,12 +23,8 @@ import com.longtailvideo.jwplayer.events.AdStartedEvent;
 import com.longtailvideo.jwplayer.events.AdTimeEvent;
 import com.longtailvideo.jwplayer.events.listeners.AdvertisingEvents;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class JWAdEventHandler implements
         AdvertisingEvents.OnAdBreakEndListener,
@@ -47,15 +44,14 @@ public class JWAdEventHandler implements
 
     private TextView mOutput;
     private ScrollView mScroll;
-    private final StringBuilder outputStringBuilder = new StringBuilder();
     private JWPlayerView mPlayer;
 
 
-    JWAdEventHandler(JWPlayerView jwPlayerView, TextView output, ScrollView scrollview) {
+    public JWAdEventHandler(JWPlayerView jwPlayerView, TextView output, ScrollView scrollview) {
         mPlayer = jwPlayerView;
         mScroll = scrollview;
         mOutput = output;
-        mOutput.setText(outputStringBuilder.append("Build version: ").append(jwPlayerView.getVersionCode()).append("\r\n"));
+        mOutput.setText(Logger.printBuildVersion(jwPlayerView.getVersionCode()));
 
         // Subscribe to allEventHandler: Player events
         jwPlayerView.addOnAdBreakEndListener(this);
@@ -75,9 +71,8 @@ public class JWAdEventHandler implements
     }
 
     private void updateOutput(String output) {
-        DateFormat dateFormat = new SimpleDateFormat("KK:mm:ss.SSS", Locale.US);
-        outputStringBuilder.append("").append(dateFormat.format(new Date())).append(" ").append(output).append("\r\n");
-        mOutput.setText(outputStringBuilder.toString());
+        String adOutput = Logger.updateOutput(output);
+        mOutput.setText(adOutput);
         mScroll.scrollTo(0, mOutput.getBottom());
     }
 
@@ -123,7 +118,8 @@ public class JWAdEventHandler implements
 
     @Override
     public void onAdRequest(AdRequestEvent adRequestEvent) {
-        updateOutput(" " + "onAdRequest " + adRequestEvent.getTag());
+        updateOutput(" " + "onAdRequest " + adRequestEvent.getTag()+ "\r\n "
+                + "onAdRequest client: " + adRequestEvent.getClient());
         print(" " + "onAdRequest tag: " + adRequestEvent.getTag());
         print(" " + "onAdRequest position: " + adRequestEvent.getAdPosition());
         print(" " + "onAdRequest client: " + adRequestEvent.getClient());

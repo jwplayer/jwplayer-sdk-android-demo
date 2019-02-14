@@ -1,4 +1,4 @@
-package com.jwplayer.opensourcedemo;
+package com.jwplayer.opensourcedemo.handler;
 
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,7 +19,8 @@ import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
 /**
  * Sets the FLAG_KEEP_SCREEN_ON flag during playback - disables it when playback is stopped
  */
-public class KeepScreenOnHandler implements VideoPlayerEvents.OnPlayListener,
+public class KeepScreenOnHandler implements
+        VideoPlayerEvents.OnPlayListener,
         VideoPlayerEvents.OnPauseListener,
         VideoPlayerEvents.OnCompleteListener,
         VideoPlayerEvents.OnErrorListener,

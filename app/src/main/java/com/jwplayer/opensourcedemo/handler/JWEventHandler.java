@@ -1,10 +1,11 @@
-package com.jwplayer.opensourcedemo;
+package com.jwplayer.opensourcedemo.handler;
 
 import android.os.Build;
 import android.util.Log;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.jwplayer.opensourcedemo.myutil.Logger;
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.events.AudioTrackChangedEvent;
 import com.longtailvideo.jwplayer.events.AudioTracksEvent;
@@ -93,14 +94,12 @@ public class JWEventHandler implements
     private JWPlayerView mPlayer;
     private TextView mOutput;
     private ScrollView mScroll;
-    private final StringBuilder outputStringBuilder = new StringBuilder();
 
-
-    JWEventHandler(JWPlayerView jwPlayerView, TextView output, ScrollView scrollview) {
+    public JWEventHandler(JWPlayerView jwPlayerView, TextView output, ScrollView scrollview) {
         mPlayer = jwPlayerView;
         mScroll = scrollview;
         mOutput = output;
-        mOutput.setText(outputStringBuilder.append("Build version: ").append(jwPlayerView.getVersionCode()).append("\r\n"));
+        mOutput.setText(Logger.printBuildVersion(jwPlayerView.getVersionCode()));
 
         // Subscribe to allEventHandler: Player events
         jwPlayerView.addOnBeforeCompleteListener(this);
@@ -112,47 +111,34 @@ public class JWEventHandler implements
         jwPlayerView.addOnCompleteListener(this);
         jwPlayerView.addOnControlBarVisibilityListener(this);
         jwPlayerView.addOnControlsListener(this);
-
         jwPlayerView.addOnDisplayClickListener(this);
-
         jwPlayerView.addOnErrorListener(this);
-
         jwPlayerView.addOnFirstFrameListener(this);
         jwPlayerView.addOnFullscreenListener(this);
-
         jwPlayerView.addOnIdleListener(this);
-
         jwPlayerView.addOnLevelsChangedListener(this);
         jwPlayerView.addOnLevelsListener(this);
-
         jwPlayerView.addOnMetaListener(this);
         jwPlayerView.addOnMuteListener(this);
-
         jwPlayerView.addOnPauseListener(this);
         jwPlayerView.addOnPlayListener(this);
         jwPlayerView.addOnPlaylistCompleteListener(this);
         jwPlayerView.addOnPlaylistItemListener(this);
         jwPlayerView.addOnPlaylistListener(this);
-
         jwPlayerView.addOnReadyListener(this);
         jwPlayerView.addOnRelatedCloseListener(this);
         jwPlayerView.addOnRelatedOpenListener(this);
         jwPlayerView.addOnRelatedPlayListener(this);
-            
         jwPlayerView.addOnSeekListener(this);
         jwPlayerView.addOnSeekedListener(this);
         jwPlayerView.addOnSetupErrorListener(this);
-
         jwPlayerView.addOnTimeListener(this);
-
         jwPlayerView.addOnVisualQualityListener(this);
 
     }
 
     private void updateOutput(String output) {
-        DateFormat dateFormat = new SimpleDateFormat("KK:mm:ss.SSS", Locale.US);
-        outputStringBuilder.append("").append(dateFormat.format(new Date())).append(" ").append(output).append("\r\n");
-        mOutput.setText(outputStringBuilder.toString());
+        mOutput.setText(Logger.updateOutput(output));
         mScroll.scrollTo(0, mOutput.getBottom());
     }
 

@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import com.google.ads.interactivemedia.v3.api.ImaSdkFactory;
 import com.google.ads.interactivemedia.v3.api.ImaSdkSettings;
+import com.jwplayer.opensourcedemo.handler.JWAdEventHandler;
+import com.jwplayer.opensourcedemo.handler.JWEventHandler;
+import com.jwplayer.opensourcedemo.handler.KeepScreenOnHandler;
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.cast.CastManager;
 import com.longtailvideo.jwplayer.configuration.PlayerConfig;
@@ -82,11 +85,22 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 		mCastManager = CastManager.getInstance();
 	}
 
-
+	/*
+	* Setup JW Player
+	* More info for our Player Configurations and other Configurations:
+	* {@link - https://developer.jwplayer.com/sdk/android/reference/com/longtailvideo/jwplayer/configuration/package-summary.html}
+	* 1 - PlayerConfig
+	* 2 - LogoConfig
+	* 3 - PlaybackRateConfig
+	* 4 - CaptionsConfig
+	* 5 - RelatedConfig
+	* 6 - SharingConfig
+	* 7 - SkinConfig
+	* */
 	private void setupJWPlayer() {
 
-		List<PlaylistItem> playlistItemList = createMediaSourcePlaylist();
-//		List<PlaylistItem> playlistItemList = createPlaylist();
+		List<PlaylistItem> playlistItemList = createPlaylist();
+//		List<PlaylistItem> playlistItemList = createMediaSourcePlaylist();
 
 		// Ima Tag Example
 		ImaAdvertising imaAdvertising = getImaAd();
@@ -94,11 +108,13 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 		// VAST Tag Example
 		Advertising vastAdvertising = getVastAd();
 
+		// SkinConifg - more info: https://developer.jwplayer.com/sdk/android/reference/com/longtailvideo/jwplayer/configuration/SkinConfig.Builder.html
 		SkinConfig skinConfig = new SkinConfig.Builder()
 				.url("https://myserver.com/css/mycustomcss.css")
 				.name("mycustomcss")
 				.build();
 
+		// More info: https://developer.jwplayer.com/sdk/android/reference/com/longtailvideo/jwplayer/configuration/PlayerConfig.Builder.html
 		PlayerConfig config = new PlayerConfig.Builder()
 				.playlist(playlistItemList)
 				.autostart(true)
@@ -133,15 +149,15 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 //				.build();
 
 		Advertising vastad = new Advertising(AdSource.VAST, adbreaklist);
-		vastad.setVpaidControls(true);
+//		vastad.setVpaidControls(true);
 //		vastad.setAdRules(adRules);
 //		vastad.setClient(AdSource.VAST);
 //		vastad.setRequestTimeout(2);
 //		vastad.setSkipOffset(1);
-		vastad.setAdMessage("");
-		vastad.setCueText("");
-		vastad.setSkipMessage("");
-		vastad.setSkipText("");
+//		vastad.setAdMessage("");
+//		vastad.setCueText("");
+//		vastad.setSkipMessage("");
+//		vastad.setSkipText("");
 
 		return vastad;
 	}
@@ -180,18 +196,17 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 
 		String[] playlist = {
 				"https://cdn.jwplayer.com/manifests/jumBvHdL.m3u8",
-				"http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8",
 				"http://content.jwplatform.com/videos/tkM1zvBq-cIp6U8lV.mp4",
-				"https://cdn.jwplayer.com/manifests/jumBvHdL.m3u8",
 				"http://content.jwplatform.com/videos/RDn7eg0o-cIp6U8lV.mp4",
-				"http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8",
 				"http://content.jwplatform.com/videos/i3q4gcBi-cIp6U8lV.mp4",
 				"http://content.jwplatform.com/videos/iLwfYW2S-cIp6U8lV.mp4",
 				"http://content.jwplatform.com/videos/8TbJTFy5-cIp6U8lV.mp4",
+				"http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8",
 		};
 
 		for(String each : playlist){
-			playlistItemList.add(new PlaylistItem(each));
+			PlaylistItem item = new PlaylistItem(each);
+			playlistItemList.add(item);
 		}
 
 		return playlistItemList;

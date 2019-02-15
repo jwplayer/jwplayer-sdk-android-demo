@@ -17,6 +17,7 @@ import com.google.ads.interactivemedia.v3.api.ImaSdkSettings;
 import com.jwplayer.opensourcedemo.handler.JWAdEventHandler;
 import com.jwplayer.opensourcedemo.handler.JWEventHandler;
 import com.jwplayer.opensourcedemo.handler.KeepScreenOnHandler;
+import com.jwplayer.opensourcedemo.myutil.Logger;
 import com.longtailvideo.jwplayer.JWPlayerView;
 import com.longtailvideo.jwplayer.cast.CastManager;
 import com.longtailvideo.jwplayer.configuration.PlayerConfig;
@@ -60,6 +61,8 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_jwplayerview);
+
+		Logger.newInstance();
 
 		mPlayerView = findViewById(R.id.jwplayer);
 		TextView outputTextView = findViewById(R.id.output);

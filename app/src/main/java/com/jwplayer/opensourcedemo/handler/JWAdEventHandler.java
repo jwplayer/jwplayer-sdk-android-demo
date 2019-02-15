@@ -54,20 +54,20 @@ public class JWAdEventHandler implements
         mOutput.setText(Logger.printBuildVersion(jwPlayerView.getVersionCode()));
 
         // Subscribe to allEventHandler: Player events
-        jwPlayerView.addOnAdBreakEndListener(this);
-        jwPlayerView.addOnAdStartedListener(this);
-        jwPlayerView.addOnAdClickListener(this);
-        jwPlayerView.addOnAdCompanionsListener(this);
-        jwPlayerView.addOnAdCompleteListener(this);
-        jwPlayerView.addOnAdErrorListener(this);
-        jwPlayerView.addOnAdImpressionListener(this);
-        jwPlayerView.addOnAdPauseListener(this);
-        jwPlayerView.addOnAdPlayListener(this);
-        jwPlayerView.addOnAdSkippedListener(this);
-        jwPlayerView.addOnAdRequestListener(this);
-        jwPlayerView.addOnAdScheduleListener(this);
-        jwPlayerView.addOnAdStartedListener(this);
-        jwPlayerView.addOnAdTimeListener(this);
+        mPlayer.addOnAdBreakEndListener(this);
+        mPlayer.addOnAdStartedListener(this);
+        mPlayer.addOnAdClickListener(this);
+        mPlayer.addOnAdCompanionsListener(this);
+        mPlayer.addOnAdCompleteListener(this);
+        mPlayer.addOnAdErrorListener(this);
+        mPlayer.addOnAdImpressionListener(this);
+        mPlayer.addOnAdPauseListener(this);
+        mPlayer.addOnAdPlayListener(this);
+        mPlayer.addOnAdSkippedListener(this);
+        mPlayer.addOnAdRequestListener(this);
+        mPlayer.addOnAdScheduleListener(this);
+        mPlayer.addOnAdStartedListener(this);
+        mPlayer.addOnAdTimeListener(this);
     }
 
     private void updateOutput(String output) {

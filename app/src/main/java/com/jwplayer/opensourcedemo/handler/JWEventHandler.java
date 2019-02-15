@@ -99,41 +99,40 @@ public class JWEventHandler implements
         mPlayer = jwPlayerView;
         mScroll = scrollview;
         mOutput = output;
-        mOutput.setText(Logger.printBuildVersion(jwPlayerView.getVersionCode()));
+        mOutput.setText(Logger.printBuildVersion(mPlayer.getVersionCode()));
 
         // Subscribe to allEventHandler: Player events
-        jwPlayerView.addOnBeforeCompleteListener(this);
-        jwPlayerView.addOnBeforePlayListener(this);
-        jwPlayerView.addOnBufferListener(this);
-
-        jwPlayerView.addOnCaptionsListListener(this);
-        jwPlayerView.addOnCaptionsChangedListener(this);
-        jwPlayerView.addOnCompleteListener(this);
-        jwPlayerView.addOnControlBarVisibilityListener(this);
-        jwPlayerView.addOnControlsListener(this);
-        jwPlayerView.addOnDisplayClickListener(this);
-        jwPlayerView.addOnErrorListener(this);
-        jwPlayerView.addOnFirstFrameListener(this);
-        jwPlayerView.addOnFullscreenListener(this);
-        jwPlayerView.addOnIdleListener(this);
-        jwPlayerView.addOnLevelsChangedListener(this);
-        jwPlayerView.addOnLevelsListener(this);
-        jwPlayerView.addOnMetaListener(this);
-        jwPlayerView.addOnMuteListener(this);
-        jwPlayerView.addOnPauseListener(this);
-        jwPlayerView.addOnPlayListener(this);
-        jwPlayerView.addOnPlaylistCompleteListener(this);
-        jwPlayerView.addOnPlaylistItemListener(this);
-        jwPlayerView.addOnPlaylistListener(this);
-        jwPlayerView.addOnReadyListener(this);
-        jwPlayerView.addOnRelatedCloseListener(this);
-        jwPlayerView.addOnRelatedOpenListener(this);
-        jwPlayerView.addOnRelatedPlayListener(this);
-        jwPlayerView.addOnSeekListener(this);
-        jwPlayerView.addOnSeekedListener(this);
-        jwPlayerView.addOnSetupErrorListener(this);
-        jwPlayerView.addOnTimeListener(this);
-        jwPlayerView.addOnVisualQualityListener(this);
+        mPlayer.addOnBeforeCompleteListener(this);
+        mPlayer.addOnBeforePlayListener(this);
+        mPlayer.addOnBufferListener(this);
+        mPlayer.addOnCaptionsListListener(this);
+        mPlayer.addOnCaptionsChangedListener(this);
+        mPlayer.addOnCompleteListener(this);
+        mPlayer.addOnControlBarVisibilityListener(this);
+        mPlayer.addOnControlsListener(this);
+        mPlayer.addOnDisplayClickListener(this);
+        mPlayer.addOnErrorListener(this);
+        mPlayer.addOnFirstFrameListener(this);
+        mPlayer.addOnFullscreenListener(this);
+        mPlayer.addOnIdleListener(this);
+        mPlayer.addOnLevelsChangedListener(this);
+        mPlayer.addOnLevelsListener(this);
+        mPlayer.addOnMetaListener(this);
+        mPlayer.addOnMuteListener(this);
+        mPlayer.addOnPauseListener(this);
+        mPlayer.addOnPlayListener(this);
+        mPlayer.addOnPlaylistCompleteListener(this);
+        mPlayer.addOnPlaylistItemListener(this);
+        mPlayer.addOnPlaylistListener(this);
+        mPlayer.addOnReadyListener(this);
+        mPlayer.addOnRelatedCloseListener(this);
+        mPlayer.addOnRelatedOpenListener(this);
+        mPlayer.addOnRelatedPlayListener(this);
+        mPlayer.addOnSeekListener(this);
+        mPlayer.addOnSeekedListener(this);
+        mPlayer.addOnSetupErrorListener(this);
+        mPlayer.addOnTimeListener(this);
+        mPlayer.addOnVisualQualityListener(this);
 
     }
 

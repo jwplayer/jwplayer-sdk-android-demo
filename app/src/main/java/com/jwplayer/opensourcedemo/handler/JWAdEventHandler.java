@@ -21,6 +21,8 @@ import com.longtailvideo.jwplayer.events.AdScheduleEvent;
 import com.longtailvideo.jwplayer.events.AdSkippedEvent;
 import com.longtailvideo.jwplayer.events.AdStartedEvent;
 import com.longtailvideo.jwplayer.events.AdTimeEvent;
+import com.longtailvideo.jwplayer.events.BeforeCompleteEvent;
+import com.longtailvideo.jwplayer.events.BeforePlayEvent;
 import com.longtailvideo.jwplayer.events.listeners.AdvertisingEvents;
 
 import java.util.Arrays;
@@ -40,7 +42,9 @@ public class JWAdEventHandler implements
         AdvertisingEvents.OnAdScheduleListener,
         AdvertisingEvents.OnAdSkippedListener,
         AdvertisingEvents.OnAdStartedListener,
-        AdvertisingEvents.OnAdTimeListener{
+        AdvertisingEvents.OnAdTimeListener,
+        AdvertisingEvents.OnBeforeCompleteListener,
+        AdvertisingEvents.OnBeforePlayListener{
 
     private TextView mOutput;
     private ScrollView mScroll;
@@ -68,6 +72,8 @@ public class JWAdEventHandler implements
         mPlayer.addOnAdScheduleListener(this);
         mPlayer.addOnAdStartedListener(this);
         mPlayer.addOnAdTimeListener(this);
+        mPlayer.addOnBeforeCompleteListener(this);
+        mPlayer.addOnBeforePlayListener(this);
     }
 
     private void updateOutput(String output) {
@@ -149,19 +155,22 @@ public class JWAdEventHandler implements
     public void onAdImpression(AdImpressionEvent adImpressionEvent) {
         updateOutput(" " + "onAdImpression: (\r\n" +
                 " Tag" + adImpressionEvent.getTag() + "\r\n" +
+                " Client: " + adImpressionEvent.getClient()+ "\r\n" +
                 " CreativeType: " + adImpressionEvent.getCreativeType()+ "\r\n" +
                 " Ad Position: " + adImpressionEvent.getAdPosition().name() + ")\r\n");
+
+        if(adImpressionEvent.getMediaFile()!=null ) print(" Media File: " + adImpressionEvent.getMediaFile().getFile()+ "\r\n");
+
         print(" " + "onAdImpression: (\r\n" +
                 " Tag: " + adImpressionEvent.getTag() + "\r\n" +
                 " Universal Ad Id Value: " + adImpressionEvent.getUniversalAdIdValue()+ "\r\n" +
                 " Universal Ad Id Registry: " + adImpressionEvent.getUniversalAdIdRegistry()+ "\r\n" +
                 " getNonComplianceReasons: " + Arrays.toString(adImpressionEvent.getNonComplianceReasons()) + "\r\n" +
                 " Ad Categories: " + Arrays.toString(adImpressionEvent.getCategories()) + "\r\n" +
-                " Media File: " + adImpressionEvent.getMediaFile()+ "\r\n" +
                 " Vast Version: " + adImpressionEvent.getVastVersion()+ "\r\n" +
                 " Client: " + adImpressionEvent.getClient()+ "\r\n" +
                 " CreativeType: " + adImpressionEvent.getCreativeType()+ "\r\n" +
-                " Ad Position: " + adImpressionEvent.getAdPosition().name() + ")\r\n");
+                " Ad Position: " + adImpressionEvent.getAdPosition().name() + "\r\n)\r\n");
     }
 
     @Override
@@ -183,7 +192,7 @@ public class JWAdEventHandler implements
 
     @Override
     public void onAdCompanions(AdCompanionsEvent adCompanionsEvent) {
-        updateOutput(" " + "onAdCompanions  tag:" + adCompanionsEvent.getTag());
+        updateOutput(" " + "onAdCompanions tag:" + adCompanionsEvent.getTag());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             adCompanionsEvent
                     .getCompanions()
@@ -200,5 +209,16 @@ public class JWAdEventHandler implements
         }
     }
 
+    @Override
+    public void onBeforeComplete(BeforeCompleteEvent beforeCompleteEvent) {
+        updateOutput(" " + "onBeforeComplete()");
+        print(" " + "onBeforeComplete(): " + beforeCompleteEvent);
+    }
+
+    @Override
+    public void onBeforePlay(BeforePlayEvent beforePlayEvent) {
+        updateOutput(" " + "onBeforePlay()");
+        print(" " + "onBeforePlay(): " + beforePlayEvent);
+    }
 
 }

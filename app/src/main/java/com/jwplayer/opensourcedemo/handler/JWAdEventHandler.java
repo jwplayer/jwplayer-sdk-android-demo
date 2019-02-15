@@ -197,15 +197,19 @@ public class JWAdEventHandler implements
             adCompanionsEvent
                     .getCompanions()
                     .forEach(e->{
-                        print("onAdCompanions-" + e.getResource()+ "\n");
+                        print("onAdCompanions click - " + e.getClick()+ "\r\n" +
+                                "onAdCompanions height - " + e.getHeight()+ "\r\n" +
+                                "onAdCompanions width - " + e.getWidth()+ "\r\n" +
+                                "onAdCompanions type - " + e.getType()+ "\r\n" +
+                                "onAdCompanions resource - " + e.getResource()+ "\n");
                         printCreatives(e.getCreativeViews());
                     });
         }
     }
 
     private void printCreatives(List<String> creative) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && creative.size()>0) {
-            creative.forEach(each -> print("onAdCompanions-Creative: " + each));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && creative.size() > 0) {
+            creative.forEach(each -> print("onAdCompanions creative -" + each));
         }
     }
 

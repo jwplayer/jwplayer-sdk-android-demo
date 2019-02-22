@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -68,6 +69,8 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 		TextView outputTextView = findViewById(R.id.output);
 		ScrollView scrollView = findViewById(R.id.scroll);
 		mCoordinatorLayout = findViewById(R.id.activity_jwplayerview);
+
+		WebView wb = new WebView(this);
 
 		// Setup JWPlayer
 		setupJWPlayer();
@@ -141,7 +144,7 @@ public class JWPlayerViewExample extends AppCompatActivity implements
 		String ad = "";
 		String vpaid = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinearvpaid2js&correlator=";
 
-		AdBreak adbreak = new AdBreak("pre",AdSource.VAST, vpaid);
+		AdBreak adbreak = new AdBreak("pre", AdSource.VAST, ad);
 		adbreaklist.add(adbreak);
 
 //		AdRules adRules = new AdRules.Builder()

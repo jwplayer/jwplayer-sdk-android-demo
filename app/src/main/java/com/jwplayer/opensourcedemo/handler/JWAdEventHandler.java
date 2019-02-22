@@ -27,6 +27,7 @@ import com.longtailvideo.jwplayer.events.listeners.AdvertisingEvents;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class JWAdEventHandler implements
         AdvertisingEvents.OnAdBreakEndListener,
@@ -159,17 +160,22 @@ public class JWAdEventHandler implements
                 " CreativeType: " + adImpressionEvent.getCreativeType()+ "\r\n" +
                 " Ad Position: " + adImpressionEvent.getAdPosition().name() + ")\r\n");
 
-        if(adImpressionEvent.getMediaFile()!=null ) print(" Media File: " + adImpressionEvent.getMediaFile().getFile()+ "\r\n");
+        if(adImpressionEvent.getMediaFile()!=null ) print("onAdImpression - Media File: " + adImpressionEvent.getMediaFile().getFile()+ "\r\n");
+        if(adImpressionEvent.getVmapInfo() !=null ) print("onAdImpression - VmapInfo: " + adImpressionEvent.getVmapInfo().toJson()+ "\r\n");
 
         print(" " + "onAdImpression: (\r\n" +
                 " Tag: " + adImpressionEvent.getTag() + "\r\n" +
                 " Universal Ad Id Value: " + adImpressionEvent.getUniversalAdIdValue()+ "\r\n" +
                 " Universal Ad Id Registry: " + adImpressionEvent.getUniversalAdIdRegistry()+ "\r\n" +
+                " ClickThrough URL: " + adImpressionEvent.getClickThroughUrl() + "\r\n" +
+                " getMediaFileCompliance: " + Objects.requireNonNull(adImpressionEvent.getMediaFileCompliance()).toString() + "\r\n" +
                 " getNonComplianceReasons: " + Arrays.toString(adImpressionEvent.getNonComplianceReasons()) + "\r\n" +
-                " Ad Categories: " + Arrays.toString(adImpressionEvent.getCategories()) + "\r\n" +
                 " Vast Version: " + adImpressionEvent.getVastVersion()+ "\r\n" +
                 " Client: " + adImpressionEvent.getClient()+ "\r\n" +
                 " CreativeType: " + adImpressionEvent.getCreativeType()+ "\r\n" +
+                " Ad Title: " + adImpressionEvent.getAdTitle() + "\r\n" +
+                " Ad Categories: " + Arrays.toString(adImpressionEvent.getCategories()) + "\r\n" +
+                " Ad System: " + adImpressionEvent.getAdSystem() + "\r\n" +
                 " Ad Position: " + adImpressionEvent.getAdPosition().name() + "\r\n)\r\n");
     }
 
@@ -186,8 +192,10 @@ public class JWAdEventHandler implements
 
     @Override
     public void onAdPlay(AdPlayEvent adPlayEvent) {
-        updateOutput(" " + "onAdPlay(\"" + adPlayEvent.getTag() + "\", \"" + adPlayEvent.getOldState() + ")\r\n");
-        print(" " + "onAdPlay(\"" + adPlayEvent.getTag() + " " + adPlayEvent.getOldState());
+        updateOutput(" " + "onAdPlay(" + adPlayEvent.getTag() + "\", \"" + adPlayEvent.getOldState() + ")\r\n");
+        print(" " + "onAdPlay(" + adPlayEvent.getTag() +
+                "\r\nold state: " + adPlayEvent.getOldState() +
+                "\r\ncreative type: " + adPlayEvent.getCreativeType() + ")\r\n");
     }
 
     @Override

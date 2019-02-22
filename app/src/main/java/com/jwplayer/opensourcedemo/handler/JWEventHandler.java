@@ -41,6 +41,9 @@ import com.longtailvideo.jwplayer.events.TimeEvent;
 import com.longtailvideo.jwplayer.events.VisualQualityEvent;
 import com.longtailvideo.jwplayer.events.listeners.RelatedPluginEvents;
 import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
+import com.longtailvideo.jwplayer.media.adaptive.QualityLevel;
+import com.longtailvideo.jwplayer.media.captions.Caption;
+import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
 
 /**
  * Outputs all JW Player Events to logging, with the exception of time events.
@@ -179,15 +182,16 @@ public class JWEventHandler implements
     @Override
     public void onCaptionsList(CaptionsListEvent captionsListEvent) {
         updateOutput(" " + "onCaptionsList()");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            captionsListEvent.getTracks().forEach(e->print(" onCaptionsList-"+e.getLabel() +": "+ e.toJson().toString()));
+
+        for(Caption each : captionsListEvent.getTracks()){
+            print("  onCaptionsList()- " + each.getLabel() +": "+ each.toJson().toString());
         }
     }
 
     @Override
     public void onComplete(CompleteEvent completeEvent) {
         updateOutput(" " + "onComplete()");
-        print(" " + "onComplete(): " + completeEvent);
+        print(" " + "onComplete(): " + completeEvent.toString());
     }
 
     @Override
@@ -228,9 +232,11 @@ public class JWEventHandler implements
 
     @Override
     public void onLevels(LevelsEvent levelsEvent) {
-        updateOutput(" " + "onlevelsEvent size: " + levelsEvent.getLevels().size());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            levelsEvent.getLevels().forEach(e-> print(" onlevelsEvent-"+e.getLabel()+":" + e.toJson().toString()));
+        updateOutput(" " + "onLevelsEvent size: " + levelsEvent.getLevels().size());
+        print(" " + "onLevelsEvent size: " + levelsEvent.getLevels().size());
+
+        for(QualityLevel each : levelsEvent.getLevels()){
+            print(" onLevelsEvent - " + each.toJson().toString());
         }
     }
 
@@ -320,8 +326,8 @@ public class JWEventHandler implements
     @Override
     public void onControlBarVisibilityChanged(ControlBarVisibilityEvent controlBarVisibilityEvent) {
         boolean isVisible = controlBarVisibilityEvent.isVisible();
-        updateOutput(" onControlBarVisibilityChanged(): " + isVisible);
-        print(" onControlBarVisibilityChanged(): " + isVisible);
+        updateOutput(" onControlBarVisibilityChanged(): " + isVisible + "\r\n");
+        print(" onControlBarVisibilityChanged(): " + isVisible + "\r\n");
     }
                 
                 
@@ -329,7 +335,6 @@ public class JWEventHandler implements
     public void onRelatedClose(RelatedCloseEvent relatedCloseEvent) {
         updateOutput(" onRelatedClose(): "+relatedCloseEvent.getMethod());
         print(" onRelatedClose(): "+relatedCloseEvent.getMethod());
-        print("");
     }
 
     @Override
@@ -337,13 +342,15 @@ public class JWEventHandler implements
         updateOutput(" onRelatedOpen()"+
                 "method: "+relatedOpenEvent.getMethod() +
                 "onRelatedOpen url: "+relatedOpenEvent.getUrl());
-        print(" onRelatedOpen()" + "\r\nmethod: " + relatedOpenEvent.getMethod() + "\r\nurl: " + relatedOpenEvent.getUrl());
+        print(" onRelatedOpen() - " + "\r\nmethod: " + relatedOpenEvent.getMethod() + "\r\nurl: " + relatedOpenEvent.getUrl());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            print(" onRelatedOpen getitems(): ");
-            relatedOpenEvent.getItems().forEach(e->print(" getitems - " + e + "\r\n"));
+        int item = 0;
+        if(item < relatedOpenEvent.getItems().size()){
+            for(PlaylistItem each : relatedOpenEvent.getItems()){
+                print(" onRelatedOpen() " + item + ") " + each.toJson().toString());
+                item+=1;
+            }
         }
-
     }
 
     @Override

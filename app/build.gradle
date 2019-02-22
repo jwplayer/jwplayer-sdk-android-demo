@@ -32,23 +32,17 @@ android {
 		sourceCompatibility JavaVersion.VERSION_1_8
 		targetCompatibility JavaVersion.VERSION_1_8
 	}
-
-	configurations.all {
-		resolutionStrategy {
-			force "com.android.support:animated-vector-drawable:${supportLibVersion}",
-					"com.android.support:mediarouter-v7:${supportLibVersion}",
-					"com.android.support:customtabs:${supportLibVersion}",
-					"com.android.support:support-v4:${supportLibVersion}",
-					"com.android.support:exifinterface:${supportLibVersion}"
-		}
-	}
 }
 
 dependencies {
 	implementation fileTree(include: ['*.jar'], dir: 'libs')
 	testImplementation 'junit:junit:4.12'
-	implementation "com.android.support:appcompat-v7:${supportLibVersion}"
-	implementation "com.android.support:design:${supportLibVersion}"
+	implementation ("com.android.support:appcompat-v7:${supportLibVersion}"){
+		force='true'
+	}
+	implementation ("com.android.support:design:${supportLibVersion}"){
+		force='true'
+	}
 	implementation 'com.android.support:multidex:1.0.3'
 	implementation "com.longtailvideo.jwplayer:jwplayer-core:${jwplayerVersion}"
 	implementation "com.longtailvideo.jwplayer:jwplayer-common:${jwplayerVersion}"

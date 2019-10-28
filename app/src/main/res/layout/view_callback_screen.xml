@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/callback_player_version"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:text="Player Version:"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+
+        <ScrollView
+            android:id="@+id/callback_scroll"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="7dp">
+
+                <CheckBox
+                    android:id="@+id/callback_time_seconds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time in seconds" />
+
+                <CheckBox
+                    android:id="@+id/callback_check_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Check All" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="9dp"
+                    android:text="Player Callbacks"
+                    android:textColor="#252525" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_time_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onTime" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_fullscreen_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onFullscreen" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_idle_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onIdle" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_buffer_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onBuffer" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_play_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onPlay" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_pause_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onPause" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_complete_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onComplete" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_seek_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onSeek" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_seeked_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onSeeked" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_error_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onError" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_mute_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onMute" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_visual_quality_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onVisualQuality" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_audio_tracks_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onAudioTracks" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_audio_tracks_changed_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onAudioTracksChanged" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_levels_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onLevels" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_levels_changed_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onLevelsChanged" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_first_frame_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onFirstFrame" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_display_click_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onDisplayClick" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_playlist_complete_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onPlaylistComplete" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_meta_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onMeta" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_captions_changed_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onCaptionsChanged" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_captions_list_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onCaptionsList" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_playlist_item_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onPlaylistItem" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_playlist_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onPlaylist" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_setup_error_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onSetupError" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_controls_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onControls" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_controlbar_visibility_changed_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onControlBarVisibilityChanged" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_buffer_change_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onBufferChange" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_related_close_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onRelatedClose" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_related_open_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onRelatedOpen" />
+
+                <CheckBox
+                    android:id="@+id/callback_on_related_play_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onRelatedPlay" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="9dp"
+                    android:text="Advertising Callbacks"
+                    android:textColor="#252525" />
+
+                <CheckBox
+                    android:id="@+id/callback_ad_on_companion_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onAdCompanion" />
+
+                <CheckBox
+                    android:id="@+id/callback_ad_on_time_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onAdTime" />
+
+                <CheckBox
+                    android:id="@+id/callback_ad_on_play_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onAdPlay" />
+
+                <CheckBox
+                    android:id="@+id/callback_ad_on_pause_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onAdPause" />
+
+                <CheckBox
+                    android:id="@+id/callback_ad_on_complete_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onAdComplete" />
+
+                <CheckBox
+                    android:id="@+id/callback_ad_on_skip_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onAdSkip" />
+
+                <CheckBox
+                    android:id="@+id/callback_ad_on_error_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onAdError" />
+
+                <CheckBox
+                    android:id="@+id/callback_ad_on_click_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onAdClick" />
+
+                <CheckBox
+                    android:id="@+id/callback_ad_on_impression_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onAdImpression" />
+
+                <CheckBox
+                    android:id="@+id/callback_ad_on_started_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onAdStarted" />
+
+                <CheckBox
+                    android:id="@+id/callback_ad_on_request_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onAdRequest" />
+
+                <CheckBox
+                    android:id="@+id/callback_ad_on_before_complete_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onBeforeComplete" />
+
+                <CheckBox
+                    android:id="@+id/callback_ad_on_before_play_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onBeforePlay" />
+
+                <CheckBox
+                    android:id="@+id/callback_ad_on_schedule_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="onAdSchedule" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="7dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Log:"
+                android:textColor="#000000"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/callback_status_tv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:padding="5dp"
+                android:scrollbars="vertical"
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/callback_clear_btn"
+                style="@style/Text.Buttons.Center"
+                android:layout_height="40dp"
+                android:text="clear log" />
+        </LinearLayout>
+
+    </LinearLayout>
+</merge>

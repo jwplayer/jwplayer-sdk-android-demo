@@ -28,9 +28,13 @@
             android:value="com.jwplayer.opensourcedemo.CastOptionsProvider" />
 
         <!--TODO Set your license key-->
+<!--        <meta-data-->
+<!--            android:name="JW_LICENSE_KEY"-->
+<!--            android:value="" />-->
+
         <meta-data
             android:name="JW_LICENSE_KEY"
-            android:value="" />
+            android:value="/dKp3FmymViNv+eahCOdhX4iZfwWBfa77dJzM8hzHUSmC8na" />
 
         <meta-data
             android:name="com.google.android.gms.version"

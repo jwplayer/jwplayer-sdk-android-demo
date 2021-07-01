@@ -23,17 +23,19 @@ android {
 	}
 }
 
+ext.JWPlayerVersion = '3.19.4'
+
 dependencies {
 	implementation'androidx.appcompat:appcompat:1.1.0'
 	implementation'com.google.android.material:material:1.1.0'
 	implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-	implementation 'com.longtailvideo.jwplayer:jwplayer-core:3.13.0'
-	implementation 'com.longtailvideo.jwplayer:jwplayer-common:3.13.0'
-	implementation 'com.longtailvideo.jwplayer:jwplayer-chromecast:3.12.1'
+	implementation "com.longtailvideo.jwplayer:jwplayer-core:$JWPlayerVersion"
+	implementation "com.longtailvideo.jwplayer:jwplayer-common:$JWPlayerVersion"
+	implementation "com.longtailvideo.jwplayer:jwplayer-chromecast:$JWPlayerVersion"
 
 	// Only required if using IMA features
-	implementation 'com.longtailvideo.jwplayer:jwplayer-ima:3.12.0'
+	implementation "com.longtailvideo.jwplayer:jwplayer-ima:$JWPlayerVersion"
 	
 	// Only required if using FreeWheel
-	 implementation 'com.longtailvideo.jwplayer:jwplayer-freewheel:3.12.0'
+	 implementation "com.longtailvideo.jwplayer:jwplayer-freewheel:$JWPlayerVersion"
 }

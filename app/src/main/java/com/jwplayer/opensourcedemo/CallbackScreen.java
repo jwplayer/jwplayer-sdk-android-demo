@@ -4,71 +4,70 @@ import android.content.Context;
 import android.text.method.ScrollingMovementMethod;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.longtailvideo.jwplayer.JWPlayerView;
-import com.longtailvideo.jwplayer.core.PlayerState;
-import com.longtailvideo.jwplayer.events.AdClickEvent;
-import com.longtailvideo.jwplayer.events.AdCompanionsEvent;
-import com.longtailvideo.jwplayer.events.AdCompleteEvent;
-import com.longtailvideo.jwplayer.events.AdErrorEvent;
-import com.longtailvideo.jwplayer.events.AdImpressionEvent;
-import com.longtailvideo.jwplayer.events.AdPauseEvent;
-import com.longtailvideo.jwplayer.events.AdPlayEvent;
-import com.longtailvideo.jwplayer.events.AdRequestEvent;
-import com.longtailvideo.jwplayer.events.AdScheduleEvent;
-import com.longtailvideo.jwplayer.events.AdSkippedEvent;
-import com.longtailvideo.jwplayer.events.AdStartedEvent;
-import com.longtailvideo.jwplayer.events.AdTimeEvent;
-import com.longtailvideo.jwplayer.events.AudioTrackChangedEvent;
-import com.longtailvideo.jwplayer.events.AudioTracksEvent;
-import com.longtailvideo.jwplayer.events.BeforeCompleteEvent;
-import com.longtailvideo.jwplayer.events.BeforePlayEvent;
-import com.longtailvideo.jwplayer.events.BufferChangeEvent;
-import com.longtailvideo.jwplayer.events.BufferEvent;
-import com.longtailvideo.jwplayer.events.CaptionsChangedEvent;
-import com.longtailvideo.jwplayer.events.CaptionsListEvent;
-import com.longtailvideo.jwplayer.events.CompleteEvent;
-import com.longtailvideo.jwplayer.events.ControlBarVisibilityEvent;
-import com.longtailvideo.jwplayer.events.ControlsEvent;
-import com.longtailvideo.jwplayer.events.DisplayClickEvent;
-import com.longtailvideo.jwplayer.events.ErrorEvent;
-import com.longtailvideo.jwplayer.events.FirstFrameEvent;
-import com.longtailvideo.jwplayer.events.FullscreenEvent;
-import com.longtailvideo.jwplayer.events.IdleEvent;
-import com.longtailvideo.jwplayer.events.LevelsChangedEvent;
-import com.longtailvideo.jwplayer.events.LevelsEvent;
-import com.longtailvideo.jwplayer.events.MetaEvent;
-import com.longtailvideo.jwplayer.events.MuteEvent;
-import com.longtailvideo.jwplayer.events.PauseEvent;
-import com.longtailvideo.jwplayer.events.PlayEvent;
-import com.longtailvideo.jwplayer.events.PlaylistCompleteEvent;
-import com.longtailvideo.jwplayer.events.PlaylistEvent;
-import com.longtailvideo.jwplayer.events.PlaylistItemEvent;
-import com.longtailvideo.jwplayer.events.RelatedCloseEvent;
-import com.longtailvideo.jwplayer.events.RelatedOpenEvent;
-import com.longtailvideo.jwplayer.events.RelatedPlayEvent;
-import com.longtailvideo.jwplayer.events.SeekEvent;
-import com.longtailvideo.jwplayer.events.SeekedEvent;
-import com.longtailvideo.jwplayer.events.SetupErrorEvent;
-import com.longtailvideo.jwplayer.events.TimeEvent;
-import com.longtailvideo.jwplayer.events.VisualQualityEvent;
-import com.longtailvideo.jwplayer.events.listeners.AdvertisingEvents;
-import com.longtailvideo.jwplayer.events.listeners.RelatedPluginEvents;
-import com.longtailvideo.jwplayer.events.listeners.VideoPlayerEvents;
-import com.longtailvideo.jwplayer.media.adaptive.QualityLevel;
-import com.longtailvideo.jwplayer.media.ads.AdCompanion;
-import com.longtailvideo.jwplayer.media.ads.AdPosition;
-import com.longtailvideo.jwplayer.media.ads.AdSource;
-import com.longtailvideo.jwplayer.media.ads.VMAPAdBreak;
-import com.longtailvideo.jwplayer.media.audio.AudioTrack;
-import com.longtailvideo.jwplayer.media.captions.Caption;
-import com.longtailvideo.jwplayer.media.meta.Metadata;
-import com.longtailvideo.jwplayer.media.playlists.PlaylistItem;
+import com.jwplayer.pub.api.JWPlayer;
+import com.jwplayer.pub.api.PlayerState;
+import com.jwplayer.pub.api.events.AdClickEvent;
+import com.jwplayer.pub.api.events.AdCompanionsEvent;
+import com.jwplayer.pub.api.events.AdCompleteEvent;
+import com.jwplayer.pub.api.events.AdErrorEvent;
+import com.jwplayer.pub.api.events.AdImpressionEvent;
+import com.jwplayer.pub.api.events.AdPauseEvent;
+import com.jwplayer.pub.api.events.AdPlayEvent;
+import com.jwplayer.pub.api.events.AdRequestEvent;
+import com.jwplayer.pub.api.events.AdScheduleEvent;
+import com.jwplayer.pub.api.events.AdSkippedEvent;
+import com.jwplayer.pub.api.events.AdStartedEvent;
+import com.jwplayer.pub.api.events.AdTimeEvent;
+import com.jwplayer.pub.api.events.AudioTrackChangedEvent;
+import com.jwplayer.pub.api.events.AudioTracksEvent;
+import com.jwplayer.pub.api.events.BeforeCompleteEvent;
+import com.jwplayer.pub.api.events.BeforePlayEvent;
+import com.jwplayer.pub.api.events.BufferChangeEvent;
+import com.jwplayer.pub.api.events.BufferEvent;
+import com.jwplayer.pub.api.events.CaptionsChangedEvent;
+import com.jwplayer.pub.api.events.CaptionsListEvent;
+import com.jwplayer.pub.api.events.CompleteEvent;
+import com.jwplayer.pub.api.events.ControlBarVisibilityEvent;
+import com.jwplayer.pub.api.events.ControlsEvent;
+import com.jwplayer.pub.api.events.DisplayClickEvent;
+import com.jwplayer.pub.api.events.ErrorEvent;
+import com.jwplayer.pub.api.events.EventType;
+import com.jwplayer.pub.api.events.FirstFrameEvent;
+import com.jwplayer.pub.api.events.FullscreenEvent;
+import com.jwplayer.pub.api.events.IdleEvent;
+import com.jwplayer.pub.api.events.LevelsChangedEvent;
+import com.jwplayer.pub.api.events.LevelsEvent;
+import com.jwplayer.pub.api.events.MetaEvent;
+import com.jwplayer.pub.api.events.MuteEvent;
+import com.jwplayer.pub.api.events.PauseEvent;
+import com.jwplayer.pub.api.events.PlayEvent;
+import com.jwplayer.pub.api.events.PlaylistCompleteEvent;
+import com.jwplayer.pub.api.events.PlaylistEvent;
+import com.jwplayer.pub.api.events.PlaylistItemEvent;
+import com.jwplayer.pub.api.events.RelatedCloseEvent;
+import com.jwplayer.pub.api.events.RelatedOpenEvent;
+import com.jwplayer.pub.api.events.RelatedPlayEvent;
+import com.jwplayer.pub.api.events.SeekEvent;
+import com.jwplayer.pub.api.events.SeekedEvent;
+import com.jwplayer.pub.api.events.SetupErrorEvent;
+import com.jwplayer.pub.api.events.TimeEvent;
+import com.jwplayer.pub.api.events.VisualQualityEvent;
+import com.jwplayer.pub.api.events.listeners.AdvertisingEvents;
+import com.jwplayer.pub.api.events.listeners.RelatedPluginEvents;
+import com.jwplayer.pub.api.events.listeners.VideoPlayerEvents;
+import com.jwplayer.pub.api.media.adaptive.QualityLevel;
+import com.jwplayer.pub.api.media.ads.AdCompanion;
+import com.jwplayer.pub.api.media.ads.AdPosition;
+import com.jwplayer.pub.api.media.ads.VmapAdBreak;
+import com.jwplayer.pub.api.media.audio.AudioTrack;
+import com.jwplayer.pub.api.media.captions.Caption;
+import com.jwplayer.pub.api.media.meta.Metadata;
+import com.jwplayer.pub.api.media.playlists.PlaylistItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -188,10 +187,7 @@ public class CallbackScreen extends LinearLayout implements
 	private CheckBox mOnAdCompanion;
 	private CheckBox mOnAdSchedule;
 
-	private CallbackScreen mCallbackScreen;
-
-
-	private JWPlayerView mPlayerView;
+	private JWPlayer mPlayer;
 
 	private boolean timeInSeconds = false;
 
@@ -199,19 +195,16 @@ public class CallbackScreen extends LinearLayout implements
 	public CallbackScreen(Context context) {
 		super(context);
 		inflate(getContext(), R.layout.view_callback_screen, this);
-		mCallbackScreen = this;
 	}
 
 	public CallbackScreen(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		inflate(getContext(), R.layout.view_callback_screen, this);
-		mCallbackScreen = this;
 	}
 
 	public CallbackScreen(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		inflate(getContext(), R.layout.view_callback_screen, this);
-		mCallbackScreen = this;
 	}
 
 	private void setOutput(String output) {
@@ -361,7 +354,6 @@ public class CallbackScreen extends LinearLayout implements
 
 	@Override
 	public void onAdTime(AdTimeEvent event) {
-		AdSource client = event.getClient();
 		String creativeType = event.getCreativeType();
 		int sequence = event.getSequence();
 		String tag = event.getTag();
@@ -378,8 +370,6 @@ public class CallbackScreen extends LinearLayout implements
 				mOldAdDurationSeconds = adDurationSeconds;
 
 				String output = "/// onAdTime START ///" + "\n" +
-						"Client:" + "\n" +
-						client.name() + "\n" +
 						"Creative Type:" + "\n" +
 						creativeType + "\n" +
 						"Tag:" + "\n" +
@@ -395,8 +385,6 @@ public class CallbackScreen extends LinearLayout implements
 			}
 		} else {
 			String output = "/// onAdTime START ///" + "\n" +
-					"Client:" + "\n" +
-					client.name() + "\n" +
 					"Creative Type:" + "\n" +
 					creativeType + "\n" +
 					"Tag:" + "\n" +
@@ -442,551 +430,204 @@ public class CallbackScreen extends LinearLayout implements
 	}
 
 
-	public void registerListeners(JWPlayerView playerView) {
+	public void registerListeners(JWPlayer player) {
 
-		mPlayerView = playerView;
+		mPlayer = player;
 
 		mCallbackPlayerVersion = findViewById(R.id.callback_player_version);
-		mCallbackPlayerVersion.setText("Player Version: " + mPlayerView.getVersionCode());
+		mCallbackPlayerVersion.setText("Player Version: " + mPlayer.getVersionCode());
 
 		mCallbackLog = findViewById(R.id.callback_status_tv);
 		mCallbackLog.setMovementMethod(new ScrollingMovementMethod());
 
 
 		//         This handles clearing the log
-		findViewById(R.id.callback_clear_btn).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mCallbackLog.setText("");
-			}
-		});
+		findViewById(R.id.callback_clear_btn).setOnClickListener(v -> mCallbackLog.setText(""));
 
 
 		mTimeSeconds = findViewById(R.id.callback_time_seconds);
-		mTimeSeconds.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				timeInSeconds = isChecked;
-			}
-		});
+		mTimeSeconds.setOnCheckedChangeListener((buttonView, isChecked) -> timeInSeconds = isChecked);
 
 		mOnCompleteCheckBox = findViewById(R.id.callback_on_complete_check);
-		mOnCompleteCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnCompleteListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnCompleteListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnCompleteCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.COMPLETE,this)
+		);
 		mOnErrorCheckBox = findViewById(R.id.callback_on_error_check);
-		mOnErrorCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnErrorListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnErrorListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnErrorCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.ERROR,this)
+		);
 		mOnFullscreenCheckBox = findViewById(R.id.callback_on_fullscreen_check);
-		mOnFullscreenCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnFullscreenListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnFullscreenListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnFullscreenCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.FULLSCREEN,this)
+		);
 		mOnSeekCheckBox = findViewById(R.id.callback_on_seek_check);
-		mOnSeekCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnSeekListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnSeekListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnSeekCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.SEEK,this)
+		);
 		mOnSeekedCheckBox = findViewById(R.id.callback_on_seeked_check);
-		mOnSeekedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnSeekedListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnSeekedListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnSeekedCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.SEEKED,this)
+		);
 		mOnIdleCheckBox = findViewById(R.id.callback_on_idle_check);
-		mOnIdleCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnIdleListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnIdleListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnIdleCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.IDLE,this)
+		);
 		mOnBufferingCheckBox = findViewById(R.id.callback_on_buffer_check);
-		mOnBufferingCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnBufferListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnBufferListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnBufferingCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.BUFFER,this)
+		);
 		mOnPlayCheckBox = findViewById(R.id.callback_on_play_check);
-		mOnPlayCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnPlayListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnPlayListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnPlayCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.PLAY,this)
+		);
 		mOnPauseCheckBox = findViewById(R.id.callback_on_pause_check);
-		mOnPauseCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnPauseListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnPauseListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnPauseCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.PAUSE,this)
+		);
 		mOnTimeCheckBox = findViewById(R.id.callback_on_time_check);
-		mOnTimeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnTimeListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnTimeListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnTimeCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.TIME,this)
+		);
 		mOnAdCompleteCheckBox = findViewById(R.id.callback_ad_on_complete_check);
-		mOnAdCompleteCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnAdCompleteListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnAdCompleteListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnAdCompleteCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.AD_COMPLETE,this)
+		);
 		mOnAdErrorCheckBox = findViewById(R.id.callback_ad_on_error_check);
-		mOnAdErrorCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnAdErrorListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnAdErrorListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnAdErrorCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.AD_ERROR,this)
+		);
 		mOnAdSkipCheckBox = findViewById(R.id.callback_ad_on_skip_check);
-		mOnAdSkipCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnAdSkippedListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnAdSkippedListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnAdSkipCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.AD_SKIPPED,this)
+		);
 		mOnAdPlayCheckBox = findViewById(R.id.callback_ad_on_play_check);
-		mOnAdPlayCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnAdPlayListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnAdPlayListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnAdPlayCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.AD_PLAY,this)
+		);
 		mOnAdPauseCheckBox = findViewById(R.id.callback_ad_on_pause_check);
-		mOnAdPauseCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnAdPauseListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnAdPauseListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnAdPauseCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.AD_PAUSE,this)
+		);
 		mOnAdTimeCheckBox = findViewById(R.id.callback_ad_on_time_check);
-		mOnAdTimeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnAdTimeListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnAdTimeListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnAdTimeCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.AD_TIME,this)
+		);
 		mOnAdImpressionCheckBox = findViewById(R.id.callback_ad_on_impression_check);
-		mOnAdImpressionCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnAdImpressionListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnAdImpressionListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnAdImpressionCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.AD_IMPRESSION,this)
+		);
 		mOnAdClickCheckBox = findViewById(R.id.callback_ad_on_click_check);
-		mOnAdClickCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnAdClickListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnAdClickListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnAdClickCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.AD_CLICK,this)
+		);
 		mOnAdRequestCheckBox = findViewById(R.id.callback_ad_on_request_check);
-		mOnAdRequestCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnAdRequestListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnAdRequestListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnAdRequestCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.AD_REQUEST,this)
+		);
 		mOnAudioTracksCheckBox = findViewById(R.id.callback_on_audio_tracks_check);
-		mOnAudioTracksCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnAudioTracksListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnAudioTracksListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnAudioTracksCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.AUDIO_TRACKS,this)
+		);
 		mOnAudioTracksChangedCheckBox = findViewById(R.id.callback_on_audio_tracks_changed_check);
-		mOnAudioTracksChangedCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnAudioTrackChangedListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnAudioTrackChangedListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnAudioTracksChangedCheckBox.setOnCheckedChangeListener(
+						new EventCheckChangedListener(mPlayer,EventType.AUDIO_TRACK_CHANGED,this)
+		);
 		mOnLevelsCheckBox = findViewById(R.id.callback_on_levels_check);
-		mOnLevelsCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnLevelsListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnLevelsListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnLevelsCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.LEVELS,this)
+		);
 		mOnLevelsChangedCheckBox = findViewById(R.id.callback_on_levels_changed_check);
-		mOnLevelsChangedCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnLevelsChangedListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnLevelsChangedListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnLevelsChangedCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.LEVELS_CHANGED,this)
+		);
 		mOnFirstFrameCheckBox = findViewById(R.id.callback_on_first_frame_check);
-		mOnFirstFrameCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnFirstFrameListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnFirstFrameListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnFirstFrameCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.FIRST_FRAME,this)
+		);
 		mOnDisplayClickCheckBox = findViewById(R.id.callback_on_display_click_check);
-		mOnDisplayClickCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnDisplayClickListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnDisplayClickListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnDisplayClickCheckBox.setOnCheckedChangeListener(
+						new EventCheckChangedListener(mPlayer,EventType.DISPLAY_CLICK,this)
+		);
 		mOnPlaylistCompleteCheckBox = findViewById(R.id.callback_on_playlist_complete_check);
-		mOnPlaylistCompleteCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnPlaylistCompleteListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnPlaylistCompleteListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnPlaylistCompleteCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.PLAYLIST_COMPLETE,this)
+		);
 		mOnMetaCheckBox = findViewById(R.id.callback_on_meta_check);
-		mOnMetaCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnMetaListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnMetaListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnMetaCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.META,this)
+		);
 		mOnCaptionsChangedCheckBox = findViewById(R.id.callback_on_captions_changed_check);
-		mOnCaptionsChangedCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnCaptionsChangedListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnCaptionsChangedListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnCaptionsChangedCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.CAPTIONS_CHANGED,this)
+		);
 		mOnCaptionsListCheckBox = findViewById(R.id.callback_on_captions_list_check);
-		mOnCaptionsListCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnCaptionsListListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnCaptionsListListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnCaptionsListCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.CAPTIONS_LIST,this)
+		);
 		mOnPlaylistItemCheckBox = findViewById(R.id.callback_on_playlist_item_check);
-		mOnPlaylistItemCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnPlaylistItemListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnPlaylistItemListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnPlaylistItemCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.PLAYLIST_ITEM,this)
+		);
 		mOnPlaylistCheckBox = findViewById(R.id.callback_on_playlist_check);
-		mOnPlaylistCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnPlaylistListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnPlaylistListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnPlaylistCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.PLAYLIST,this)
+		);
 		mOnSetupErrorCheckBox = findViewById(R.id.callback_on_setup_error_check);
-		mOnSetupErrorCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnSetupErrorListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnSetupErrorListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnSetupErrorCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.SETUP_ERROR,this)
+		);
 		mOnBeforeCompleteCheckBox = findViewById(R.id.callback_ad_on_before_complete_check);
-		mOnBeforeCompleteCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnBeforeCompleteListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnBeforeCompleteListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnBeforeCompleteCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.BEFORE_COMPLETE,this)
+		);
 		mOnBeforePlayCheckBox = findViewById(R.id.callback_ad_on_before_play_check);
-		mOnBeforePlayCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnBeforePlayListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnBeforePlayListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnBeforePlayCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.BEFORE_PLAY,this)
+		);
 		mOnMuteCheckBox = findViewById(R.id.callback_on_mute_check);
-		mOnMuteCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnMuteListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnMuteListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnMuteCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.MUTE,this)
+		);
 		mOnVisualQualityCheckBox = findViewById(R.id.callback_on_visual_quality_check);
-		mOnVisualQualityCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnVisualQualityListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnVisualQualityListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnVisualQualityCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.VISUAL_QUALITY,this)
+		);
 		mOnAdStartedCheckBox = findViewById(R.id.callback_ad_on_started_check);
-		mOnAdStartedCheckBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnAdStartedListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnAdStartedListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnAdStartedCheckBox.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.AD_STARTED,this)
+		);
 		mOnControls = findViewById(R.id.callback_on_controls_check);
-		mOnControls.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnControlsListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnControlsListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnControls.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.CONTROLS,this)
+		);
 		mOnBufferChange = findViewById(R.id.callback_on_buffer_change_check);
-		mOnBufferChange.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnBufferChangeListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnBufferChangeListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnBufferChange.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.BUFFER_CHANGE,this)
+		);
 		mOnRelatedClose = findViewById(R.id.callback_on_related_close_check);
-		mOnRelatedClose.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnRelatedCloseListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnRelatedCloseListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnRelatedClose.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.RELATED_CLOSE,this)
+		);
 		mOnRelatedOpen = findViewById(R.id.callback_on_related_open_check);
-		mOnRelatedOpen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnRelatedOpenListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnRelatedOpenListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnRelatedOpen.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.RELATED_OPEN,this)
+		);
 		mOnRelatedPlay = findViewById(R.id.callback_on_related_play_check);
-		mOnRelatedPlay.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnRelatedPlayListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnRelatedPlayListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnRelatedPlay.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.RELATED_PLAY,this)
+		);
 		mOnAdCompanion = findViewById(R.id.callback_ad_on_companion_check);
-		mOnAdCompanion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnAdCompanionsListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnAdCompanionsListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnAdCompanion.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.AD_COMPANIONS,this)
+		);
 		mOnControlbarVisibilityChanged = findViewById(R.id.callback_on_controlbar_visibility_changed_check);
-		mOnControlbarVisibilityChanged
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						if (isChecked) {
-							mPlayerView.addOnControlBarVisibilityListener(mCallbackScreen);
-						} else {
-							mPlayerView.removeOnControlBarVisibilityListener(mCallbackScreen);
-						}
-					}
-				});
+		mOnControlbarVisibilityChanged.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.CONTROLBAR_VISIBILITY,this)
+		);
 		mOnAdSchedule = findViewById(R.id.callback_ad_on_schedule_check);
-		mOnAdSchedule.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					mPlayerView.addOnAdScheduleListener(mCallbackScreen);
-				} else {
-					mPlayerView.removeOnAdScheduleListener(mCallbackScreen);
-				}
-			}
-		});
+		mOnAdSchedule.setOnCheckedChangeListener(
+				new EventCheckChangedListener(mPlayer,EventType.AD_SCHEDULE,this)
+		);
 
 		// handles unchecking all boxes
 		mCallbacksList = new ArrayList<>();
@@ -1102,12 +743,8 @@ public class CallbackScreen extends LinearLayout implements
 		String result = "[\n";
 
 		for (PlaylistItem item : playlist) {
-			try {
-				result += item.toJson().toString(4);
-				result += ",";
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
+			result += item.getFile();
+			result += ",";
 		}
 
 		result += "\n]";
@@ -1133,19 +770,16 @@ public class CallbackScreen extends LinearLayout implements
 
 		String auto = "Auto = " + relatedPlayEvent.getAuto() + "\n";
 		String item = "";
-		try {
-			item = "Item = " + relatedPlayEvent.getItem().toJson().toString(4) + "\n";
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		item = "Item = " + relatedPlayEvent.getItem().getFile() + "\n";
+
 
 		String suffix = "\n" + "/// onRelatedPlay END ///";
 		setOutput(prefix + auto + item + suffix);
 	}
 
 
-	public void updateJWPlayerView(JWPlayerView playerView) {
-		this.mPlayerView = playerView;
+	public void updateJWPlayerView(JWPlayer player) {
+		this.mPlayer = player;
 		updateListeners();
 	}
 
@@ -1167,18 +801,14 @@ public class CallbackScreen extends LinearLayout implements
 		String client = "Client = " + adScheduleEvent.getClient().name() + "\n";
 
 		String json = "";
-		try {
-			List<VMAPAdBreak> adCompanionList = adScheduleEvent.getVmapAdBreaks();
-			JSONArray jsonArray = new JSONArray();
-			for (VMAPAdBreak vmapAdBreak : adCompanionList) {
-				JSONObject companionJson = vmapAdBreak.toJson();
-				jsonArray.put(companionJson);
-			}
-
-			json = "List<VMAPAdBreak> = \n" + jsonArray.toString(4) + "\n";
-		} catch (JSONException e) {
-			e.printStackTrace();
+		List<VmapAdBreak> adCompanionList = adScheduleEvent.getVmapAdBreaks();
+		StringBuilder stringBuilder = new StringBuilder();
+		for (VmapAdBreak vmapAdBreak : adCompanionList) {
+			stringBuilder.append(vmapAdBreak.getVMapInfo().getId());
 		}
+
+		json = "List<VMAPAdBreak> = \n" + stringBuilder.toString() + "\n";
+
 
 		String suffix = "\n" + "/// onAdSchedule END ///";
 		setOutput(prefix + client + tag + json + suffix);
@@ -1264,7 +894,7 @@ public class CallbackScreen extends LinearLayout implements
 		String prefix = "/// onAudioTracks START ///" + "\n";
 
 		StringBuilder stringBuilder = new StringBuilder();
-		for (AudioTrack currentTrack : audioTracksEvent.getLevels()) {
+		for (AudioTrack currentTrack : audioTracksEvent.getAudioTracks()) {
 			String separator = "-------------" + "\n";
 			String name = "Name: " + currentTrack.getName() + "\n";
 			String lang = "Language: " + currentTrack.getLanguage() + "\n";
@@ -1306,7 +936,7 @@ public class CallbackScreen extends LinearLayout implements
 		String prefix = "/// onCaptionsList START ///" + "\n";
 
 		StringBuilder stringBuilder = new StringBuilder();
-		for (Caption currentCaption : captionsListEvent.getTracks()) {
+		for (Caption currentCaption : captionsListEvent.getCaptions()) {
 			String separator = "-------------" + "\n";
 			String isDefault = "";
 			String file = "";
@@ -1376,7 +1006,7 @@ public class CallbackScreen extends LinearLayout implements
 	public void onLevelsChanged(LevelsChangedEvent levelsChangedEvent) {
 		String output = "/// onLevelsChanged START ///" + "\n" +
 				"Current Level Index:" + "\n" +
-				levelsChangedEvent.getCurrentQuality() + "\n" +
+				levelsChangedEvent.getCurrentQualityIndex() + "\n" +
 				"/// onLevelsChanged END ///";
 		setOutput(output);
 	}
@@ -1470,7 +1100,7 @@ public class CallbackScreen extends LinearLayout implements
 				"Current PlaylistItem Index:" + "\n" +
 				playlistItemEvent.getIndex() + "\n" +
 				"PlaylistItem JSON:" + "\n" +
-				playlistItemEvent.getPlaylistItem().toJson().toString() + "\n" +
+				playlistItemEvent.getPlaylistItem().getFile() + "\n" +
 				"/// onPlaylistItem END ///";
 		setOutput(output);
 	}
@@ -1482,7 +1112,7 @@ public class CallbackScreen extends LinearLayout implements
 		StringBuilder builder = new StringBuilder();
 		for (PlaylistItem currentItem : playlistEvent.getPlaylist()) {
 			String separator = "-------------" + "\n";
-			String item = currentItem.toJson().toString();
+			String item = currentItem.getFile();
 
 			builder.append(item).append(separator);
 		}
@@ -1558,8 +1188,7 @@ public class CallbackScreen extends LinearLayout implements
 		String prefix = "/// onVisualQuality START ///" + "\n";
 
 		String mode = "Mode = " + visualQualityEvent.getMode().name() + "\n";
-		String qualityLevel = "Quality Level = " + visualQualityEvent.getQualityLevel().toJson()
-																	 .toString() + "\n";
+		String qualityLevel = "Quality Level = " + visualQualityEvent.getQualityLevel().getLabel() + "\n";
 		String reason = "Reason = " + visualQualityEvent.getReason().name();
 
 		String suffix = "\n" + "/// onVisualQuality END ///";

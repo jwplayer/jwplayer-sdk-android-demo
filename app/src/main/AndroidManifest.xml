@@ -2,6 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.jwplayer.opensourcedemo">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <uses-library android:name="org.apache.http.legacy" android:required="false" />
         <activity
             android:name=".JWPlayerViewExample"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
@@ -27,11 +28,6 @@
         <meta-data
             android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
             android:value="com.jwplayer.opensourcedemo.CastOptionsProvider" />
-
-        <!--TODO Set your license key-->
-        <meta-data
-            android:name="JW_LICENSE_KEY"
-            android:value="" />
 
         <meta-data
             android:name="com.google.android.gms.version"

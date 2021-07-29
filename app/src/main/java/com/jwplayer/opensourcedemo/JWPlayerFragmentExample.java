@@ -7,9 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.gms.cast.framework.CastButtonFactory;
-import com.longtailvideo.jwplayer.JWPlayerSupportFragment;
-import com.longtailvideo.jwplayer.JWPlayerView;
-import com.longtailvideo.jwplayer.configuration.PlayerConfig;
+import com.jwplayer.pub.api.JWPlayer;
+import com.jwplayer.pub.api.JWPlayerSupportFragment;
+import com.jwplayer.pub.api.configuration.PlayerConfig;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -21,7 +21,7 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
 
 	private JWPlayerSupportFragment mPlayerFragment;
 
-	private JWPlayerView mPlayerView;
+	private JWPlayer mPlayer;
 
 	private CallbackScreen mCallbackScreen;
 
@@ -32,7 +32,7 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
 
 		// Construct a new JWPlayerSupportFragment (since we're using AppCompatActivity)
 		mPlayerFragment = JWPlayerSupportFragment.newInstance(new PlayerConfig.Builder()
-																	  .file("http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8")
+																	  .file("https://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8")
 																	  .build());
 
 		// Attach the Fragment to our layout
@@ -46,22 +46,22 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
 		fm.executePendingTransactions();
 
 		// Get a reference to the JWPlayerView from the fragment
-		mPlayerView = mPlayerFragment.getPlayer();
+		mPlayer = mPlayerFragment.getPlayer();
 
 		// Keep the screen on during playback
-		new KeepScreenOnHandler(mPlayerView, getWindow());
+		new KeepScreenOnHandler(mPlayer, getWindow());
 
 		// Event Logging
 		mCallbackScreen = findViewById(R.id.callback_screen);
-		mCallbackScreen.registerListeners(mPlayerView);
+		mCallbackScreen.registerListeners(mPlayer);
 	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// Exit fullscreen when the user pressed the Back button
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (mPlayerView.getFullscreen()) {
-				mPlayerView.setFullscreen(false, true);
+			if (mPlayer.getFullscreen()) {
+				mPlayer.setFullscreen(false, true);
 				return false;
 			}
 		}

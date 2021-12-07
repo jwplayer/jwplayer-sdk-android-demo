@@ -24,7 +24,7 @@ android {
 	}
 }
 
-ext.JWPlayerVersion = '4.0.0'
+ext.JWPlayerVersion = '4.3.0'
 ext.exoplayerVersion = '2.14.0'
 
 dependencies {

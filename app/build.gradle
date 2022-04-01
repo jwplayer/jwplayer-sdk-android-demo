@@ -24,8 +24,8 @@ android {
 	}
 }
 
-ext.JWPlayerVersion = '4.4.0'
-ext.exoplayerVersion = '2.14.0'
+ext.JWPlayerVersion = '4.5.0'
+ext.exoplayerVersion = '2.16.1'
 
 dependencies {
 	implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -37,14 +37,15 @@ dependencies {
 	implementation "com.jwplayer:jwplayer-chromecast:$JWPlayerVersion"
 	implementation "com.jwplayer:jwplayer-ima:$JWPlayerVersion"
 
-	implementation "com.google.android.exoplayer:exoplayer-core:$exoplayerVersion"
-	implementation "com.google.android.exoplayer:exoplayer-dash:$exoplayerVersion"
-	implementation "com.google.android.exoplayer:exoplayer-hls:$exoplayerVersion"
-	implementation "com.google.android.exoplayer:exoplayer-smoothstreaming:$exoplayerVersion"
-	implementation "com.google.android.exoplayer:exoplayer-ui:$exoplayerVersion"
-	implementation 'com.squareup.picasso:picasso:2.71828'
-	implementation 'androidx.viewpager2:viewpager2:1.0.0'
-	implementation 'com.android.volley:volley:1.2.1'
-	implementation 'com.google.android.gms:play-services-ads-identifier:16.0.0'
-	implementation 'androidx.recyclerview:recyclerview:1.2.1'
+//  Only needed when building with AAR instead
+//	implementation "com.google.android.exoplayer:exoplayer-core:$exoplayerVersion"
+//	implementation "com.google.android.exoplayer:exoplayer-dash:$exoplayerVersion"
+//	implementation "com.google.android.exoplayer:exoplayer-hls:$exoplayerVersion"
+//	implementation "com.google.android.exoplayer:exoplayer-smoothstreaming:$exoplayerVersion"
+//	implementation "com.google.android.exoplayer:exoplayer-ui:$exoplayerVersion"
+//	implementation 'com.squareup.picasso:picasso:2.71828'
+//	implementation 'androidx.viewpager2:viewpager2:1.0.0'
+//	implementation 'com.android.volley:volley:1.2.1'
+//	implementation 'com.google.android.gms:play-services-ads-identifier:16.0.0'
+//	implementation 'androidx.recyclerview:recyclerview:1.2.1'
 }

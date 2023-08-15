@@ -1,11 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-	compileSdkVersion 32
+	compileSdk 33
 	defaultConfig {
 		minSdkVersion 21
-		targetSdkVersion 32
-		buildToolsVersion "32.0.0"
+		targetSdkVersion 33
 		versionCode 1
 		versionName "1.0"
 		applicationId "com.jwplayer.opensourcedemo"
@@ -24,8 +23,8 @@ android {
 	}
 }
 
-ext.JWPlayerVersion = '4.5.0'
-ext.exoplayerVersion = '2.16.1'
+ext.JWPlayerVersion = '4.13.1'
+ext.exoplayerVersion = '2.18.1'
 
 dependencies {
 	implementation 'androidx.appcompat:appcompat:1.4.1'

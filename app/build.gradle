@@ -24,13 +24,13 @@ android {
 	namespace 'com.jwplayer.opensourcedemo'
 }
 
-ext.JWPlayerVersion = '4.13.1'
-ext.exoplayerVersion = '2.18.1'
+ext.JWPlayerVersion = '4.14.1'
+ext.medai3ExoPlayerVersion = '1.1.1'
 
 dependencies {
-	implementation 'androidx.appcompat:appcompat:1.4.1'
-	implementation 'com.google.android.material:material:1.5.0'
-	implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+	implementation 'androidx.appcompat:appcompat:1.6.1'
+	implementation 'com.google.android.material:material:1.9.0'
+	implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
 	implementation "com.jwplayer:jwplayer-core:$JWPlayerVersion"
 	implementation "com.jwplayer:jwplayer-common:$JWPlayerVersion"
@@ -38,11 +38,11 @@ dependencies {
 	implementation "com.jwplayer:jwplayer-ima:$JWPlayerVersion"
 
 //  Only needed when building with AAR instead
-//	implementation "com.google.android.exoplayer:exoplayer-core:$exoplayerVersion"
-//	implementation "com.google.android.exoplayer:exoplayer-dash:$exoplayerVersion"
-//	implementation "com.google.android.exoplayer:exoplayer-hls:$exoplayerVersion"
-//	implementation "com.google.android.exoplayer:exoplayer-smoothstreaming:$exoplayerVersion"
-//	implementation "com.google.android.exoplayer:exoplayer-ui:$exoplayerVersion"
+//	implementation("androidx.media3:media3-exoplayer:$medai3ExoPlayerVersion")
+//	implementation("androidx.media3:media3-exoplayer-dash:$medai3ExoPlayerVersion")
+//	implementation("androidx.media3:media3-exoplayer-hls:$medai3ExoPlayerVersion")
+//	implementation("androidx.media3:media3-exoplayer-smoothstreaming:$medai3ExoPlayerVersion")
+//	implementation("androidx.media3:media3-ui:$medai3ExoPlayerVersion")
 //	implementation 'com.squareup.picasso:picasso:2.71828'
 //	implementation 'androidx.viewpager2:viewpager2:1.0.0'
 //	implementation 'com.android.volley:volley:1.2.1'

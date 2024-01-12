@@ -24,7 +24,7 @@ android {
 	namespace 'com.jwplayer.opensourcedemo'
 }
 
-ext.JWPlayerVersion = '4.15.0'
+ext.JWPlayerVersion = '4.16.0'
 ext.medai3ExoPlayerVersion = '1.1.1'
 
 dependencies {

@@ -35,7 +35,7 @@ public class JWPlayerViewExample extends AppCompatActivity
 		// TODO: Add your license key
 		new LicenseUtil().setLicenseKey(this, YOUR_LICENSE_KEY );
 		mPlayerView = findViewById(R.id.jwplayer);
-		mPlayer = mPlayerView.getPlayer();
+		mPlayer = mPlayerView.getPlayer(this);
 
 
 		// Handle hiding/showing of ActionBar

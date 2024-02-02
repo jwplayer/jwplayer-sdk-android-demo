@@ -1,19 +1,19 @@
 package com.jwplayer.opensourcedemo;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.gms.cast.framework.CastButtonFactory;
 import com.jwplayer.pub.api.JWPlayer;
 import com.jwplayer.pub.api.JWPlayerSupportFragment;
 import com.jwplayer.pub.api.configuration.PlayerConfig;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 
 public class JWPlayerFragmentExample extends AppCompatActivity {
@@ -77,18 +77,13 @@ public class JWPlayerFragmentExample extends AppCompatActivity {
 		CastButtonFactory.setUpMediaRouteButton(getApplicationContext(), menu,
 												R.id.media_route_menu_item);
 
+		MenuHelper.INSTANCE.fillInMenu(menu, this, this);
+
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.switch_to_view:
-				Intent i = new Intent(this, JWPlayerViewExample.class);
-				startActivity(i);
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
+	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+		return super.onOptionsItemSelected(item);
 	}
 }

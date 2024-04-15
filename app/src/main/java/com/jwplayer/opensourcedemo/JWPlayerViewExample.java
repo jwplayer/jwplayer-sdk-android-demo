@@ -3,6 +3,10 @@ package com.jwplayer.opensourcedemo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.cast.framework.CastContext;
 import com.jwplayer.pub.api.JWPlayer;
@@ -12,9 +16,6 @@ import com.jwplayer.pub.api.events.FullscreenEvent;
 import com.jwplayer.pub.api.events.listeners.VideoPlayerEvents;
 import com.jwplayer.pub.api.license.LicenseUtil;
 import com.jwplayer.pub.view.JWPlayerView;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 
 
 public class JWPlayerViewExample extends AppCompatActivity
@@ -57,8 +58,13 @@ public class JWPlayerViewExample extends AppCompatActivity
 
 		// Get a reference to the CastContext
 		mCastContext = CastContext.getSharedInstance(this);
+	}
 
-
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		MenuHelper.INSTANCE.fillInMenu(menu, this, this);
+		return true;
 	}
 
 

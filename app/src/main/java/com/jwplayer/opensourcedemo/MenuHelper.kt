@@ -9,29 +9,41 @@ object MenuHelper {
     fun fillInMenu(menu: Menu, clazz: Any, context: Context){
         if (clazz::class == JWPlayerViewExample::class){
             menu.add("JWKotlinPlayerViewExample").setOnMenuItemClickListener {
-                context.startActivity(Intent(context, JWKotlinPlayerViewExample::class.java))
+                val intent = Intent(context, JWKotlinPlayerViewExample::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                context.startActivity(intent)
                 true
             }
             menu.add("JWPlayerFragmentExample").setOnMenuItemClickListener {
-                context.startActivity(Intent(context, JWPlayerFragmentExample::class.java))
+                val intent = Intent(context, JWPlayerFragmentExample::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                context.startActivity(intent)
                 true
             }
         }else if (clazz::class == JWKotlinPlayerViewExample::class){
             menu.add("JWPlayerViewExample").setOnMenuItemClickListener {
-                context.startActivity(Intent(context, JWPlayerViewExample::class.java))
+                val intent = Intent(context, JWPlayerViewExample::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                context.startActivity(intent)
                 true
             }
             menu.add("JWPlayerFragmentExample").setOnMenuItemClickListener {
-                context.startActivity(Intent(context, JWPlayerFragmentExample::class.java))
+                val intent = Intent(context, JWPlayerFragmentExample::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                context.startActivity(intent)
                 true
             }
         }else if(clazz::class == JWPlayerFragmentExample::class){
             menu.add("JWPlayerViewExample").setOnMenuItemClickListener {
-                context.startActivity(Intent(context, JWPlayerViewExample::class.java))
+                val intent = Intent(context, JWPlayerViewExample::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                context.startActivity(intent)
                 true
             }
             menu.add("JWKotlinPlayerViewExample").setOnMenuItemClickListener {
-                context.startActivity(Intent(context, JWKotlinPlayerViewExample::class.java))
+                val intent = Intent(context, JWKotlinPlayerViewExample::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                context.startActivity(intent)
                 true
             }
         }

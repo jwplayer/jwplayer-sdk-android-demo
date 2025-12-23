@@ -12,7 +12,6 @@
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:text="Player Version:"
-        android:textColor="#000000"
         android:textSize="14sp" />
 
     <LinearLayout
@@ -46,13 +45,12 @@
                     android:layout_height="wrap_content"
                     android:text="Check All" />
 
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="9dp"
-                    android:text="Player Callbacks"
-                    android:textColor="#252525" />
-
+                    android:text="Player Callbacks" />
                 <CheckBox
                     android:id="@+id/callback_on_time_check"
                     android:layout_width="wrap_content"
@@ -243,8 +241,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="9dp"
-                    android:text="Advertising Callbacks"
-                    android:textColor="#252525" />
+                    android:text="Advertising Callbacks" />
 
                 <CheckBox
                     android:id="@+id/callback_ad_on_companion_check"
@@ -345,7 +342,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Log:"
-                android:textColor="#000000"
                 android:textSize="14sp" />
 
             <TextView
@@ -356,13 +352,12 @@
                 android:layout_weight="1"
                 android:gravity="bottom"
                 android:padding="5dp"
-                android:scrollbars="vertical"
-                android:textColor="#000000" />
+                android:scrollbars="vertical" />
 
             <Button
                 android:id="@+id/callback_clear_btn"
                 style="@style/Text.Buttons.Center"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:text="clear log" />
         </LinearLayout>
 

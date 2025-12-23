@@ -2,4 +2,7 @@
 <resources>
     <color name="gray">#606060</color>
     <color name="white">#ffffff</color>
+    
+    <!-- Toolbar colors to match DarkActionBar theme -->
+    <color name="toolbar_background">#212121</color>
 </resources>

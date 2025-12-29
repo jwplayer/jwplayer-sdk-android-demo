@@ -2,10 +2,10 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
-	compileSdk 34
+	compileSdk 36
 	defaultConfig {
 		minSdkVersion 24
-		targetSdkVersion 34
+		targetSdkVersion 36
 		versionCode 1
 		versionName "1.0"
 		applicationId "com.jwplayer.opensourcedemo"
@@ -25,12 +25,13 @@ android {
 	compileOptions {
 		sourceCompatibility JavaVersion.VERSION_17
 		targetCompatibility JavaVersion.VERSION_17
+		coreLibraryDesugaringEnabled true  // ⚠️ MANDATORY when using IMA
 	}
 	namespace 'com.jwplayer.opensourcedemo'
 }
 
 
-ext.JWPlayerVersion = '4.23.0'
+ext.JWPlayerVersion = '4.24.0'
 
 ext.medai3ExoPlayerVersion = '1.4.1'
 
@@ -46,6 +47,7 @@ dependencies {
 
 	// Specify kotlin-bom to avoid Duplicate Class Errors from mismatch kotlin versions
 	implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.9.22"))
+	coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
 
 //  // AAR Builds
 //	implementation fileTree(dir: 'libs', include: "jwplayer-core-${JWPlayerVersion}.aar")

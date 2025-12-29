@@ -4,11 +4,17 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.View;
 
-import androidx.appcompat.app.ActionBar;
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.cast.framework.CastContext;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.jwplayer.pub.api.JWPlayer;
 import com.jwplayer.pub.api.configuration.PlayerConfig;
 import com.jwplayer.pub.api.events.EventType;
@@ -33,6 +39,27 @@ public class JWPlayerViewExample extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_jwplayerview);
 
+		// Set up the toolbar as the ActionBar
+		MaterialToolbar toolbar = findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+
+		mCallbackScreen = findViewById(R.id.callback_screen);
+
+		// Apply insets to AppBarLayout - it will pad for status bar
+		View appBarLayout = findViewById(R.id.app_bar_layout);
+		ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (v, windowInsets) -> {
+			Insets systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+			v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
+			return windowInsets;
+		});
+
+		// Apply insets to callback screen for navigation bar at bottom
+		ViewCompat.setOnApplyWindowInsetsListener(mCallbackScreen, (v, windowInsets) -> {
+			Insets systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+			v.setPadding(0, 0, 0, systemBars.bottom);
+			return windowInsets;
+		});
+
 		// TODO: Add your license key
 		new LicenseUtil().setLicenseKey(this, YOUR_LICENSE_KEY );
 		mPlayerView = findViewById(R.id.jwplayer);
@@ -46,7 +73,6 @@ public class JWPlayerViewExample extends AppCompatActivity
 		new KeepScreenOnHandler(mPlayer, getWindow());
 
 		// Event Logging
-		mCallbackScreen = findViewById(R.id.callback_screen);
 		mCallbackScreen.registerListeners(mPlayer);
 
 		// Load a media source
@@ -92,13 +118,10 @@ public class JWPlayerViewExample extends AppCompatActivity
 
 	@Override
 	public void onFullscreen(FullscreenEvent fullscreenEvent) {
-		ActionBar actionBar = getSupportActionBar();
-		if (actionBar != null) {
-			if (fullscreenEvent.getFullscreen()) {
-				actionBar.hide();
-			} else {
-				actionBar.show();
-			}
+		// Hide/show the entire app bar when entering/exiting fullscreen
+		View appBarLayout = findViewById(R.id.app_bar_layout);
+		if (appBarLayout != null) {
+			appBarLayout.setVisibility(fullscreenEvent.getFullscreen() ? View.GONE : View.VISIBLE);
 		}
 	}
 }

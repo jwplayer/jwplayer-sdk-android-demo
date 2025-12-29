@@ -4,7 +4,12 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.Menu
+import android.view.View
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import com.google.android.gms.cast.framework.CastContext
 import com.jwplayer.opensourcedemo.MenuHelper.fillInMenu
 import com.jwplayer.opensourcedemo.databinding.ActivityJwkotlinPlayerViewExampleBinding
@@ -24,8 +29,28 @@ class JWKotlinPlayerViewExample : AppCompatActivity(), VideoPlayerEvents.OnFulls
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        enableEdgeToEdge()
+        
         binding = ActivityJwkotlinPlayerViewExampleBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Set up the toolbar as the ActionBar
+        setSupportActionBar(binding.toolbar)
+
+        // Apply insets to AppBarLayout
+        ViewCompat.setOnApplyWindowInsetsListener(binding.appBarLayout) { v, windowInsets ->
+            val systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+            windowInsets
+        }
+
+        // Apply insets to callback screen for navigation bar at bottom
+        ViewCompat.setOnApplyWindowInsetsListener(binding.callbackScreen) { v, windowInsets ->
+            val systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(0, 0, 0, systemBars.bottom)
+            windowInsets
+        }
 
         binding.jwplayer.getPlayerAsync(this,this) {
             mPlayer = it
@@ -80,13 +105,7 @@ class JWKotlinPlayerViewExample : AppCompatActivity(), VideoPlayerEvents.OnFulls
 
 
     override fun onFullscreen(fullscreenEvent: FullscreenEvent) {
-        val actionBar = supportActionBar
-        if (actionBar != null) {
-            if (fullscreenEvent.fullscreen) {
-                actionBar.hide()
-            } else {
-                actionBar.show()
-            }
-        }
+        // Hide/show the entire app bar when entering/exiting fullscreen
+        binding.appBarLayout.visibility = if (fullscreenEvent.fullscreen) View.GONE else View.VISIBLE
     }
 }

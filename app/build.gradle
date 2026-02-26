@@ -31,7 +31,7 @@ android {
 }
 
 
-ext.JWPlayerVersion = '4.24.0'
+ext.JWPlayerVersion = '4.24.1'
 
 ext.medai3ExoPlayerVersion = '1.4.1'
 

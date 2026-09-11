@@ -60,8 +60,9 @@ public class JWPlayerViewExample extends AppCompatActivity
 			return windowInsets;
 		});
 
-		// TODO: Add your license key
-		new LicenseUtil().setLicenseKey(this, YOUR_LICENSE_KEY );
+		// INFO: Overwrite BuildConfig.JWPLAYER_LICENSE_KEY with your license here
+		// [OR] set JWPLAYER_LICENSE_KEY as environment variable
+		new LicenseUtil().setLicenseKey(this, BuildConfig.JWPLAYER_LICENSE_KEY);
 		mPlayerView = findViewById(R.id.jwplayer);
 		mPlayer = mPlayerView.getPlayer(this);
 

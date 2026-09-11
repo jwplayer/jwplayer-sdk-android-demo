@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.jetbrains.kotlin.android'
 
+// INFO: insert your license here or set JWPLAYER_LICENSE_KEY as environment variable
+def licenseKey = System.getenv('JWPLAYER_LICENSE_KEY')
+
 android {
 	compileSdk 36
 	defaultConfig {
@@ -10,6 +13,7 @@ android {
 		versionName "1.0"
 		applicationId "com.jwplayer.opensourcedemo"
 		multiDexEnabled true
+		buildConfigField "String", "JWPLAYER_LICENSE_KEY", """\"${licenseKey}\""""
 	}
 	buildTypes {
 		release {
@@ -31,7 +35,7 @@ android {
 }
 
 
-ext.JWPlayerVersion = '4.24.1'
+ext.JWPlayerVersion = '4.27.0'
 
 ext.medai3ExoPlayerVersion = '1.4.1'
 
